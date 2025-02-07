@@ -30,6 +30,9 @@ app.get("/api/chart-data", (req, res) => {
   const values = items.map((item) => item.value);
   res.json({ labels, values });
 });
+app.get("/login", (req, res) => {
+  res.render("login", { activeTab: "login" });
+});
 
 // Start the server
 app.listen(PORT, () => {
