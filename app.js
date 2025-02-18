@@ -33,6 +33,9 @@ app.get("/api/chart-data", (req, res) => {
 app.get("/login", (req, res) => {
   res.render("login", { activeTab: "login" });
 });
+app.get('/chat', (req, res) => {
+  res.render('chat');
+});
 
 // Start the server
 app.listen(PORT, () => {
