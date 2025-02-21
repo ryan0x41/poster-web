@@ -1,0 +1,3 @@
+[submodule "lib/poster-api-wrapper"]
+	path = lib/poster-api-wrapper
+	url = https://github.com/ryan0x41/poster-web-api-wrapper
