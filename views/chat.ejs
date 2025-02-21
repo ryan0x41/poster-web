@@ -10,6 +10,15 @@
 </head>
 <body>
 
+<header>
+    <nav class="site-nav grid">
+        <h1>Postr</h1>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/login">Login</a></li>
+        </ul>
+      </nav>
+</header>
     <!-- start: Chat -->
     <section class="chat-section">
         <div class="chat-container">
@@ -557,16 +566,82 @@
         </div>
     </section>
     <!-- end: Chat -->
+
+    <%- include('partials/footer') %>
     
 </body>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+    :root{
+    --primary: #2f27ce;
+    --secondary: #dedcff;
+    --background: #000000;
+
+}
+    h1,h2,h3,h4{
+        color: var(--secondary);
+        font-weight: normal;
+        }
+        a{
+            text-decoration: none;
+            color: #dedcff;
+        }
+        a:hover{
+            text-decoration: none;
+            color: var(--primary);
+        }
+        h1,h3{
+            font-size: 1.2em;
+        }
+        
+        .site-nav{
+            margin: 0 20px;
+            align-items: flex-end;
+        }
+        .site-nav h1{
+            grid-column: 2/4;
+            grid-row: 1;
+            padding-bottom: 10px;
+            border-bottom: 3px solid;
+            font-size: 30px;
+        }
+        .site-nav li {
+            font-size: 20px;
+            margin: 5px;
+            color: var(--secondary);
+            background: none;
+            border: 2px solid var(--secondary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            box-shadow: 1px 2px 3px rgba(0,0,0,0.6);
+            display: inline-block;
+        }
+        .site-nav ul li:hover{
+            transition: .5s;
+            color: var(--primary);
+            background: var(--secondary)
+        }
+       
+        .site-nav ul li:first-child {
+            color: lightgreen !important;  /* Ensure this color applies */
+        }
+
+        .site-nav ul li:nth-child(2) {
+            color: lightblue !important;  /* Apply color for Login */
+        }
+
+        .grid{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            box-sizing:  border-box;
+        }
+
+
 
 
 /* start: Globals */
 *, ::before, ::after {
-    margin: 0;
     padding: 0;
     box-sizing: border-box;
     font: inherit;
@@ -574,7 +649,8 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    color: var(--slate-700);
+    color: var(--secondary);
+    background-color: var(--background);
 }
 /* end: Globals */
 
