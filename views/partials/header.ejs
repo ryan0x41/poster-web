@@ -1,37 +1,110 @@
+<script type="module" src="/js/main.js"></script>
+<script type="importmap">
+{
+    "imports": {
+    "axios": "https://cdn.skypack.dev/axios"
+    }
+}
+</script>
 <header>
-    <nav class="site-nav grid">
-        <h1>Postr</h1>
-        <ul>
-            <li><a href="/" class="<%= activeTab === 'list' ? 'active' : '' %>">Home</a></li>
-            <li><a href="/music" class="<%= activeTab === 'music' ? 'active' : '' %>">Music</a></li>
-            <li><a href="/movies" class="<%= activeTab === 'movies' ? 'active' : '' %>">Movies</a></li>
-            <li><a href="/podcasts" class="<%= activeTab === 'podcasts' ? 'active' : '' %>">Podcasts</a></li>
-            <li><a href="/login" class="<%= activeTab === 'login' ? 'active' : '' %>">Login</a></li>
-        </ul>
-      </nav>
-      <style>
-        h1,h2,h3,h4{
-        color: #DDDBFF;
-        font-weight: normal;
+    <h1 class="heading-nav">Postr</h1>
+    <nav class="site-nav">
+        <div class="nav-right">
+            <ul>
+                <li><a href="/" class="<%= activeTab === 'list' ? 'active' : '' %>">Home</a></li>
+                <li><a href="/music" class="<%= activeTab === 'music' ? 'active' : '' %>">Music</a></li>
+                <li><a href="/movies" class="<%= activeTab === 'movies' ? 'active' : '' %>">Movies</a></li>
+                <li><a href="/podcasts" class="<%= activeTab === 'podcasts' ? 'active' : '' %>">Podcasts</a></li>
+                <li><a href="/login" class="<%= activeTab === 'login' ? 'active' : '' %>">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="user-profile">
+        <span>
+            <a class="username-link" href="/profile">username</a>
+        </span>
+        <div class="profile-pic"></div>
+    </div>
+    <style>
+        header {
+            display: flex;
+            justify-content: space-evenly;
+            border-bottom: 2px solid #DDDBFF;
+            background-color: var(--background-secondary);
         }
-        p,a,li{
-            color: #9893D8;
+        .site-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1em;
+            padding-bottom: 1em;
         }
-        h1,h3{
-            font-size: 1.2em;
-        }
-        .site-nav{
-        margin: 0 20px;
-
-        }
-        .site-nav ul{
-            display: none;
-        }
-        .site-nav h1{
-            grid-column: 1/4;
-            grid-row: 1;
-            padding-bottom: 10px;
+        .heading-nav {
             border-bottom: 3px solid var(--primary);
+            padding-bottom: 0.3rem;
         }
-      </style>
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .site-nav ul {
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+        .site-nav ul li {
+            list-style-type: none;
+        }
+        .site-nav ul li a {
+            color: #9893D8;
+            text-decoration: none;
+            font-size: 1em;
+        }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            background-color: #DDDBFF;
+            border-radius: 50%;
+        }
+
+        .username-link {
+            display: inline-block; 
+            transition: transform 0.2s ease;
+            padding-right: 0.3em;
+        }
+
+        .username-link:hover {
+            transform: translateY(-3px); 
+        }
+
+        .username-link:active {
+            transform: translateY(3px); 
+        }
+
+
+        @media (max-width: 620px) {
+            .site-nav {
+                flex-direction: column;
+                align-items: center;
+                gap: 1em;
+            }
+            .nav-right {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5em;
+            }
+            .site-nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+        }
+    </style>
 </header>

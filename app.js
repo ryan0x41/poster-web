@@ -9,6 +9,7 @@ let items = [];
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true })); // Parse form data
 app.use(express.static("public")); // Serve static files
+app.use('/lib', express.static("lib"));
 app.set("view engine", "ejs"); // Set EJS as the view engine
 
 // List Data
