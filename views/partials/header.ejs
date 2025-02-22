@@ -28,10 +28,16 @@
     <style>
         header {
             display: flex;
+            position: fixed;
+            width: 100%;
+            z-index: 1051;
             justify-content: space-evenly;
             border-bottom: 2px solid #DDDBFF;
-            background-color: var(--background-secondary);
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
+
         .site-nav {
             display: flex;
             align-items: center;

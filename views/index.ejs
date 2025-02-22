@@ -10,7 +10,7 @@
 
 		<section id="welcome" class="grid">
 			<div class="welcome-text">
-				<h2>Social Media Reimagined</h2>
+				<h1>Social Media Reimagined</h1>
 				<p class="leading">Postr is designed to revolutionize social media. In an era where content sharing and community building are vital, Postr offers a user-focused platform that prioritizes your control and privacy. No ads, full data ownership, and multi-platform support for web and mobile.<br> Ready to experience social media differently?</p>
 				<a href="/chat" class="button">Explore Features</a>
 			</div>
@@ -41,6 +41,9 @@
 		<%- include('partials/footer') %>
 
 		<style>
+			html {
+				scroll-behavior: smooth;
+			}
 			#glCanvas {
 				position: absolute;
 				top: 0;
@@ -374,6 +377,8 @@
 		</style>
 
 		<script type="module">
+			// shaders are by gpt
+			// - ryan
 			const canvas = document.getElementById("glCanvas");
 			const gl = canvas.getContext("webgl");
 			if (!gl) {
@@ -399,16 +404,31 @@
 				uniform vec2 iResolution;
 				uniform float iTime;
 				varying vec2 v_uv;
+
+				float rand(vec2 co){
+					return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
+				}
+
 				void mainImage(out vec4 fragColor, in vec2 fragCoord) {
 					vec2 uv = 0.6 * (fragCoord / iResolution);
-					float tx = sin(iTime + uv.x * 6.28318);
-					float ty = sin(iTime + uv.y * 6.28318);
+					float slowTime = iTime * 0.2;
+					float tx = sin(slowTime + uv.x * 2.28318);
+					float ty = sin(slowTime + uv.y * 2.28318);
 					float t = 0.5 + 0.5 * (tx + ty) / 2.0;
-					vec3 color1 = vec3(0.0);
-					vec3 color2 = vec3(47.0/255.0, 39.0/255.0, 206.0/255.0);
-					vec3 col = mix(color1, color2, t);
-					fragColor = vec4(col, 1.0);
+					vec2 center = vec2(0.2, 0.2);
+					float r = length(uv - center);
+					float orangeMix = 0.2 * (sin(slowTime + r * 12.56636) * 0.5 + 0.5);
+					vec3 black = vec3(0.0);
+					vec3 blue = vec3(47.0/255.0, 39.0/255.0, 206.0/255.0);
+					vec3 orange = vec3(0.5, 0.25, 0.0);
+					vec3 mixedColor = mix(orange, blue, t);
+					vec3 finalColor = mix(mixedColor, orange, orangeMix);
+					float n = fract(sin(dot(fragCoord, vec2(12.9898, 78.233))) * 43758.5453);
+					finalColor += (n - 0.5) * 0.01;
+					fragColor = vec4(finalColor, 1.0);
 				}
+
+
 				void main() {
 					vec2 fragCoord = v_uv * iResolution;
 					vec4 color;
