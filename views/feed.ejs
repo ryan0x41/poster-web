@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="/Pictures/css/style.css">
+    <link rel="stylesheet" href="/Pictures/css/mainHeader.css">
+</head>
+<body>
+
+    <%- include('partials/mainHeader', { activeTab: 'list' }) %>
+
+    <!-- Container for the Entire Feed Page -->
+    <div class="feed-container">
+
+        <!-- Container for the Left Sidebar -->
+        <div class="left-sidebar">
+            <div class="imp-links">
+                <a href="/profile" class="<%= activeTab === 'profile' ? 'active' : '' %>"><img src="/Pictures/images/profile.png">John Doe</a>
+                <a href="#"><img src="/Pictures/images/news.png">Latest News</a>
+                <a href="#"><img src="/Pictures/images/friends.png">Friends</a>
+                <a href="#"><img src="/Pictures/images/group.png">Groups</a>
+                <a href="#">See More</a>
+            </div>
+
+        </div>
+
+        <!-- Container for the Main Feed -->
+        <div class="main-feed">
+            <div class="write-post-container">
+                <div class="user-profile">
+                    <img src="/Pictures/images/profile.png">
+                    <div>
+                        <p>Jon Doe</p>
+                        <small>Public <i class="fas fa-caret-down"></i></small>
+                    </div>
+                </div>
+
+                <div class="post-input-container">
+                    <textarea rows="3" placeholder="What's on you'r mind Jon"></textarea>
+                    <div class="add-post-links">
+                        <a href="#"><img src="/Pictures/images/live-video.png"> Live Video </a>
+                        <a href="#"><img src="/Pictures/images/photo.png"> Photo/Video </a>
+                        <a href="#"><img src="/Pictures/images/feeling.png"> Feeling/Activity </a>
+                    </div>
+
+                </div>
+
+             </div>
+
+             <div class="post-container">
+                <div class="user-profile">
+                    <img src="/Pictures/images/photo3.png" alt="">
+                    <div>
+                        <p>Joe Biden</p>
+                        <span>January 06 2025, 18:54 pm</span>
+                    </div>
+                </div>
+                <p class="post-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                    Ut enim ad minim veniam.<a href="#">#LoremIpsum #IpsumoftheLorem</a></p>
+                    <img src="/Pictures/images/feed-image-2.png" class="post-img">
+
+                    <div class="post-row">
+                        <div class="activity-icons">
+                            <div><img src="/Pictures/images/like-blue.png"> 12 </div>
+                            <div><img src="/Pictures/images/comments.png"> 4 </div>
+                            <div><img src="/Pictures/images/share.png"> 1 </div>
+                        </div>
+                        <div class="post-profile-icon"></div>
+                    </div>
+
+
+             </div>
+
+             <div class="post-container">
+                <div class="user-profile">
+                    <img src="/Pictures/images/photo2.png" alt="">
+                    <div>
+                        <p>Ron Johnson</p>
+                        <span>January 16 2025, 15:35 pm</span>
+                    </div>
+                </div>
+                <p class="post-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
+                    ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit 
+                    in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
+                    deserunt mollit anim id est laborum."<a href="#">#LoremIpsum</a></p>
+                    <img src="/Pictures/images/feed-image-1.png" class="post-img">
+
+                    <div class="post-row">
+                        <div class="activity-icons">
+                            <div><img src="/Pictures/images/like-blue.png"> 12 </div>
+                            <div><img src="/Pictures/images/comments.png"> 4 </div>
+                            <div><img src="/Pictures/images/share.png"> 1 </div>
+                        </div>
+                        <div class="post-profile-icon">
+
+                        </div>
+                    </div>
+
+
+             </div>
+
+        </div>
+
+        <!-- Container for the Right Sidebar -->
+        <div class="right-sidebar">
+            <div class="sidebar-title">
+                <h4>Friends</h4>
+            </div>
+
+            <div class="friend-list">
+                <div class="online">
+                    <img src="/Pictures/images/member-1.png">
+                </div>
+                <p>Mary Kenny</p>
+            </div>
+            <div class="friend-list">
+                <div class="online">
+                    <img src="/Pictures/images/member-2.png">
+                </div>
+                <p>Joe Bloggs</p>
+            </div>
+            <div class="friend-list">
+                <div class="online">
+                    <img src="/Pictures/images/member-3.png">
+                </div>
+                <p>Sam Henderson</p>
+            </div>
+            <div class="friend-list">
+                <div class="online">
+                    <img src="/Pictures/images/photo2.png">
+                </div>
+                <p>Ryan Sheridan</p>
+            </div>
+            <div class="friend-list">
+                <div class="online">
+                    <img src="/Pictures/images/photo3.png">
+                </div>
+                <p>Alex Higgins</p>
+            </div>
+            <div class="friend-list">
+                <div class="online">
+                    <img src="/Pictures/images/photo4.png">
+                </div>
+                <p>Harry Styles</p>
+            </div>
+            <div class="friend-list">
+                <div class="online">
+                    <img src="/Pictures/images/photo1.png">
+                </div>
+                <p>Jack Sunderland</p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script src="/js/script.js"></script>
+</body>
+</html>

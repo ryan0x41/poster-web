@@ -8,7 +8,10 @@ let items = [];
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true })); // Parse form data
-app.use(express.static("public")); // Serve static files
+app.use(express.static("public")); 
+// app.use(express.static(path.join(__dirname, 'public')));
+app.use('/Pictures', express.static('public/Pictures'));
+
 app.set("view engine", "ejs"); // Set EJS as the view engine
 
 // List Data
@@ -23,6 +26,14 @@ app.get("/refresh", async (req, res) => {
 app.get("/", (req, res) => {
     res.render("index", { items, activeTab: "list" });
   });
+
+app.get("/profile", (req, res) => {
+  res.render("profile", { items, activeTab: "profile"});
+});
+
+app.get("/feed", (req, res) => {
+  res.render("feed", { items, activeTab: "feed"});
+});
 
 // 5. API Endpoint: Provide chart data
 app.get("/api/chart-data", (req, res) => {

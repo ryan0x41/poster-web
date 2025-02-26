@@ -1,0 +1,269 @@
+/* Stylings for the Navbar for the Profile & Feed Pages (so far)  */
+header{
+    position: sticky;
+    top:0;
+    z-index: 100;
+}
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    padding: 5px 5%;
+    border-bottom:3px solid #696868;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.4);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo{
+    width: 160px;
+    margin-right: 45px;
+}
+
+.nav-left, .nav-right{
+    display: flex;
+    align-items: center;
+}
+
+/* Navigation Tabs */
+.nav-tabs {
+    /* border:2px solid #131052; */
+    display: flex;
+    list-style: none;
+    padding-left: 20px;
+    margin-left: 465px;
+}
+
+.nav-tabs li {
+    margin-right: 20px;
+}
+
+.nav-tabs a {
+    text-decoration: none;
+    color: #333;
+    font-size: 20px;
+    font-weight: 700;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.nav-tabs a:hover {
+    background: #e4e6eb;
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .nav-tabs {
+        display: none;
+    }
+}
+
+
+
+.nav-right{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+
+
+.nav-user{
+    
+    display: flex; 
+    width: 120px;
+    justify-content: space-evenly;
+}
+
+.nav-user .notification-img{
+    width: 28px;
+    height: 28px;
+    margin-top: 10px;
+}
+
+.notification-img {
+    cursor: pointer;
+    border-radius: 20px;
+    transition: background 0.3s;
+}
+
+.notification-img:hover {
+    outline: 6px solid #e4e6eb; 
+    background: #e4e6eb;
+}
+
+
+.nav-user .icon-img {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.nav-user-icon img{
+    display: flex;
+    width: 40px;
+    height: 40px;
+    background: gray;
+    border-radius: 100%;
+    margin-top: 5px;
+}
+
+.search-box{
+    background: #efefef;
+    width: 250px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+}
+
+.search-box img{
+    width: 18px;
+}
+
+.search-box input{
+    width: 100%;
+    background: transparent;
+    padding: 10px;
+    outline: none;
+    border: 0;
+}
+
+.search-box:focus-within{
+    border: 2px solid black;
+}
+
+.online{
+    position: relative;
+}
+
+.online::after{
+    content: '';
+    width: 7px;
+    height: 7px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    background: #41db51;
+    position:absolute;
+    top: 5px;
+    right: 0;
+}
+
+.settings-menu{
+    position:absolute;
+    width: 90%;
+    max-width: 350px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0 , 0, 0.4);
+    border-radius: 4px;
+    overflow: hidden;
+    top: 85px;
+    right: 5%;
+    max-height: 0;
+    transition: max-height 0.3s;
+}
+
+.settings-menu-height{
+    max-height: 350px;
+}
+
+.nav-profile{
+    display: flex;
+    flex-direction: row;
+    max-width: 350px;
+}
+
+.nav-profile .icon-img{
+    display: flex;
+    width: 40px;
+    height: 40px;
+    background: gray;
+    border-radius: 100%;
+    margin-top: 10px;
+    margin-left:10px;
+}
+
+.nav-profile div{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+.nav-profile div a{
+    font-size: 15px;
+    color: #1876f2;
+    text-decoration: none;
+    margin-top: -15px;
+}
+
+.settings-menu-inner{
+    padding: 20px;
+}
+
+.settings-menu hr{
+    border: 0;
+    height: 1px;
+    background: #9a9a9a;
+    margin: 15px 0;
+}
+
+.setting-links{
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+
+}
+
+.setting-links .settings-icon{
+    width: 38px;
+    height: 38px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.setting-links a{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    color: #626262
+}
+
+#dark-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #ccc;
+    width: 45px;
+    height: 22px;  /* Increased height slightly for better look */
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background 0.5s ease-in-out;
+    display: flex;
+    align-items: center;
+    padding: 2px;
+}
+
+#dark-btn span {
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border-radius: 50%;
+    transition: margin-left 0.5s ease-in-out, background 0.5s;
+    
+    
+}
+
+/* Move the span to the right */
+#dark-btn.dark-btn-on {
+    background: #000;
+}
+
+#dark-btn.dark-btn-on span {
+    margin-left: 27px;  /* Smooth transition */
+}

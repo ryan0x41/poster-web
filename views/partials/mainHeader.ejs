@@ -1,0 +1,82 @@
+<header>
+
+    <nav>
+        <div class="nav-left">
+            <!-- <img src="" alt="Poster Image" class="logo"> -->
+             <h1>Poster</h1>
+
+             <ul class="nav-tabs">
+                <li><a href="/" class="<%= activeTab === 'list' ? 'active' : '' %>">Home</a></li>
+                <li><a href="/feed" class="<%= activeTab === 'feed' ? 'active' : '' %>">Feed</a></li>
+                <li><a href="#">Other</a></li>
+            </ul>
+
+        </div>
+        <div class="nav-right">
+
+            <div class="search-box">
+                <img src="Pictures/images/search.png">
+                <input type="text" placeholder="Search">
+            </div>
+
+            <div class="nav-user">
+
+                <img src="Pictures/images/icons8-notification-50.png" class="notification-img">
+
+                <div class="nav-user-icon online" onclick="toggleSettingsMenu()">
+                    <img src="Pictures/images/profile.png" class="icon-img">
+                </div>
+
+            </div>
+
+            <!-- Toggle menu for settings  -->
+            <div class="settings-menu">
+
+                <div id="dark-btn" >
+                    <span></span>
+                </div>
+
+                <div class="settings-menu-inner">
+                    <div class="nav-profile">
+                        <img src="Pictures/images/profile-pic.png" class="icon-img">
+                        <div>
+                            <p>Username</p>
+                            <a href="/profile" class="<%= activeTab === 'profile' ? 'active' : '' %>">See Your Profile</a>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="nav-profile">
+                        <img src="Pictures/images/feedback.png" class="icon-img">
+                        <div>
+                            <p>Feedback</p>
+                            <a href="#">Help Us Improve</a>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="setting-links">
+                        <img src="Pictures/images/setting.png" class="settings-icon">
+                        <a href="#"> Settings & Privacy<img src="Pictures/images/arrow.png" width="10px"></a>
+                    </div>
+                    <div class="setting-links">
+                        <img src="Pictures/images/display.png" class="settings-icon">
+                        <a href="#">Help & Support<img src="Pictures/images/arrow.png" width="10px"></a>
+                    </div>
+                    <div class="setting-links">
+                        <img src="Pictures/images/logout.png" class="settings-icon">
+                        <a href="#">Logout<img src="Pictures/images/arrow.png" width="10px"></a>
+                    </div>
+
+                    
+
+
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </nav>
+
+</header>
