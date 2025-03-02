@@ -15,20 +15,23 @@
     <div class="wrapper">
         <div class="container">
             <div class="form-box login">
-                <form>
+                <form id="loginForm">
                     <h1>Login</h1>
                     <div class="input-box">
-                        <input id="loginUsername" type="text" placeholder="Username" required>
+                        <input id="loginUsername" type="text" placeholder="Username" name="usernameOrEmail" required>
                         <i class="bx bxs-user" ></i>
                     </div>
                     <div class="input-box">
-                        <input id="loginPassword" type="password" placeholder="Password" required>
+                        <input id="loginPassword" type="password" placeholder="Password" name="password" required>
                         <i class="bx bxs-lock-alt"></i>
                     </div>
                     <div class="forgot-link">
                         <a href="#">Forgot Password?</a>
                     </div>
-                    <button type="submit" class="btn">Login</button>
+                    
+                    <button onclick="window.location.href='/profile'" class="<%= activeTab === 'profile' ? 'active' : '' %> btn" type="submit" >Login</button>
+                    <!-- <button class="btn" type="submit" >Login</button> -->
+                    
                     <p>or login with social platforms</p>
                     <div class="social-icons">
                         <a href="#"><i class="bx bxl-google"></i></a>

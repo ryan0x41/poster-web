@@ -1,6 +1,14 @@
+// import PosterAPI from '/lib/poster-api-wrapper/src/posterApiWrapper.js';
+// const PosterAPI = require("/lib/poster-api-wrapper/src/posterApiWrapper.js");
+
+
+// const api = new PosterAPI({
+//   baseURL: 'http://api.poster-social.com',
+// });
+
 const express = require("express");
 const bodyParser = require("body-parser");
-const fetchData = require("./modules/cache_data.js");
+// const fetchData = require("https://api.poster-social.com");
 const app = express();
 const PORT = 4000;
 
@@ -36,6 +44,15 @@ app.get("/login", (req, res) => {
 });
 app.get('/chat', (req, res) => {
   res.render('chat');
+});
+app.get('/profile', (req, res) => {
+  res.render('profile', { activeTab: "profile" });
+});
+app.get('/feed', (req, res) => {
+  res.render('feed', { activeTab: "feed" });
+});
+app.get('/chat', (req, res) => {
+  res.render('chat', { activeTab: "chat" });
 });
 
 // Start the server

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="/Pictures/css/style.css">
+    <link rel="stylesheet" href="/Pictures/css/mainHeader.css">
+</head>
+<body>
+
+    <%- include('partials/mainHeader', { activeTab: 'list' }) %>
+  
+    <div class="profile-container">
+
+        <div class="profile-card">
+            <div class="img-container">
+                <div class="profile-cover-img">
+                    <img src="/Pictures/images/cover.png">
+                </div>
+
+                <div class="profile-img">
+                    <img src="/Pictures/images/profile.png">
+                </div>
+            </div>
+
+            <div class="profile-info">
+                <div class="profile-left">
+                    <div class="p-info">
+                        <h3>Jon Doe</h3>
+                        <p>23 Friends - 3 mutual</p>
+                        <div class="mutual-friends">
+                        <img src="/Pictures/images/member-1.png">
+                        <img src="/Pictures/images/member-2.png">
+                        <img src="/Pictures/images/member-3.png">
+                        <img src="/Pictures/images/member-4.png">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-right">
+                    <div class="btn-container">
+                        <button type="button"><img src="/Pictures/images/add-friends.png">Friend</button>
+                        <button type="button"><img src="/Pictures/images/message.png">Message</button>
+                    </div>
+                    <div class="more-btn">
+                        <a href="#"><img src="Pictures/images/more.png"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-tabs">
+
+            </div>
+
+        </div>
+
+
+        
+
+
+
+        <!-- <img src="/Pictures/images/cover.png" class="cover-img">
+        <div class="profile-details">
+            <div class="pd-left">
+                <div class="pd-row">
+                    <img src="/Pictures/images/profile.png" alt="Profile Image" class="pd-image">
+                    <div>
+                        <h3>Jon Doe</h3>
+                        <p>23 Friends - 3 mutual</p>
+                        <img src="/Pictures/images/member-1.png">
+                        <img src="/Pictures/images/member-2.png">
+                        <img src="/Pictures/images/member-3.png">
+                        <img src="/Pictures/images/member-4.png">
+                    </div>
+                </div>
+            </div>
+            <div class="pd-right">
+
+                <button type="button"><img src="/Pictures/images/add-friends.png" alt="">Friend</button>
+                <button type="button"><img src="/Pictures/images/message.png" alt="">Message</button>
+
+            </div>
+        </div> -->
+
+        <div class="profile-info">
+            <div class="info-col">
+
+                <div class="profile-intro">
+                    <h3>Bio</h3>
+                    <p class="intro-text">Believe whatever you want cheif, yup out of it!</p>
+                    <hr>
+                    <ul>
+                        <li><img src="/Pictures/images/profile-job.png" alt="">Student at Nation College of Ireland</li>
+                        <li><img src="/Pictures/images/profile-study.png" alt="">2nd Year Computer Science</li>
+                        <li><img src="/Pictures/images/profile-study.png" alt="">Previously in Colaiste Dhulaigh</li>
+                        <li><img src="/Pictures/images/profile-home.png" alt="">Live in Dublin</li>
+                        <li><img src="/Pictures/images/profile-job.png" alt="">From Dublin</li>
+                    </ul>
+                </div>
+
+                <div class="profile-intro">
+                    <div class="title-box">
+                        <h3>Photos</h3>
+                        <a href="#">All Photos</a>
+                    </div>
+
+                    <div class="photo-box">
+                        <div><img src="/Pictures/images/photo1.png" ></div>
+                        <div><img src="/Pictures/images/photo2.png" ></div>
+                        <div><img src="/Pictures/images/photo3.png" ></div>
+                        <div><img src="/Pictures/images/photo4.png" ></div>
+                        <div><img src="/Pictures/images/photo5.png" ></div>
+                        <div><img src="/Pictures/images/photo6.png" ></div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="post-col">
+                 <div class="write-post-container">
+                    <div class="user-profile">
+                        <img src="/Pictures/images/profile.png">
+                        <div>
+                            <p>Jon Doe</p>
+                            <small>Public <i class="fas fa-caret-down"></i></small>
+                        </div>
+                    </div>
+
+                    <div class="post-input-container">
+                        <textarea rows="3" placeholder="What's on you'r mind Jon"></textarea>
+                        <div class="add-post-links">
+                            <a href="#"><img src="/Pictures/images/live-video.png"> Live Video </a>
+                            <a href="#"><img src="/Pictures/images/photo.png"> Photo/Video </a>
+                            <a href="#"><img src="/Pictures/images/feeling.png"> Feeling/Activity </a>
+                        </div>
+
+                    </div>
+
+                 </div>
+
+<div class="post-container">
+                    <div class="user-profile">
+                        <img src="/Pictures/images/profile.png" alt="">
+                        <div>
+                            <p>Jon Doe</p>
+                            <span>January 16 2025, 15:35 pm</span>
+                        </div>
+                    </div>
+                    <p class="post-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
+                        ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit 
+                        in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
+                        deserunt mollit anim id est laborum."<a href="#">#LoremIpsum</a></p>
+                        <img src="/Pictures/images/feed-image-1.png" class="post-img">
+
+                        <div class="post-row">
+                            <div class="activity-icons">
+                                <div><img src="/Pictures/images/like-blue.png"> 12 </div>
+                                <div><img src="/Pictures/images/comments.png"> 4 </div>
+                                <div><img src="/Pictures/images/share.png"> 1 </div>
+                            </div>
+                            <div class="post-profile-icon">
+
+                            </div>
+                        </div>
+
+
+                 </div>
+
+                 <div class="post-container">
+                    <div class="user-profile">
+                        <img src="/Pictures/images/profile.png" alt="">
+                        <div>
+                            <p>Jon Doe</p>
+                            <span>January 06 2025, 18:54 pm</span>
+                        </div>
+                    </div>
+                    <p class="post-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                        Ut enim ad minim veniam.<a href="#">#LoremIpsum #IpsumoftheLorem</a></p>
+                        <img src="/Pictures/images/feed-image-2.png" class="post-img">
+
+                        <div class="post-row">
+                            <div class="activity-icons">
+                                <div><img src="/Pictures/images/like-blue.png"> 12 </div>
+                                <div><img src="/Pictures/images/comments.png"> 4 </div>
+                                <div><img src="/Pictures/images/share.png"> 1 </div>
+                            </div>
+                            <div class="post-profile-icon"></div>
+                        </div>
+
+
+                 </div>
+
+                <button type="button" class="load-more-btn">Load More</button>
+
+            </div>                 
+
+        </div>
+
+
+    </div>
+    <script src="/js/script.js"></script>
+</body>
+</html>
