@@ -1,0 +1,17 @@
+<div class="listening-history-card">
+  <h1 style="font-weight: bold; margin-left: 0.3rem;">Listening History</h1>
+  <div class="history-scroll">
+    <% listeningHistory.forEach(item => { %>
+      <div class="history-item">
+        <div class="album-cover">
+          <img src="<%= item.albumCover %>" alt="Album Cover">
+        </div>
+        <div class="history-info">
+          <p class="artist-name"><%= item.artistName %></p>
+          <p class="song-name"><%= item.songName %></p>
+        </div>
+      </div>
+    <% }) %>    
+  </div>
+</div>
+

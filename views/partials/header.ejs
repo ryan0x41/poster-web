@@ -1,0 +1,146 @@
+<script type="module" src="/js/main.js"></script>
+<script type="importmap">
+{
+    "imports": {
+        "axios": "https://cdn.skypack.dev/axios"
+    }
+}
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+    :root {
+        --primary: #2f27ce;
+        --icon-color: var(--primary);
+        --secondary: #dedcff;
+        --background: #000000;
+        --light: #ffffff;
+        --heading: #DDDBFF;
+        --text: #9893D8;
+        --sidebar-bg: #111111;
+        --receiver-bg: var(--primary);
+        --sender-bg: #222222;
+        --foreground-bg: #1d1d1d;
+        --spotify-green: #1DB954;
+    }
+
+    .hover-light:hover {
+        color: #e0e0e0;
+    }
+</style>
+
+<nav class="bg-[var(--sidebar-bg)] px-4 py-3 flex justify-between items-center">
+    <div class="text-xl font-bold text-[var(--heading)]">poster</div>
+    <div class="relative inline-block text-left">
+        <div>
+            <button id="menu-button" type="button" class="flex items-center focus:outline-none" aria-expanded="false" aria-haspopup="true">
+                <img id="profile-picture" class="h-8 w-8 rounded-full" src="https://wallpapers.com/images/high/placeholder-profile-icon-20tehfawxt5eihco.png" alt="Profile Picture" />
+                <svg class="ml-2 h-5 w-5 text-[var(--icon-color)]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+        </div>
+        <div id="dropdown-menu" class="origin-top-right absolute right-0 mt-2 w-32 rounded-md shadow-lg bg-[var(--secondary)] ring-1 ring-black ring-opacity-5 hidden">
+            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
+                <a id="profile-link" href="#" class="block px-4 py-2 text-sm text-[var(--background)] hover:bg-[var(--sender-bg)] hover-light" role="menuitem">Profile</a>
+                <a id="logout-button" href="#" class="block px-4 py-2 text-sm text-red-500 hover:bg-[var(--sender-bg)] hover-light" role="menuitem">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script>
+    function getUserFromCookie() {
+        const cookies = document.cookie.split('; ');
+        const userCookie = cookies.find(cookie => cookie.startsWith('user='));
+        if (!userCookie) return null;
+        try {
+            const encodedUserInfo = userCookie.split('=')[1];
+            const decodedUserInfo = decodeURIComponent(encodedUserInfo);
+            return JSON.parse(atob(decodedUserInfo));
+        } catch (error) {
+            console.error('error decoding user cookie:', error, encodedUserInfo);
+            return null;
+        }
+    }
+
+    function getUsername() {
+        const user = getUserFromCookie();
+        return user?.username;
+    }
+
+    function getUserId() {
+        const user = getUserFromCookie();
+        return user?.id;
+    }
+
+    function getAccountCreation() {
+        const user = getUserFromCookie();
+        return user?.accountCreation;
+    }
+
+    function getEmail() {
+        const user = getUserFromCookie();
+        return user?.email;
+    }
+
+    function userIsAdmin() {
+        const user = getUserFromCookie();
+        return user?.isAdmin;
+    }
+
+    function userSpotifyLinked() {
+        const user = getUserFromCookie();
+        return user?.spotifyLinked;
+    }
+
+    function getProfilePictureUrl() {
+        const user = getUserFromCookie();
+        return user?.profileImageUrl;   
+    }
+
+    window.getUsername = getUsername;
+    window.getUserId = getUserId;
+    window.getAccountCreation = getAccountCreation;
+    window.getEmail = getEmail;
+    window.userIsAdmin = userIsAdmin;
+    window.userSpotifyLinked = userSpotifyLinked;
+    window.getProfilePictureUrl = getProfilePictureUrl;
+
+    const button = document.getElementById('menu-button');
+    const dropdown = document.getElementById('dropdown-menu');
+    const profilePicture = document.getElementById('profile-picture');
+    const profileLink = document.getElementById('profile-link');
+    const logoutButton = document.getElementById('logout-button');
+
+    function updateProfilePicture() {
+        const profileUrl = getProfilePictureUrl();
+        if (profileUrl) {
+            profilePicture.src = profileUrl;
+        }
+    }
+
+    profileLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        const username = getUsername();
+        if (username) {
+            window.location.href = `/profile/${username}`;
+        }
+    });
+
+    logoutButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        logout();
+        window.location.reload();
+    });
+
+    button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.classList.toggle('hidden');
+    });
+
+    window.addEventListener('click', () => {
+        dropdown.classList.add('hidden');
+    });
+
+    updateProfilePicture();
+</script>

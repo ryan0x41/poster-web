@@ -1,0 +1,87 @@
+<div class="right-column">
+  <div class="post-col">
+    
+    <% if (profileOwner) { %>
+      <div class="write-post-container">
+        <div class="user-profile">
+          <img src="<%= userProfile.profileImageUrl || '/Pictures/images/profile.png' %>" alt="Profile Image">
+          <div>
+            <p><%= userProfile.username %></p>
+          </div>
+        </div>
+        <div class="post-input-container">
+          <textarea rows="3" placeholder="What's on your mind, <%= userProfile.name %>?"></textarea>
+          <div class="post-link-container">
+            <div class="add-post-links">
+              <a href="#"><i class="fas fa-music"></i></a>
+              <a href="#"><i class="fas fa-camera"></i></a>
+            </div>
+            <button class="submit-post">Post Comment</button>
+          </div>        
+        </div>
+      </div>
+    <% } %>
+
+    <h1 class="section-title">Post History</h1>
+    <% posts.forEach(post => { %>
+      <div post-id="<%= post.postId %>" class="post-container">
+        <div class="user-profile">
+          <img src="<%= userProfile.profileImageUrl || '/Pictures/profile-default.webp' %>" alt="Profile Image">
+          <div>
+            <p><%= userProfile.username %></p>
+            <span class="post-date"><%= post.postDate %></span>
+          </div>
+        </div>
+        <hr>
+        <% if (post.title) { %>
+          <h3 class="post-title"><%= post.title %></h3>
+        <% } %>
+        <p class="post-text"><%= post.content %></p>
+        <hr>
+        <% if (post.images.length !== 0) { %>
+          <img src="<%= post.images[0] %>" class="post-img preview-img" alt="Feed Image" onclick="openImageModal(this)">
+        <% } %>
+        <div class="post-row">
+          <div class="activity-icons">
+            <a href="#" class="like-post">
+              <i class="fas fa-thumbs-up"></i>
+              <span class="post-like-count"><%= post.likes %></span>
+            </a>
+            <a href="#" class="toggle-comments"><i class="fas fa-comment"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="comments-section">
+        <div class="comment-form">
+          <hr>
+          <textarea rows="2" placeholder="Write a comment..."></textarea>
+          <button class="submit-comment">Post Comment</button>
+        </div>
+        <div class="comments-list">
+          <div class="comment">
+            <hr>
+            <div class="user-profile">
+              <img src="/Pictures/profile-default.webp" alt="Profile Image">
+              <div>
+                <p>Guest</p>
+                <span class="comment-date">Now</span>
+              </div>
+            </div>
+            <p class="comment-text">This is a placeholder comment.</p>
+            <div class="comment-actions">
+              <a href="#" class="like-comment">
+                <i class="fas fa-thumbs-up"></i>
+                <span class="comment-like-count">0</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+<div id="imageModal" class="modal">
+  <span class="close" onclick="closeImageModal()">&times;</span>
+  <img class="modal-content" id="fullImage">
+</div>

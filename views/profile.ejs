@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link rel="stylesheet" href="/Pictures/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <%- include('partials/header') %>
+  <div class="profile-container">
+    <%- include('partials/profile-card', { userProfile: userProfile, profileOwner }) %>
+    <% if (listeningHistory.length) { %>
+      <%- include('partials/listening-history', { listeningHistory: listeningHistory }) %>
+    <% } %>
+    <div class="profile-content">
+      <% if (favouriteArtists.length) { %>
+        <%- include('partials/favourite-artists', { favouriteArtists: favouriteArtists }) %>
+      <% } else { %>
+        <style>
+          .right-column {
+            padding-left: 0 !important;
+          }
+        </style>
+      <% } %>
+      <%- include('partials/feed', { userProfile: userProfile, posts: posts, profileOwner }) %>
+      <script defer src="/js/feed.js"></script>
+    </div>
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+  <title>Chat</title>
+  <link rel="stylesheet" href="/styles/chat.css">
+</head>
+<body>
+  <%- include('partials/header') %>
+  <div class="chat-container">
+    <aside class="secondary-sidebar">
+      <h2>Chats</h2>
+      <div class="conversation-search">
+        <input type="search" placeholder="Search..." />
+        <button type="submit"><i class="ri-search-line"></i></button>
+      </div>
+      <ul class="conversation-list">
+        <li class="active">
+          <a href="#" data-conversation="#conversation-1">
+            <img src="Pictures/personchat.jpg" alt="Someone" />
+            <div class="info">
+              <div class="name">Someone with a very long name that should truncate</div>
+              <div class="text">Lorem ipsum dolor sit amet consectetur. Extra long text that should truncate too.</div>
+            </div>
+            <div class="meta">
+              <div class="unread">5</div>
+              <div class="time">12:30</div>
+            </div>
+          </a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">
+        <button type="button" class="home-button" onclick="location.href='/'">
+          <i class="ri-home-line"></i>
+        </button>
+      </div>
+    </aside>
+    <div class="chat-area">
+      <div class="default-view active">
+        <i class="ri-chat-3-line"></i>
+        <p>Select a chat to view the conversation!</p>
+      </div>
+      <div class="conversation-chat" id="conversation-1">
+        <div class="chat-header">
+          <button type="button" class="back-button"><i class="ri-arrow-left-line"></i></button>
+          <div class="user">
+            <img src="Pictures/personchat.jpg" alt="Someone" />
+            <div class="name">Someone</div>
+          </div>
+          <div class="actions">
+            <button type="button"><i class="ri-phone-fill"></i></button>
+            <button type="button"><i class="ri-vidicon-line"></i></button>
+            <button type="button"><i class="ri-information-line"></i></button>
+          </div>
+        </div>
+        <div class="messages">
+          <div class="message-group">
+            <div class="message-container sender">
+              <img class="message-profile" src="Pictures/personchat.jpg" alt="Profile">
+              <div class="message-content">
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet natus repudiandae quisquam sequi nobis suscipit consequatur rerum alias odio repellat!</p>
+                <div class="message-time">12:30</div>
+              </div>
+              <button class="dropdown-toggle"><i class="ri-more-2-line"></i></button>
+            </div>
+            <div class="message-container sender">
+              <img class="message-profile" src="Pictures/personchat.jpg" alt="Profile">
+              <div class="message-content">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, tenetur!</p>
+                <div class="message-time">12:30</div>
+              </div>
+              <button class="dropdown-toggle"><i class="ri-more-2-line"></i></button>
+            </div>
+          </div>
+          <div class="message-group">
+            <div class="message-container receiver">
+              <img class="message-profile" src="Pictures/personchat.jpg" alt="Profile">
+              <div class="message-content">
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+                <div class="message-time">12:30</div>
+              </div>
+              <button class="dropdown-toggle"><i class="ri-more-2-line"></i></button>
+            </div>
+            <div class="message-container receiver">
+              <img class="message-profile" src="Pictures/personchat.jpg" alt="Profile">
+              <div class="message-content">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque eos ab in?</p>
+                <div class="message-time">12:30</div>
+              </div>
+              <button class="dropdown-toggle"><i class="ri-more-2-line"></i></button>
+            </div>
+            <div class="message-container receiver">
+              <img class="message-profile" src="Pictures/personchat.jpg" alt="Profile">
+              <div class="message-content">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, debitis. Iste natus est aliquam ipsum doloremque fugiat, quidem eos autem? Dolor quisquam laboriosam enim cum laborum suscipit perferendis adipisci praesentium.</p>
+                <div class="message-time">12:30</div>
+              </div>
+              <button class="dropdown-toggle"><i class="ri-more-2-line"></i></button>
+            </div>
+          </div>
+          <div class="message-group">
+            <div class="message-container sender">
+              <img class="message-profile" src="Pictures/personchat.jpg" alt="Profile">
+              <div class="message-content">
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quas, eos, magni temporibus, placeat consectetur nobis incidunt dicta a culpa vel esse. Facilis fugiat possimus eveniet accusamus dignissimos pariatur inventore animi rem vero, eligendi obcaecati fugit quaerat? Officia ex quod eaque maxime ipsam, tempore error laboriosam laborum, magnam ipsum doloremque quas.</p>
+                <div class="message-time">12:30</div>
+              </div>
+              <button class="dropdown-toggle"><i class="ri-more-2-line"></i></button>
+            </div>
+            <div class="message-container sender">
+              <img class="message-profile" src="Pictures/personchat.jpg" alt="Profile">
+              <div class="message-content">
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Temporibus debitis odio maiores perferendis ipsa repudiandae amet blanditiis quod. Ullam, dolorum.</p>
+                <div class="message-time">12:30</div>
+              </div>
+              <button class="dropdown-toggle"><i class="ri-more-2-line"></i></button>
+            </div>
+            <div class="message-container sender">
+              <img class="message-profile" src="Pictures/personchat.jpg" alt="Profile">
+              <div class="message-content">
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium blanditiis ea, voluptatum, eveniet at harum minima maxime enim aut non, iure expedita excepturi tempore nostrum quasi natus voluptas dolore ducimus!</p>
+                <div class="message-time">12:30</div>
+              </div>
+              <button class="dropdown-toggle"><i class="ri-more-2-line"></i></button>
+            </div>
+          </div>
+        </div>
+        <form class="chat-form">
+          <textarea placeholder="Type your message here..."></textarea>
+          <button type="submit"><i class="ri-send-plane-line"></i></button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="/js/chat.js"></script>
+</body>
+</html>

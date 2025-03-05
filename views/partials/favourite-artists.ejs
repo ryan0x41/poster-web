@@ -1,0 +1,13 @@
+<div class="left-column">
+  <h1 style="font-weight: bold; margin-left: 0.3rem;">Favourite Artists</h1>
+    <% favouriteArtists.forEach(artist => { %>
+      <div style="margin-bottom: 0.5em;" class="history-item">
+        <div class="album-cover">
+          <img src="<%= artist.imageUrl %>" alt="Album Cover">
+        </div>
+        <div class="history-info">
+          <p class="artist-name"><%= artist.name %></p>
+        </div>
+      </div>
+    <% }) %>    
+</div>
