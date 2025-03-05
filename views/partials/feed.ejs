@@ -9,14 +9,17 @@
             <p><%= userProfile.username %></p>
           </div>
         </div>
+        <hr>
         <div class="post-input-container">
-          <textarea rows="3" placeholder="What's on your mind, <%= userProfile.name %>?"></textarea>
+          <textarea class="post-title-textarea" rows="1" placeholder="Post Title"></textarea>
+          <textarea class="post-content-textarea" rows="3" placeholder="What's on your mind, <%= userProfile.username %>?"></textarea>
+          <hr>
           <div class="post-link-container">
             <div class="add-post-links">
               <a href="#"><i class="fas fa-music"></i></a>
               <a href="#"><i class="fas fa-camera"></i></a>
             </div>
-            <button class="submit-post">Post Comment</button>
+            <button class="submit-post">Post</button>
           </div>        
         </div>
       </div>
@@ -43,12 +46,14 @@
         <% } %>
         <div class="post-row">
           <div class="activity-icons">
-            <a href="#" class="like-post">
-              <i class="fas fa-thumbs-up"></i>
-              <span class="post-like-count"><%= post.likes %></span>
+            <a href="#" class="like-post <%= post.isLiked ? 'liked' : '' %>">
+                <i class="fas fa-thumbs-up"></i>
+                <span class="post-like-count"><%= post.likes %></span>
             </a>
-            <a href="#" class="toggle-comments"><i class="fas fa-comment"></i></a>
-          </div>
+            <a href="#" class="toggle-comments">
+              <i class="fas fa-comment"></i>
+            </a>
+          </div>          
         </div>
       </div>
       <div class="comments-section">

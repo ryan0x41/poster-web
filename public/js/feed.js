@@ -2,7 +2,7 @@
 login();
 
 document.querySelectorAll('.toggle-comments').forEach(btn => {
-    btn.addEventListener('click', function(e) {
+    btn.addEventListener('click', function (e) {
         e.preventDefault();
         const postContainer = this.closest('.post-container');
         const commentsSection = postContainer.nextElementSibling;
@@ -14,9 +14,9 @@ document.querySelectorAll('.toggle-comments').forEach(btn => {
 });
 
 document.querySelectorAll('.like-post').forEach(btn => {
-    btn.addEventListener('click', function(e) {
+    btn.addEventListener('click', function (e) {
         e.preventDefault();
-        
+
         const postContainer = this.closest('.post-container');
         const postId = postContainer.getAttribute('post-id');
 
@@ -39,10 +39,10 @@ document.querySelectorAll('.like-post').forEach(btn => {
             console.error("api.likePost is not defined");
         }
     });
-});  
+});
 
 function addCommentLikeHandler(btn) {
-    btn.addEventListener('click', function(e) {
+    btn.addEventListener('click', function (e) {
         e.preventDefault();
         const countSpan = this.querySelector('.comment-like-count');
         let count = parseInt(countSpan.textContent, 10);
@@ -61,7 +61,7 @@ document.querySelectorAll('.like-comment').forEach(btn => {
 });
 
 document.querySelectorAll('.submit-comment').forEach(btn => {
-    btn.addEventListener('click', function(e) {
+    btn.addEventListener('click', function (e) {
         e.preventDefault();
         const commentForm = this.closest('.comment-form');
         const textarea = commentForm.querySelector('textarea');
@@ -102,3 +102,30 @@ function openImageModal(imgElement) {
 function closeImageModal() {
     document.getElementById("imageModal").style.display = "none";
 }
+
+document.querySelectorAll('.submit-post').forEach(btn => {
+    btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        const titleTextarea = document.querySelector('.post-title-textarea');
+        const contentTextarea = document.querySelector('.post-content-textarea');
+        const title = titleTextarea ? titleTextarea.value.trim() : '';
+        const content = contentTextarea ? contentTextarea.value.trim() : '';
+        if (!title || !content) {
+            alert('please enter both title and content');
+            return;
+        }
+        const postData = { title, content, images: [] };
+        if (window.api && typeof window.api.createPost === 'function') {
+            window.api.createPost(postData)
+                .then(res => {
+                    window.location.reload();
+                })
+                .catch(err => {
+                    console.error("error creating post:", err);
+                    alert("error creating post");
+                });
+        } else {
+            console.error("api.createPost is not defined");
+        }
+    });
+});

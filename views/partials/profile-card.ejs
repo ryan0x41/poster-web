@@ -9,11 +9,14 @@
         </div>
       </div>
       <div class="p-info">
-        <h2><%= userProfile.username %></h2>
-        <% if (userProfile.currentlyPlaying && userProfile.currentlyPlaying.name && userProfile.currentlyPlaying.artists && userProfile.currentlyPlaying.artists.length > 0) { %>
+        <h2>
+          <%= userProfile.username %>
+        </h2>
+        <% if (userProfile.currentlyPlaying && userProfile.currentlyPlaying.name && userProfile.currentlyPlaying.artists
+          && userProfile.currentlyPlaying.artists.length> 0) { %>
           <p style="color: lightgreen;">
-            ● Listening to <%= userProfile.currentlyPlaying.name %> - 
-            <%= userProfile.currentlyPlaying.artists.join(', ') %>
+            ● Listening to <%= userProfile.currentlyPlaying.name %> -
+              <%= userProfile.currentlyPlaying.artists.join(', ') %>
           </p>
         <% } %>
         <% if (!profileOwner) { %>    
@@ -30,4 +33,3 @@
     </div>
   </div>
 </div>
-

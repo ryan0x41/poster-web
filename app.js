@@ -41,15 +41,24 @@ app.get('/profile/:username', async (req, res) => {
       baseURL: 'http://localhost:3000',
       cacheEnabled: true,
       defaultTTL: 60000
-    })
+    });
 
     const fullProfile = await posterApi.getUserProfile(username);
+    let posts = fullProfile.user.posts || [];
+    if (req.user && req.user.id) {
+      posts = posts.map(post => {
+        if (post.likedBy && Array.isArray(post.likedBy) && post.likedBy.includes(req.user.id)) {
+          post.isLiked = true;
+        }
+        return post;
+      });
+    }
 
     res.render('profile', {
       userProfile: fullProfile.user,
       listeningHistory: fullProfile.user.listeningHistory || [],
       favouriteArtists: fullProfile.user.favouriteArtists || [],
-      posts: fullProfile.user.posts || [],
+      posts,
       profileOwner: req.user && req.user.username === username
     });
 

@@ -7,15 +7,17 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(0, 0, 0, 0.8);
   align-items: center;
   justify-content: center;
 }
+
 .modal-content {
   max-width: 90%;
   max-height: 90%;
   border-radius: 4px;
 }
+
 .close {
   position: absolute;
   top: 20px;
@@ -25,7 +27,9 @@
   font-weight: bold;
   cursor: pointer;
 }
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 :root {
   --primary: #2f27ce;
   --icon-color: var(--primary);
@@ -40,9 +44,11 @@
   --foreground-bg: #1d1d1d;
   --spotify-green: #1DB954;
 }
+
 * {
   box-sizing: border-box;
 }
+
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
@@ -50,6 +56,7 @@ body {
   color: var(--text);
   transition: background 0.3s;
 }
+
 #glCanvas {
   position: absolute;
   top: 0;
@@ -58,35 +65,41 @@ body {
   height: 100%;
   z-index: 0;
 }
+
 .profile-content-wrapper {
   position: relative;
   z-index: 1;
 }
+
 .profile-container {
   padding: 1em 15%;
   color: var(--text);
 }
+
 .profile-card {
   position: relative;
   background: var(--sidebar-bg);
-  box-shadow: 0 2px 12px -2px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 12px -2px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   border: 1px solid var(--foreground-bg);
   padding: 1em;
   z-index: 1051;
 }
+
 .img-container {
   display: flex;
   flex-direction: column;
   margin-bottom: 0.7em;
 }
+
 .profile-cover-img img {
   width: 100%;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   object-fit: cover;
 }
+
 .profile-img {
   position: relative;
   width: 150px;
@@ -94,32 +107,38 @@ body {
   border: 1px solid var(--foreground-bg);
   overflow: hidden;
 }
+
 .profile-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
 .profile-info {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .p-info h2 {
   margin: 0;
   font-size: 1.5rem;
   color: var(--heading);
 }
+
 .p-info p {
   margin: 0;
   font-size: 0.9rem;
   color: var(--text);
 }
+
 .btn-container {
   display: flex;
   gap: 0.5rem;
   margin-top: 0.5em;
 }
+
 .btn-container button {
   display: flex;
   align-items: center;
@@ -133,18 +152,22 @@ body {
   font-size: 0.9rem;
   transition: background 0.15s, color 0.15s;
 }
+
 .btn-container button:active {
   background-color: var(--primary);
   color: var(--light);
 }
+
 .btn-container button i {
   margin: 0;
   color: var(--light);
 }
+
 .profile-content {
   display: flex;
   margin-top: 1em;
 }
+
 .left-column {
   border: 1px solid var(--foreground-bg);
   padding-right: 1em;
@@ -153,46 +176,67 @@ body {
   min-height: 400px;
   padding: 0.5em;
 }
+
 .right-column {
   padding-left: 1em;
   flex: 2;
 }
+
 .post-col {
   width: 100%;
 }
+
 .write-post-container {
   margin-bottom: 1em;
 }
-.write-post-container,.post-container {
+
+.write-post-container,
+.post-container {
   background: var(--sidebar-bg);
   padding: 1em;
-  box-shadow: 0 2px 12px -2px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 12px -2px rgba(0, 0, 0, 0.1);
   border: 1px solid var(--foreground-bg);
 }
+
 .post-container {
   border-bottom: 0 !important;
 }
+
 .user-profile {
   display: flex;
   align-items: center;
   margin-bottom: 0.5em;
 }
+
 .user-profile img {
   width: 45px;
   border-radius: 50%;
   margin-right: 0.5em;
 }
+
 .user-profile p {
   margin: 0;
   font-weight: 600;
   color: var(--heading);
 }
+
 .user-profile small {
   font-size: 12px;
   color: var(--text);
 }
+
+.write-post-container .user-profile {
+  margin-bottom: 0.5em !important;
+}
+
+.post-title-textarea {
+  margin-top: 1em !important;
+  margin-bottom: 0 !important;
+}
+
 .post-input-container textarea {
   margin-top: 0.5em;
+  margin-bottom: 1em;
   outline: none;
   color: var(--text);
   width: 100%;
@@ -203,11 +247,22 @@ body {
   border-radius: 8px;
   border: none;
 }
-.add-post-links, .activty-icons {
+
+.add-post-links,
+.activty-icons {
   display: flex;
   margin-top: 0.5em;
 }
-.add-post-links a, .activty-icons a {
+
+.post-link-container {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.add-post-links a,
+.activty-icons a {
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -216,22 +271,29 @@ body {
   font-size: 0.9rem;
   transition: color 0.15s;
 }
-.add-post-links a:active, .activty-icons a:active {
+
+.add-post-links a:active,
+.activty-icons a:active {
   color: var(--primary);
 }
-.add-post-links a i, .activty-icons a i {
+
+.add-post-links a i,
+.activty-icons a i {
   margin-right: 5px;
   color: var(--light);
 }
+
 .post-text {
   color: var(--text);
   margin-bottom: 0.7em;
   font-size: 1rem;
 }
+
 .post-text a {
   color: var(--primary);
   text-decoration: none;
 }
+
 .post-img {
   width: 100%;
   max-height: 20em;
@@ -239,26 +301,31 @@ body {
   margin-bottom: 5px;
   object-fit: cover;
 }
+
 .post-row {
   margin-top: 1em;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .activity-icons div {
   display: inline-flex;
   align-items: center;
   margin-right: 1em;
   margin-top: 0.7em;
 }
+
 .activity-icons div i {
   margin-right: 5px;
   color: var(--light);
 }
+
 .post-date {
   font-size: 0.8rem;
   color: var(--text);
 }
+
 .listening-history {
   display: flex;
   align-items: center;
@@ -268,9 +335,11 @@ body {
   padding: 0.5em;
   margin-bottom: 0.5em;
 }
+
 .song-name {
   font-size: 0.8rem;
 }
+
 .album-cover {
   width: 50px;
   height: 50px;
@@ -280,20 +349,24 @@ body {
   margin-right: 0.5em;
   background-color: var(--background);
 }
+
 .album-cover img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
 .track-info {
   flex: 1;
 }
+
 .track-info .artist-name {
   margin: 0;
   font-weight: bold;
   color: var(--heading);
   font-size: 0.9rem;
 }
+
 .listening-history-card {
   margin-top: 1em;
   background: var(--sidebar-bg);
@@ -301,16 +374,20 @@ body {
   padding: 0.5em;
   margin-bottom: 1em;
 }
-.listening-history-card h1, .left-column h1 {
+
+.listening-history-card h1,
+.left-column h1 {
   margin: 0 0 0.5em 0;
   font-size: 1.2rem;
   color: var(--heading);
 }
+
 .history-scroll {
   display: flex;
   overflow-x: auto;
   gap: 0.5em;
 }
+
 .history-item {
   display: flex;
   align-items: center;
@@ -320,6 +397,7 @@ body {
   padding: 0.5em;
   flex-shrink: 0;
 }
+
 .history-item .album-cover {
   width: 50px;
   height: 50px;
@@ -328,43 +406,52 @@ body {
   margin-right: 0.5em;
   background-color: var(--background);
 }
+
 .history-item .album-cover img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
 .history-item .history-info {
   flex: 1;
 }
+
 .history-item .history-info .artist-name {
   margin: 0;
   font-weight: bold;
   color: var(--heading);
   font-size: 0.9rem;
 }
+
 .history-item {
   font-size: 0.8rem;
   color: var(--spotify-green);
   font-weight: bold;
 }
+
 @media (max-width: 768px) {
   .profile-container {
-      padding: 1em;
-      width: 100%;
+    padding: 1em;
+    width: 100%;
   }
+
   .profile-content {
-      flex-direction: column;
-      gap: 1em;
+    flex-direction: column;
+    gap: 1em;
   }
+
   .right-column {
-      margin: 0;
-      width: 100%;
-      padding: 0;
+    margin: 0;
+    width: 100%;
+    padding: 0;
   }
+
   .write-post-container {
-      margin-top: 0;
+    margin-top: 0;
   }
 }
+
 .comments-section {
   background: var(--sidebar-bg);
   border-left: 1px solid var(--foreground-bg);
@@ -377,40 +464,49 @@ body {
   padding-left: 1em;
   transition: max-height 0.5s ease, padding 0.5s ease;
 }
+
 .comments-section.open {
   padding-bottom: 0;
   max-height: 500px;
 }
+
 .comments-list {
   margin-bottom: 0.8em;
 }
+
 .comment {
   border-bottom: 1px solid var(--foreground-bg);
 }
+
 .comment:last-child {
   margin-bottom: 0;
   border-bottom: none;
 }
+
 .comment .user-profile {
   display: flex;
   align-items: center;
   margin-bottom: 0.3em;
 }
+
 .comment .user-profile img {
   width: 30px;
   height: 30px;
   border-radius: 50%;
   margin-right: 0.5em;
 }
+
 .comment-text {
   margin: 0.3em 0;
 }
+
 .comment-actions a {
   font-size: 0.8rem;
   color: var(--light);
   text-decoration: none;
   transition: color 0.15s;
 }
+
 hr {
   display: block;
   height: 1px;
@@ -419,13 +515,16 @@ hr {
   margin: 1em 0;
   padding: 0;
 }
+
 .comment-actions a:hover {
   color: var(--primary);
 }
+
 .comment-form {
   margin-top: 0.3em;
   margin-bottom: 1em;
 }
+
 .comment-form textarea {
   outline: none;
   width: 100%;
@@ -436,7 +535,9 @@ hr {
   border-radius: 4px;
   padding: 0.5em;
 }
-.comment-form button {
+
+.comment-form button,
+.submit-post {
   width: 100%;
   margin-top: 0.3em;
   background-color: var(--sidebar-bg);
@@ -447,28 +548,42 @@ hr {
   font-size: 0.8rem;
   transition: background 0.15s, color 0.15s;
 }
-.comment-form button:active {
+
+.comment-form button:active,
+.submit-post:active {
   background-color: var(--primary);
   color: var(--light);
 }
+
+.submit-post {
+  max-width: 10em;
+  max-height: 3em;
+  align-items: center;
+}
+
 .post-title {
   margin-top: 0.5em;
   font-weight: bold;
   font-size: 1.2em;
   color: var(--secondary);
 }
+
 .like-post i {
   margin-right: 0.3em;
 }
+
 .liked i {
   color: var(--primary) !important;
 }
+
 .toggle-comments {
   margin-left: 1em;
 }
+
 .activity-icons i {
   color: var(--secondary);
 }
+
 .comment .user-profile {
   margin-top: 1em;
 }
