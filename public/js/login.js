@@ -38,7 +38,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             window.api.setAuthToken(token);
             localStorage.setItem("authToken", token);
-            await window.api.auth();
+
+            const { userCookie } = await window.api.auth();
+            document.cookie = `user=${encodeURIComponent(userCookie)}; path=/; max-age=86400`;
 
             window.location.replace('/');
         } catch (error) {

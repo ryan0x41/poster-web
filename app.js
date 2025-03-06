@@ -46,7 +46,7 @@ app.get('/profile/:username', async (req, res) => {
     if (!username) return res.status(501).send('error: missing username');
 
     const posterApi = new PosterAPI({
-      baseURL: 'http://localhost:3000',
+      baseURL: 'https://api.poster-social.com',
       cacheEnabled: true,
       defaultTTL: 60000
     });
