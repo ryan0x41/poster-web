@@ -1,34 +1,23 @@
 import PosterAPI from '/lib/poster-api-wrapper/src/posterApiWrapper.js';
 
-const api = new PosterAPI({
-    // baseURL: 'https://api.poster-social.com',
-    baseURL: 'http://localhost:3000/',
-});
-
-function logout() {
-    api.logoutUser();
-    api.setAuthToken(null);
-    document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; user=;';
-    console.log('Logged out');
-};
-
-async function login() {
-    const loginResponse = await api.loginUser({
-        usernameOrEmail: 'test2',
-        password: 'Hello@123'
+if (!window.api) {
+    const api = new PosterAPI({
+        // baseURL: 'https://api.poster-social.com/',
+        baseURL: 'http://localhost:3000/',
     });
-    console.log('login response:', loginResponse);
 
-    const token = loginResponse.token;
-    api.setAuthToken(token);
+    const token = localStorage.getItem('authToken');
+    if (token) {
+        api.setAuthToken(token);
+    }
 
-    await api.auth();
-}
+    function logout() {
+        api.logoutUser();
+        api.setAuthToken(null);
+        localStorage.removeItem('authToken');
+        window.location.reload();
+    }
 
-try {
-    window.login = login;
-    window.logout = logout;
     window.api = api;
-} catch (error) {
-    console.error('Error during authentication flow:', error);
+    window.logout = logout;
 }

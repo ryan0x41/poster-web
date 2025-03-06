@@ -23,8 +23,16 @@ app.get("/", (req, res) => {
   res.render("index", { items, activeTab: "list" });
 });
 
-app.get("/login", (req, res) => {
-  res.render("login", { activeTab: "login" });
+app.get('/reset-password', (req, res) => {
+  res.render('reset-password');
+});
+
+app.get('/login', (req, res) => {
+  res.render('login', { activeForm: 'login' });
+});
+
+app.get('/register', (req, res) => {
+  res.render('login', { activeForm: 'register' });
 });
 
 app.get('/chat', (req, res) => {

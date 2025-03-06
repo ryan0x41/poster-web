@@ -233,6 +233,10 @@ body {
   color: lightgreen !important;
 }
 
+.p-info h2 {
+  font-weight: bold;
+}
+
 .post-title-textarea {
   margin-top: 1em !important;
   margin-bottom: 0 !important;

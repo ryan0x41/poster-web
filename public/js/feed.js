@@ -1,6 +1,3 @@
-// DEBUG
-login();
-
 document.querySelectorAll('.toggle-comments').forEach(btn => {
   btn.addEventListener('click', function (e) {
     e.preventDefault();
