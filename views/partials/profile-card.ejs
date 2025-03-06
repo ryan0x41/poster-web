@@ -1,4 +1,4 @@
-<div class="profile-card">
+<div class="profile-card" profile-id="<%= userProfile.id %>">
   <div class="profile-info">
     <canvas id="glCanvas"></canvas>
     <script src="/js/shader.js"></script>
@@ -19,9 +19,11 @@
               <%= userProfile.currentlyPlaying.artists.join(', ') %>
           </p>
         <% } %>
-        <% if (!profileOwner) { %>    
+        <% if (!profileOwner) { %>
           <div class="btn-container">
-            <button type="button"><i class="fas fa-user-plus"></i></button>
+            <button id="follow-btn" type="button" class="<%= following ? 'followed' : '' %>">
+              <i class="fas <%= following ? 'fa-user-check' : 'fa-user-plus' %>"></i>
+            </button>
             <button type="button"><i class="fas fa-envelope"></i></button>
           </div>
         <% } else { %>

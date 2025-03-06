@@ -54,12 +54,18 @@ app.get('/profile/:username', async (req, res) => {
       });
     }
 
+    let isFollowing = false;
+    if (req.user && req.user.id && fullProfile.user.followers && Array.isArray(fullProfile.user.followers)) {
+      isFollowing = fullProfile.user.followers.some(follower => follower.id === req.user.id);
+    }
+
     res.render('profile', {
       userProfile: fullProfile.user,
       listeningHistory: fullProfile.user.listeningHistory || [],
       favouriteArtists: fullProfile.user.favouriteArtists || [],
       posts,
-      profileOwner: req.user && req.user.username === username
+      profileOwner: req.user && req.user.username === username,
+      following: isFollowing
     });
 
   } catch (err) {

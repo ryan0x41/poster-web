@@ -229,6 +229,10 @@ body {
   margin-bottom: 0.5em !important;
 }
 
+.followed i {
+  color: lightgreen !important;
+}
+
 .post-title-textarea {
   margin-top: 1em !important;
   margin-bottom: 0 !important;

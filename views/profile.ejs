@@ -10,7 +10,7 @@
 <body>
   <%- include('partials/header') %>
   <div class="profile-container">
-    <%- include('partials/profile-card', { userProfile: userProfile, profileOwner }) %>
+    <%- include('partials/profile-card', { userProfile: userProfile, profileOwner, following }) %>
     <% if (listeningHistory.length) { %>
       <%- include('partials/listening-history', { listeningHistory: listeningHistory }) %>
     <% } %>
