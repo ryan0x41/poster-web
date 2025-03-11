@@ -28,7 +28,7 @@ document.querySelectorAll('.like-post').forEach(btn => {
     if (window.api && typeof window.api.likePost === 'function') {
       window.api.likePost(postId);
     } else {
-      console.error("api.likepost is not defined");
+      console.error("api.likePost is not defined");
     }
   });
 });
@@ -72,7 +72,7 @@ document.querySelectorAll('.submit-comment').forEach(btn => {
     const commentsSection = this.closest('.comments-section');
     const postContainer = commentsSection.previousElementSibling;
     if (!postContainer) {
-      console.error("post container not found");
+      console.error("Post container not found");
       return;
     }
     const postId = postContainer.getAttribute('post-id');
@@ -102,20 +102,20 @@ document.querySelectorAll('.submit-comment').forEach(btn => {
           alert("error adding comment");
         });
     } else {
-      console.error("api.addcommenttopost is not defined");
+      console.error("api.addCommentToPost is not defined");
     }
   });
 });
 
 function openImageModal(imgElement) {
-  const modal = document.getElementById("imagemodal");
-  const fullImage = document.getElementById("fullimage");
+  const modal = document.getElementById("imageModal");
+  const fullImage = document.getElementById("fullImage");
   fullImage.src = imgElement.src;
   modal.style.display = "flex";
 }
 
 function closeImageModal() {
-  document.getElementById("imagemodal").style.display = "none";
+  document.getElementById("imageModal").style.display = "none";
 }
 
 document.querySelectorAll('.submit-post').forEach(btn => {
@@ -140,7 +140,7 @@ document.querySelectorAll('.submit-post').forEach(btn => {
           alert("error creating post");
         });
     } else {
-      console.error("api.createpost is not defined");
+      console.error("api.createPost is not defined");
     }
   });
 });
@@ -153,7 +153,7 @@ if (followBtn) {
     const profileCard = document.querySelector('.profile-card');
     const userIdToFollow = profileCard ? profileCard.getAttribute('profile-id') : null;
     if (!userIdToFollow) {
-      console.error("userid to follow not found");
+      console.error("UserId to follow not found");
       return;
     }
     if (window.api && typeof window.api.followUser === 'function') {
@@ -173,7 +173,7 @@ if (followBtn) {
           console.error("error toggling follow", error);
         });
     } else {
-      console.error("api.followuser is not defined");
+      console.error("api.followUser is not defined");
     }
   });
 }
