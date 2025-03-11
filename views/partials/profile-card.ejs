@@ -15,23 +15,116 @@
         <% if (userProfile.currentlyPlaying && userProfile.currentlyPlaying.name && userProfile.currentlyPlaying.artists
           && userProfile.currentlyPlaying.artists.length> 0) { %>
           <p style="color: lightgreen;">
-            ● Listening to <%= userProfile.currentlyPlaying.name %> -
-              <%= userProfile.currentlyPlaying.artists.join(', ') %>
+            ● Listening to <%= userProfile.currentlyPlaying.name %> - <%= userProfile.currentlyPlaying.artists.join(', ') %>
           </p>
         <% } %>
         <% if (!profileOwner) { %>
           <div class="btn-container">
-            <button id="follow-btn" type="button" class="<%= following ? 'followed' : '' %>">
-              <i class="fas <%= following ? 'fa-user-check' : 'fa-user-plus' %>"></i>
-            </button>
-            <button type="button"><i class="fas fa-envelope"></i></button>
-          </div>
-        <% } else { %>
-          <div class="btn-container">
-            <button type="button"><i class="fas fa-user-edit"></i></button>
-          </div>
-        <% } %>        
+            <button id="follow-btn" type="button" class="<%= following ? ' followed' : '' %>">
+                <i class="fas <%= following ? 'fa-user-check' : 'fa-user-plus' %>"></i>
+                </button>
+                <button type="button"><i class="fas fa-envelope"></i></button>
+      </div>
+      <% } else { %>
+        <div class="btn-container">
+          <button type="button"><i class="fas fa-user-edit"></i></button>
+        </div>
+        <% } %>
+    </div>
+  </div>
+</div>
+<div class="follow-container">
+  <div class="followers" id="followersBtn">
+    <p>Followers</p>
+    <a>
+      <%= userProfile.followers.length %>
+    </a>
+
+    <div class="dropdown-modal" id="followersModal">
+      <span class="close" id="followersClose">&times;</span>
+      <div class="dropdown-header">
+        <h2>Followers</h2>
+      </div>
+      <div class="dropdown-body">
+        <% userProfile.followers.forEach(function(follower) { %>
+          <a href="/profile/<%= follower.username %>">
+            <div class="user-profile">
+              <img src="<%= follower.profileImageUrl || '/Pictures/profile-default.webp' %>" alt="Profile Image">
+              <div>
+                <p>
+                  <%= follower.username %>
+                </p>
+              </div>
+            </div>
+          </a>
+          <% }) %>
+      </div>
+    </div>
+  </div>
+  <div class="vr"></div>
+  <div class="following" id="followingBtn">
+    <p>Following</p>
+    <a>
+      <%= userProfile.following.length %>
+    </a>
+
+    <div class="dropdown-modal" id="followingModal">
+      <span class="close" id="followingClose">&times;</span>
+      <div class="dropdown-header">
+        <h2>Following</h2>
+      </div>
+      <div class="dropdown-body">
+        <% userProfile.following.forEach(function(user) { %>
+          <a href="/profile/<%= user.username %>">
+            <div class="user-profile">
+              <img src="<%= user.profileImageUrl || '/Pictures/profile-default.webp' %>" alt="Profile Image">
+              <div>
+                <p>
+                  <%= user.username %>
+                </p>
+              </div>
+            </div>
+          </a>
+          <% }) %>
       </div>
     </div>
   </div>
 </div>
+</div>
+
+<script>
+  document.getElementById('followersBtn').addEventListener('click', function (e) {
+    document.getElementById('followingModal').style.display = 'none';
+    var modal = document.getElementById('followersModal');
+    modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+    e.stopPropagation();
+  });
+
+  document.getElementById('followingBtn').addEventListener('click', function (e) {
+    document.getElementById('followersModal').style.display = 'none';
+    var modal = document.getElementById('followingModal');
+    modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+    e.stopPropagation();
+  });
+
+  document.getElementById('followersClose').addEventListener('click', function (e) {
+    document.getElementById('followersModal').style.display = 'none';
+    e.stopPropagation();
+  });
+
+  document.getElementById('followingClose').addEventListener('click', function (e) {
+    document.getElementById('followingModal').style.display = 'none';
+    e.stopPropagation();
+  });
+
+  document.addEventListener('click', function () {
+    document.getElementById('followersModal').style.display = 'none';
+    document.getElementById('followingModal').style.display = 'none';
+  });
+
+  document.querySelectorAll('.dropdown-modal').forEach(function (modal) {
+    modal.addEventListener('click', function (e) {
+      e.stopPropagation();
+    });
+  });
+</script>

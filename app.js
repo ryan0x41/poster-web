@@ -1,5 +1,4 @@
 const express = require("express");
-const cors = require('cors');
 const bodyParser = require("body-parser");
 const fetchData = require("./modules/cache_data.js");
 const PosterAPI = require('./lib/poster-api-wrapper/src/posterApiWrapper').default;
@@ -46,7 +45,7 @@ app.get('/profile/:username', async (req, res) => {
     if (!username) return res.status(501).send('error: missing username');
 
     const posterApi = new PosterAPI({
-      baseURL: 'https://api.poster-social.com',
+      baseURL: process.env.WEB_URL || 'http://localhost:3000',
       cacheEnabled: true,
       defaultTTL: 60000
     });

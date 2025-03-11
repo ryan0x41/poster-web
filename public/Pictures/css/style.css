@@ -1,3 +1,46 @@
+.dropdown-modal {
+  display: none;
+  position: absolute;
+  z-index: 1100;
+  width: 300px;
+  background-color: var(--sidebar-bg);
+  border: 1px solid var(--foreground-bg);
+  border-radius: 4px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+#followersModal {
+  top: 100%;
+  left: 0;
+}
+
+#followingModal {
+  top: 100%;
+  right: 0;
+}
+
+.dropdown-modal .close {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  color: var(--light);
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.dropdown-header {
+  padding: 0.5em;
+  border-bottom: 1px solid var(--foreground-bg);
+  text-align: center;
+}
+
+.dropdown-body {
+  padding: 0.5em;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
 .modal {
   display: none;
   position: fixed;
@@ -20,12 +63,17 @@
 
 .close {
   position: absolute;
-  top: 20px;
   right: 30px;
   color: var(--light);
   font-size: 40px;
   font-weight: bold;
   cursor: pointer;
+}
+
+a .user-profile {
+  padding-bottom: 0.5em;
+  padding-left: 0.5em;
+  padding-top: 0.5em;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -81,10 +129,35 @@ body {
   background: var(--sidebar-bg);
   box-shadow: 0 2px 12px -2px rgba(0, 0, 0, 0.1);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   border: 1px solid var(--foreground-bg);
   padding: 1em;
   z-index: 1051;
+}
+
+.follow-container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  color: var(--heading);
+  margin-bottom: 1em;
+  margin-right: 1em;
+}
+
+.vr {
+  background-color: var(--secondary);
+  width: 1px;
+}
+
+.followers,
+.following {
+  font-weight: bold;
+  text-align: center;
+  position: relative;
 }
 
 .img-container {
@@ -475,7 +548,7 @@ body {
 
 .comments-section.open {
   padding-bottom: 0;
-  max-height: 500px;
+  max-height: 100vh;
 }
 
 .comments-list {

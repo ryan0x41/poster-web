@@ -2,8 +2,8 @@ import PosterAPI from '/lib/poster-api-wrapper/src/posterApiWrapper.js';
 
 if (!window.api) {
     const api = new PosterAPI({
-        baseURL: 'https://api.poster-social.com/',
-        // baseURL: 'http://localhost:3000/',
+        // baseURL: 'https://api.poster-social.com/',
+        baseURL: 'http://localhost:3000/',
     });
 
     const token = localStorage.getItem('authToken');
@@ -22,3 +22,19 @@ if (!window.api) {
     window.api = api;
     window.logout = logout;
 }
+
+window.getUserCookieProperty = function (property) {
+    const cookieMatch = document.cookie.split('; ').find(row => row.startsWith('user='));
+    if (!cookieMatch) return null;
+
+    const userCookie = cookieMatch.split('=')[1];
+    try {
+        const decodedCookie = decodeURIComponent(userCookie);
+        const decodedString = atob(decodedCookie);
+        const userData = JSON.parse(decodedString);
+        return userData[property] || null;
+    } catch (error) {
+        console.error("Error parsing user cookie:", error);
+        return null;
+    }
+};  

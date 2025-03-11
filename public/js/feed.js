@@ -13,13 +13,10 @@ document.querySelectorAll('.toggle-comments').forEach(btn => {
 document.querySelectorAll('.like-post').forEach(btn => {
   btn.addEventListener('click', function (e) {
     e.preventDefault();
-
     const postContainer = this.closest('.post-container');
     const postId = postContainer.getAttribute('post-id');
-
     const countSpan = this.querySelector('.post-like-count');
     let count = parseInt(countSpan.textContent, 10);
-
     if (this.classList.contains('liked')) {
       count--;
       this.classList.remove('liked');
@@ -27,34 +24,42 @@ document.querySelectorAll('.like-post').forEach(btn => {
       count++;
       this.classList.add('liked');
     }
-
     countSpan.textContent = count;
-
     if (window.api && typeof window.api.likePost === 'function') {
       window.api.likePost(postId);
     } else {
-      console.error("api.likePost is not defined");
+      console.error("api.likepost is not defined");
     }
   });
 });
 
-function addCommentLikeHandler(btn) {
-  btn.addEventListener('click', function (e) {
-    e.preventDefault();
-    const countSpan = this.querySelector('.comment-like-count');
-    let count = parseInt(countSpan.textContent, 10);
-    if (this.classList.contains('liked')) {
-      count--;
-      this.classList.remove('liked');
-    } else {
-      count++;
-      this.classList.add('liked');
-    }
-    countSpan.textContent = count;
-  });
-}
-document.querySelectorAll('.like-comment').forEach(btn => {
-  addCommentLikeHandler(btn);
+document.querySelectorAll('.post-container').forEach(postContainer => {
+  const postId = postContainer.getAttribute('post-id');
+  const commentsSection = postContainer.nextElementSibling;
+  const commentsList = commentsSection.querySelector('.comments-list');
+  commentsList.innerHTML = '';
+  if (window.api && typeof window.api.getCommentsByPost === 'function') {
+    window.api.getCommentsByPost(postId)
+      .then(data => {
+        data.comments.forEach(comment => {
+          const commentDiv = document.createElement('div');
+          commentDiv.className = 'comment';
+          commentDiv.innerHTML = `
+            <div class="user-profile">
+              <img src="${comment.profileImageUrl || '/pictures/profile-default.webp/'}" alt="profile image">
+              <div>
+                <p>${comment.author}</p>
+              </div>
+            </div>
+            <p class="comment-text">${comment.content}</p>
+          `;
+          commentsList.appendChild(commentDiv);
+        });
+      })
+      .catch(error => {
+        console.error("error fetching comments for post", postId, error);
+      });
+  }
 });
 
 document.querySelectorAll('.submit-comment').forEach(btn => {
@@ -64,40 +69,53 @@ document.querySelectorAll('.submit-comment').forEach(btn => {
     const textarea = commentForm.querySelector('textarea');
     const commentText = textarea.value.trim();
     if (!commentText) return;
-    const newComment = document.createElement('div');
-    newComment.className = 'comment';
-    newComment.innerHTML = `
-    <div class="user-profile">
-        <img src="/Pictures/images/profile.png" alt="Profile Image">
-        <div>
-        <p>Guest</p>
-        <span class="comment-date">${new Date().toLocaleString()}</span>
-        </div>
-    </div>
-    <p class="comment-text">${commentText}</p>
-    <div class="comment-actions">
-        <a href="#" class="like-comment">
-        <i class="fas fa-thumbs-up"></i>
-        <span class="comment-like-count">0</span>
-        </a>
-    </div>
-    `;
-    const commentsList = this.closest('.comments-section').querySelector('.comments-list');
-    commentsList.appendChild(newComment);
-    textarea.value = "";
-    addCommentLikeHandler(newComment.querySelector('.like-comment'));
+    const commentsSection = this.closest('.comments-section');
+    const postContainer = commentsSection.previousElementSibling;
+    if (!postContainer) {
+      console.error("post container not found");
+      return;
+    }
+    const postId = postContainer.getAttribute('post-id');
+    if (window.api && typeof window.api.addCommentToPost === 'function') {
+      window.api.addCommentToPost({ postId, content: commentText })
+        .then(response => {
+          const newCommentData = response.comment;
+          const newComment = document.createElement('div');
+          newComment.className = 'comment';
+          const userProfileImageUrl = window.getUserCookieProperty('profileImageUrl');
+          const username = window.getUserCookieProperty('username');
+          newComment.innerHTML = `
+            <div class="user-profile">
+              <img src="${userProfileImageUrl || '/pictures/profile-default.webp/'}" alt="profile image">
+              <div>
+                <p>${username || "undefined"}</p>
+              </div>
+            </div>
+            <p class="comment-text">${commentText}</p>
+          `;
+          const commentsList = commentsSection.querySelector('.comments-list');
+          commentsList.appendChild(newComment);
+          textarea.value = "";
+        })
+        .catch(error => {
+          console.error("error adding comment:", error);
+          alert("error adding comment");
+        });
+    } else {
+      console.error("api.addcommenttopost is not defined");
+    }
   });
 });
 
 function openImageModal(imgElement) {
-  const modal = document.getElementById("imageModal");
-  const fullImage = document.getElementById("fullImage");
+  const modal = document.getElementById("imagemodal");
+  const fullImage = document.getElementById("fullimage");
   fullImage.src = imgElement.src;
   modal.style.display = "flex";
 }
 
 function closeImageModal() {
-  document.getElementById("imageModal").style.display = "none";
+  document.getElementById("imagemodal").style.display = "none";
 }
 
 document.querySelectorAll('.submit-post').forEach(btn => {
@@ -122,7 +140,7 @@ document.querySelectorAll('.submit-post').forEach(btn => {
           alert("error creating post");
         });
     } else {
-      console.error("api.createPost is not defined");
+      console.error("api.createpost is not defined");
     }
   });
 });
@@ -135,7 +153,7 @@ if (followBtn) {
     const profileCard = document.querySelector('.profile-card');
     const userIdToFollow = profileCard ? profileCard.getAttribute('profile-id') : null;
     if (!userIdToFollow) {
-      console.error("userId to follow not found");
+      console.error("userid to follow not found");
       return;
     }
     if (window.api && typeof window.api.followUser === 'function') {
@@ -155,7 +173,7 @@ if (followBtn) {
           console.error("error toggling follow", error);
         });
     } else {
-      console.error("api.followUser is not defined");
+      console.error("api.followuser is not defined");
     }
   });
 }
