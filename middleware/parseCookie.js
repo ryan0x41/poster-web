@@ -1,6 +1,7 @@
 const parseCookie = (req, res, next) => {
   try {
     const userCookie = req.cookies.user;
+    const authToken = req.cookies.authToken;
     
     if (userCookie) {
       const decodedCookie = decodeURIComponent(userCookie);
@@ -8,6 +9,12 @@ const parseCookie = (req, res, next) => {
       req.user = JSON.parse(decoded);
     } else {
       req.user = null;
+    }
+
+    if(authToken) {
+      req.authToken = authToken;
+    } else {
+      req.authToken = null;
     }
   } catch (error) {
     console.error('Error parsing user cookie:', error);

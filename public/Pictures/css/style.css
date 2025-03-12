@@ -55,6 +55,55 @@
   justify-content: center;
 }
 
+.feed-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1em 5%;
+  flex-wrap: nowrap;
+}
+
+.feed-heading {
+  margin-top: 1.5em;
+  text-align: center;
+  padding: 1em 5%;
+}
+
+.sidebar-feed-title {
+  text-align: left !important;
+  font-size: 1.4em !important;
+}
+
+.new-users {
+  margin-top: 1em;
+}
+
+.sidebar {
+  width: 30%;
+  position: sticky;
+  top: 1em;
+  margin-right: 1em;
+}
+
+.main-content {
+  width: 65%;
+}
+
+@media (max-width: 768px) {
+  .feed-container {
+    flex-direction: column;
+    padding: 1em 2%;
+  }
+  .sidebar {
+    width: 100%;
+    position: relative;
+    margin-bottom: 1em;
+  }
+  .main-content {
+    width: 100%;
+  }
+}
+
 .modal-content {
   max-width: 90%;
   max-height: 90%;
@@ -516,18 +565,15 @@ body {
     padding: 1em;
     width: 100%;
   }
-
   .profile-content {
     flex-direction: column;
     gap: 1em;
   }
-
   .right-column {
     margin: 0;
     width: 100%;
     padding: 0;
   }
-
   .write-post-container {
     margin-top: 0;
   }

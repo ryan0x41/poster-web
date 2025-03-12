@@ -46,7 +46,7 @@ document.querySelectorAll('.post-container').forEach(postContainer => {
           commentDiv.className = 'comment';
           commentDiv.innerHTML = `
             <div class="user-profile">
-              <img src="${comment.profileImageUrl || '/pictures/profile-default.webp/'}" alt="profile image">
+              <img src="${comment.profileImageUrl || '/Pictures/profile-default.webp'}" alt="profile image">
               <div>
                 <p>${comment.author}</p>
               </div>

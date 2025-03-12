@@ -13,10 +13,10 @@ app.use(parseCookie);
 
 let items = [];
 
-app.use(bodyParser.urlencoded({ extended: true })); 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use('/lib', express.static("lib"));
-app.set("view engine", "ejs"); 
+app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
   res.render("index", { items, activeTab: "list" });
@@ -80,6 +80,38 @@ app.get('/profile/:username', async (req, res) => {
     res.status(500).send('error retrieving profile information');
   }
 });
+
+app.get('/home-feed', async (req, res) => {
+  if (!req.authToken) return res.redirect('/reauth');
+
+  const posterApi = new PosterAPI({
+    baseURL: process.env.WEB_URL || 'http://localhost:3000',
+    cacheEnabled: true,
+    defaultTTL: 60000,
+    authToken: req.authToken
+  });
+
+  const homeFeed = await posterApi.getHomeFeed();
+  let posts = homeFeed.posts || [];
+  if (req.user && req.user.id) {
+    posts = posts.map(post => {
+      if (post.likedBy && Array.isArray(post.likedBy) && post.likedBy.includes(req.user.id)) {
+        post.isLiked = true;
+      }
+      return post;
+    });
+  }
+
+  const { users } = await posterApi.getNewUsers();
+  console.log(users);
+
+  res.render('home-feed', { user: req.user, posts: homeFeed.posts, newUsers: users });
+});
+
+app.get('/reauth', async (req, res) => {
+  res.render('reauth');
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

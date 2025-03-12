@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+<body>
+  <%- include('partials/header') %>
+</body>
+<script type="module">
+  async function reauth() {
+    try {
+      const { userCookie } = await window.api.auth();
+      document.cookie = `user=${encodeURIComponent(userCookie)}; path=/; max-age=86400`;
+      window.location.replace('/home-feed');
+    } catch (error) {
+      window.location.replace('/login');
+    }
+  }
+
+  await reauth();
+</script>
