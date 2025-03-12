@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const { userCookie } = await window.api.auth();
             document.cookie = `user=${encodeURIComponent(userCookie)}; path=/; max-age=86400`;
 
-            window.location.replace('/');
+            window.location = '/home-feed';
         } catch (error) {
             console.error("Login error:", error);
             alert('login failed ' + (error.message || error));

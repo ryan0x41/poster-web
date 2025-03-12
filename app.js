@@ -1,3 +1,4 @@
+require('dotenv').config({ path: './.config' });
 const express = require("express");
 const bodyParser = require("body-parser");
 const fetchData = require("./modules/cache_data.js");
@@ -19,7 +20,10 @@ app.use('/lib', express.static("lib"));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  res.render("index", { items, activeTab: "list" });
+  if (!req.user || !req.user.username) {
+    return res.render("index", { user: null });
+  }
+  res.render("index", { user: req.user });
 });
 
 app.get('/reset-password', (req, res) => {
@@ -43,9 +47,8 @@ app.get('/profile/:username', async (req, res) => {
     const username = req.params.username;
 
     if (!username) return res.status(501).send('error: missing username');
-
     const posterApi = new PosterAPI({
-      baseURL: process.env.WEB_URL || 'http://localhost:3000',
+      baseURL: process.env.WEBURL || 'http://localhost:3000',
       cacheEnabled: true,
       defaultTTL: 60000
     });
@@ -82,30 +85,12 @@ app.get('/profile/:username', async (req, res) => {
 });
 
 app.get('/home-feed', async (req, res) => {
-  if (!req.authToken) return res.redirect('/reauth');
-
-  const posterApi = new PosterAPI({
-    baseURL: process.env.WEB_URL || 'http://localhost:3000',
-    cacheEnabled: true,
-    defaultTTL: 60000,
-    authToken: req.authToken
-  });
-
-  const homeFeed = await posterApi.getHomeFeed();
-  let posts = homeFeed.posts || [];
-  if (req.user && req.user.id) {
-    posts = posts.map(post => {
-      if (post.likedBy && Array.isArray(post.likedBy) && post.likedBy.includes(req.user.id)) {
-        post.isLiked = true;
-      }
-      return post;
-    });
+  if (!req.user || !req.user.username) {
+    res.redirect('/login');
+    return;
   }
 
-  const { users } = await posterApi.getNewUsers();
-  console.log(users);
-
-  res.render('home-feed', { user: req.user, posts: homeFeed.posts, newUsers: users });
+  res.render('home-feed', { username: req.user.username });
 });
 
 app.get('/reauth', async (req, res) => {

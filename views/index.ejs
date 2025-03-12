@@ -17,12 +17,19 @@
 				<p class="leading">Poster is designed to revolutionize social media. In an era where content sharing and
 					community building are vital, Poster offers a user-focused platform that prioritizes your control and privacy.
 					No ads, full data ownership, and multi-platform support for web and mobile.</p>
-					<p>Ready to experience social
-						media differently?</p>
-				<div class="register-login-container">
-					<a href="/register" class="button">Register</a>
-					<a href="/login" class="button">Login</a>
-				</div>
+				<p>Ready to experience social
+					media differently?</p>
+				<% if (user) { %>
+					<div class="register-login-container">
+						<a href="/home-feed" class="button">Home Feed</a>
+						<a href="/profile/<%= user.username %>" class="button">Profile</a>
+					</div>
+				<% } else { %>
+					<div class="register-login-container">
+						<a href="/register" class="button">Register</a>
+						<a href="/login" class="button">Login</a>
+					</div>
+				<% } %>					
 			</div>
 			<div class="welcome-img">
 				<img src="Pictures/hubicon.png" alt="pic of planet">

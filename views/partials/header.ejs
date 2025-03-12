@@ -78,7 +78,7 @@
           <a id="profile-link" href="#"
             class="block px-4 py-2 text-sm text-[var(--background)] hover:bg-[var(--sender-bg)] hover-light"
             role="menuitem">Profile</a>
-          <a id="logout-button" href="#"
+          <a id="logout-button"
             class="block px-4 py-2 text-sm text-red-500 hover:bg-[var(--sender-bg)] hover-light"
             role="menuitem">Logout</a>
         </div>
@@ -177,9 +177,9 @@
     }
   });
 
-  logoutButton.addEventListener('click', (e) => {
+  logoutButton.addEventListener('click', async (e) => {
     e.preventDefault();
-    logout();
+    await logout();
     window.location.reload();
   });
 

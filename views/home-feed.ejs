@@ -6,85 +6,69 @@
   <title>Home Feed</title>
   <link rel="stylesheet" href="/Pictures/css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <script src="/js/home-feed.js"></script>
 </head>
 <body>
   <%- include('partials/header') %>
-  <h2 class="section-title feed-heading">Welcome, <%= user.username %>!</h2>
+  <h2 class="section-title feed-heading">Welcome, <%= username %>!</h2>
   <div class="feed-container">
     <div class="sidebar">
+      <hr class="hidden">
       <p class="section-title sidebar-feed-title">New Users</p>
-      <hr>
       <div class="new-users">
-        <% newUsers.forEach(user => { %>
-          <div onclick="window.location='/profile/<%= user.username %>'" style="cursor:pointer;" class="user-profile">
-            <img src="<%= user.profileImageUrl || '/Pictures/profile-default.webp' %>" alt="Profile Image">
-            <div>
-              <p><%= user.username %></p>
-            </div>
-          </div>
-        <% }); %>
+        <div class="user-skeleton">
+          <div class="avatar-skeleton"></div>
+          <div class="username-skeleton"></div>
+        </div>
+        <div class="user-skeleton">
+          <div class="avatar-skeleton"></div>
+          <div class="username-skeleton"></div>
+        </div>
+        <div class="user-skeleton">
+          <div class="avatar-skeleton"></div>
+          <div class="username-skeleton"></div>
+        </div>
+        <div class="user-skeleton">
+          <div class="avatar-skeleton"></div>
+          <div class="username-skeleton"></div>
+        </div>
+        <div class="user-skeleton">
+          <div class="avatar-skeleton"></div>
+          <div class="username-skeleton"></div>
+        </div>
+        <div class="user-skeleton">
+          <div class="avatar-skeleton"></div>
+          <div class="username-skeleton"></div>
+        </div>
+        <div class="user-skeleton">
+          <div class="avatar-skeleton"></div>
+          <div class="username-skeleton"></div>
+        </div>
+        <div class="user-skeleton">
+          <div class="avatar-skeleton"></div>
+          <div class="username-skeleton"></div>
+        </div>
+        <div class="user-skeleton">
+          <div class="avatar-skeleton"></div>
+          <div class="username-skeleton"></div>
+        </div>
+        <div class="user-skeleton">
+          <div class="avatar-skeleton"></div>
+          <div class="username-skeleton"></div>
+        </div>
       </div>
     </div>
     <div class="main-content">
       <div class="post-col">
-        <% posts.forEach(post => { %>
-          <div post-id="<%= post.postId %>" class="post-container">
-            <div class="user-profile">
-              <img src="<%= post.userProfile.profileImageUrl || '/Pictures/profile-default.webp' %>" alt="Profile Image">
-              <div>
-                <p><%= post.userProfile.username %></p>
-                <span class="post-date"><%= post.postDate %></span>
-              </div>
-            </div>
-            <hr>
-            <% if (post.title) { %>
-              <h3 class="post-title"><%= post.title %></h3>
-            <% } %>
-            <p class="post-text"><%= post.content %></p>
-            <hr>
-            <% if (post.images.length !== 0) { %>
-              <img src="<%= post.images[0] %>" class="post-img preview-img" alt="Feed Image" onclick="openImageModal(this)">
-            <% } %>
-            <div class="post-row">
-              <div class="activity-icons">
-                <a href="#" class="like-post <%= post.isLiked ? 'liked' : '' %>">
-                  <i class="fas fa-thumbs-up"></i>
-                  <span class="post-like-count"><%= post.likes %></span>
-                </a>
-                <a href="#" class="toggle-comments">
-                  <i class="fas fa-comment"></i>
-                </a>
-              </div>
-            </div>
+        <div class="post-skeleton">
+          <div class="post-header">
+            <div class="avatar-skeleton"></div>
+            <div class="username-skeleton"></div>
           </div>
-          <div class="comments-section">
-            <div class="comment-form">
-              <hr>
-              <textarea rows="2" placeholder="Write a comment..."></textarea>
-              <button class="submit-comment">Post Comment</button>
-            </div>
-            <div class="comments-list">
-              <div class="comment">
-                <hr>
-                <div class="user-profile">
-                  <img src="/Pictures/profile-default.webp" alt="Profile Image">
-                  <div>
-                    <p>Guest</p>
-                    <span class="comment-date">Now</span>
-                  </div>
-                </div>
-                <p class="comment-text">This is a placeholder comment.</p>
-                <div class="comment-actions">
-                  <a href="#" class="like-comment">
-                    <i class="fas fa-thumbs-up"></i>
-                    <span class="comment-like-count">0</span>
-                  </a>
-                </div>
-              </div>
-            </div>
+          <div class="post-content-skeleton">
+            <div class="title-skeleton"></div>
+            <div class="body-skeleton"></div>
           </div>
-        <% }); %>
+        </div>
       </div>
     </div>
   </div>
@@ -92,6 +76,8 @@
     <span class="close" onclick="closeImageModal()">&times;</span>
     <img class="modal-content" id="fullImage">
   </div>
-  <script defer src="/js/feed.js"></script>
+  <script src="/js/home-feed.js" defer></script>
+  <script src="/js/feed.js" defer></script>
 </body>
+<%- include('partials/footer') %>
 </html>
