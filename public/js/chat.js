@@ -1,7 +1,9 @@
 // jQuery is the shit
 
 $(document).ready(async function () {
-  await api.startSocketConnection(443, renderMessage);
+  // Use a single websocket connection for both messages and typing events
+  await api.wsConnection(443, renderMessage, renderTypingIndicator);
+
   // we need the current userId to check if we are the reciever of a message
   let currentUser = window.getUserCookieProperty ? window.getUserCookieProperty('id') : null;
   // we also need to render our own profile image
@@ -72,6 +74,7 @@ $(document).ready(async function () {
   function renderMessage(msg) {
     let messageHtml = '';
     const $messagesContainer = $('.conversation-chat.active .messages');
+    $messagesContainer.find('.typing-indicator').remove();
 
     // if the message sender is us, we are the "reciever", (purple message on right)
     // TODO: rename things
@@ -104,6 +107,41 @@ $(document).ready(async function () {
     }
     $messagesContainer.append(messageHtml);
     $messagesContainer.scrollTop($messagesContainer.prop("scrollHeight"));
+  }
+
+  function renderTypingIndicator(data) {
+    if (data.sender === currentUser) return;
+    let conversationId = data.conversationId;
+    let $convEl = $(`.conversation-chat[data-conversation-id="${conversationId}"]`);
+
+    if (!$convEl.hasClass('active')) return;
+    let $messagesContainer = $convEl.find('.messages');
+    let otherProfileImage = $convEl.data('other-profile-image') || '/Pictures/profile-default.webp';
+
+    if ($messagesContainer.find('.typing-indicator').length === 0) {
+      let typingHtml = `
+        <div class="message-group typing-indicator">
+          <div class="message-container sender">
+            <img class="message-profile" src="${otherProfileImage}" alt="Sender Profile" />
+            <div class="message-content">
+              <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      $messagesContainer.append(typingHtml);
+      $messagesContainer.scrollTop($messagesContainer.prop("scrollHeight"));
+    }
+    if ($messagesContainer.data('typingTimeout')) {
+      clearTimeout($messagesContainer.data('typingTimeout'));
+    }
+    $messagesContainer.data('typingTimeout', setTimeout(function () {
+      $messagesContainer.find('.typing-indicator').remove();
+    }, 10000));
   }
 
   // when a conversation is clicked
@@ -160,6 +198,27 @@ $(document).ready(async function () {
     }
   });
 
+  function throttle(func, delay) {
+    let lastCall = 0;
+    return async function (...args) {
+      const now = Date.now();
+      if (now - lastCall >= delay) {
+        lastCall = now;
+        await func.apply(this, args);
+      }
+    };
+  }
+
+  $('.chat-area').on('input', '.chat-form textarea', throttle(async function (e) {
+    let $this = $(this);
+    let text = $this.val().trim();
+    if (text.length > 0) {
+      let $chatContainer = $this.closest('.conversation-chat');
+      let conversationId = $chatContainer.data('conversation-id');
+      await api.sendTyping(conversationId);
+    }
+  }, 2000));
+
   // send on enter key press
   $('.chat-area').on('keydown', '.chat-form textarea', function (e) {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -205,4 +264,24 @@ $(document).ready(async function () {
         console.error('failed to send message', err);
       });
   });
+
+  window.testRenderMessage = function () {
+    renderMessage({
+      sender: currentUser,
+      content: "<p style='color: red !important;'>test message</p>",
+      sendAt: new Date().toISOString()
+    });
+  };
+
+  window.testRenderTyping = function () {
+    let conversationId = $('.conversation-chat.active').data('conversation-id');
+    if (!conversationId) {
+      console.warn("no active conversation");
+      return;
+    }
+    renderTypingIndicator({
+      sender: "dummy-other-user-id",
+      conversationId: conversationId
+    });
+  };
 });
