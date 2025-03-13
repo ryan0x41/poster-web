@@ -1,9 +1,17 @@
 require('dotenv').config({ path: './.config' });
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const fetchData = require("./modules/cache_data.js");
 const PosterAPI = require('./lib/poster-api-wrapper/src/posterApiWrapper').default;
 const app = express();
+
+// for test enviroment
+app.use((req, res, next) => {
+  res.locals.apiBaseURL = process.env.WEBURL || 'http://localhost:3000';
+  next();
+});
+
 const PORT = 4000;
 
 const cookieParser = require('cookie-parser');

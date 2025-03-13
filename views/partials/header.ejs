@@ -1,11 +1,15 @@
-<script type="module" src="/js/main.js"></script>
 <script type="importmap">
 {
     "imports": {
+        "socket.io-client": "https://cdn.skypack.dev/socket.io-client",
         "axios": "https://cdn.skypack.dev/axios"
     }
 }
 </script>
+<script>
+  window.apiBaseURL = "<%= apiBaseURL %>";
+</script>
+<script type="module" src="/js/main.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   :root {

@@ -1,6 +1,7 @@
 // jQuery is the shit
 
-$(document).ready(async function() {
+$(document).ready(async function () {
+  await api.startSocketConnection(443, renderMessage);
   // we need the current userId to check if we are the reciever of a message
   let currentUser = window.getUserCookieProperty ? window.getUserCookieProperty('id') : null;
   // we also need to render our own profile image
@@ -68,8 +69,45 @@ $(document).ready(async function() {
     $('.chat-area').append($chatContainer);
   }
 
+  function renderMessage(msg) {
+    let messageHtml = '';
+    const $messagesContainer = $('.conversation-chat.active .messages');
+
+    // if the message sender is us, we are the "reciever", (purple message on right)
+    // TODO: rename things
+    if (msg.sender === currentUser) {
+      messageHtml = `
+          <div class="message-group">
+            <div class="message-container receiver">
+              <div class="message-content">
+                <p>${msg.content}</p>
+                <div class="message-time">${new Date(msg.sendAt).toLocaleTimeString()}</div>
+              </div>
+              <img class="message-profile" src="${myProfileImage}" alt="Receiver Profile" />
+            </div>
+          </div>
+        `;
+      // or else render message as sender, grey and on left hand side
+    } else {
+      const otherProfileImage = $('.conversation-chat.active').data('other-profile-image') || '/Pictures/profile-default.webp';
+      messageHtml = `
+          <div class="message-group">
+            <div class="message-container sender">
+              <img class="message-profile" src="${otherProfileImage}" alt="Sender Profile" />
+              <div class="message-content">
+                <p>${msg.content}</p>
+                <div class="message-time">${new Date(msg.sendAt).toLocaleTimeString()}</div>
+              </div>
+            </div>
+          </div>
+        `;
+    }
+    $messagesContainer.append(messageHtml);
+    $messagesContainer.scrollTop($messagesContainer.prop("scrollHeight"));
+  }
+
   // when a conversation is clicked
-  $('[data-conversation]').on('click', async function(event) {
+  $('[data-conversation]').on('click', async function (event) {
     event.preventDefault();
 
     // grab a reference to the conversation container element and get our conversationId
@@ -88,8 +126,11 @@ $(document).ready(async function() {
       $('.chat-container').addClass('mobile-chat-active');
     }
 
+    $convEl.addClass('active');
+
     // make a call to api to grab message thread for a conversation
     let { messages } = await api.getMessageThread(conversationId);
+    messages.sort((a, b) => new Date(a.sendAt) - new Date(b.sendAt));
     // remove placeholder messages 
     // TODO: dont even display these in the first place
     let $messagesContainer = $convEl.find('.messages');
@@ -99,44 +140,15 @@ $(document).ready(async function() {
     let otherProfileImage = $convEl.data('other-profile-image');
 
     // for each message
-    messages.forEach(function(msg) {
-      let messageHtml = '';
-      // if the message sender is us, we are the "reciever", (purple message on right)
-      // TODO: rename things
-      if (msg.sender === currentUser) {
-        messageHtml = `
-          <div class="message-group">
-            <div class="message-container receiver">
-              <div class="message-content">
-                <p>${msg.content}</p>
-                <div class="message-time">${new Date(msg.sendAt).toLocaleTimeString()}</div>
-              </div>
-              <img class="message-profile" src="${myProfileImage}" alt="Receiver Profile" />
-            </div>
-          </div>
-        `;
-      // or else render message as sender, grey and on left hand side
-      } else {
-        messageHtml = `
-          <div class="message-group">
-            <div class="message-container sender">
-              <img class="message-profile" src="${otherProfileImage}" alt="Sender Profile" />
-              <div class="message-content">
-                <p>${msg.content}</p>
-                <div class="message-time">${new Date(msg.sendAt).toLocaleTimeString()}</div>
-              </div>
-            </div>
-          </div>
-        `;
-      }
-      $messagesContainer.append(messageHtml);
+    messages.forEach(function (msg) {
+      renderMessage(msg);
     });
 
-    $convEl.addClass('active');
+    $messagesContainer.scrollTop($messagesContainer.prop("scrollHeight"));
   });
 
   // click handler for the back button
-  $('.chat-area').on('click', '.back-button', function(event) {
+  $('.chat-area').on('click', '.back-button', function (event) {
     event.preventDefault();
     // remove conversation container from view
     $('.conversation-chat').removeClass('active');
@@ -149,7 +161,7 @@ $(document).ready(async function() {
   });
 
   // click handler for send button
-  $('.chat-area').on('submit', '.chat-form', function(event) {
+  $('.chat-area').on('submit', '.chat-form', function (event) {
     event.preventDefault();
     // grab the text area and content it contains, dont do anything if theres no content
     var $textarea = $(this).find('textarea');
@@ -162,7 +174,7 @@ $(document).ready(async function() {
 
     // use the api to send a message with content using the conversationId
     api.sendMessage(conversationId, content)
-      .then(function(res) {
+      .then(function (res) {
         // on success we remove what ever is in the text field
         $textarea.val('');
         // then we find the messages container and render our sent message to it
@@ -179,8 +191,9 @@ $(document).ready(async function() {
           </div>
         `;
         $messagesContainer.append(newMessageHtml);
+        $messagesContainer.scrollTop($messagesContainer.prop("scrollHeight"));
       })
-      .catch(function(err) {
+      .catch(function (err) {
         console.error('failed to send message', err);
       });
   });

@@ -2,8 +2,7 @@ import PosterAPI from '/lib/poster-api-wrapper/src/posterApiWrapper.js';
 
 if (!window.api) {
     const api = new PosterAPI({
-        baseURL: 'https://api.poster-social.com/',
-        // baseURL: 'http://localhost:3000/',
+        baseURL: window.apiBaseURL,
     });
 
     const token = localStorage.getItem('authToken');
@@ -37,4 +36,4 @@ window.getUserCookieProperty = function (property) {
         console.error("Error parsing user cookie:", error);
         return null;
     }
-};  
+}; 
