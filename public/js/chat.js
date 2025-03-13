@@ -160,6 +160,14 @@ $(document).ready(async function () {
     }
   });
 
+  // send on enter key press
+  $('.chat-area').on('keydown', '.chat-form textarea', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      $(this).closest('form').submit();
+    }
+  });
+
   // click handler for send button
   $('.chat-area').on('submit', '.chat-form', function (event) {
     event.preventDefault();
