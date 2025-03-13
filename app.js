@@ -42,6 +42,10 @@ app.get('/chat', (req, res) => {
   res.render('chat');
 });
 
+app.get('/chat/:conversationId', (req, res) => {
+  res.render('chat');
+});
+
 app.get('/profile/:username', async (req, res) => {
   try {
     const username = req.params.username;

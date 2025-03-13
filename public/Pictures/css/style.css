@@ -764,10 +764,21 @@ hr {
   animation: pulse 1.7s infinite;
 }
 
+.user-skeleton {
+  padding: 0 !important;
+  padding-left: 0.5em !important;
+  padding-right: 0.5em !important;
+}
+
+.user-skeleton:first-child {
+  padding-top: 1em !important;
+}
+
 .post-skeleton {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
+  margin-top: 1em;
 }
 
 .post-header {

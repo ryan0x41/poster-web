@@ -9,66 +9,36 @@
 </head>
 <body>
   <%- include('partials/header') %>
-  <h2 class="section-title feed-heading">Welcome, <%= username %>!</h2>
+  <div class="feed-header-container">
+    <h2 class="section-title feed-heading">Welcome, <%= username %>!</h2>
+  </div>
   <div class="feed-container">
     <div class="sidebar">
       <hr class="hidden">
       <p class="section-title sidebar-feed-title">New Users</p>
       <div class="new-users">
-        <div class="user-skeleton">
-          <div class="avatar-skeleton"></div>
-          <div class="username-skeleton"></div>
-        </div>
-        <div class="user-skeleton">
-          <div class="avatar-skeleton"></div>
-          <div class="username-skeleton"></div>
-        </div>
-        <div class="user-skeleton">
-          <div class="avatar-skeleton"></div>
-          <div class="username-skeleton"></div>
-        </div>
-        <div class="user-skeleton">
-          <div class="avatar-skeleton"></div>
-          <div class="username-skeleton"></div>
-        </div>
-        <div class="user-skeleton">
-          <div class="avatar-skeleton"></div>
-          <div class="username-skeleton"></div>
-        </div>
-        <div class="user-skeleton">
-          <div class="avatar-skeleton"></div>
-          <div class="username-skeleton"></div>
-        </div>
-        <div class="user-skeleton">
-          <div class="avatar-skeleton"></div>
-          <div class="username-skeleton"></div>
-        </div>
-        <div class="user-skeleton">
-          <div class="avatar-skeleton"></div>
-          <div class="username-skeleton"></div>
-        </div>
-        <div class="user-skeleton">
-          <div class="avatar-skeleton"></div>
-          <div class="username-skeleton"></div>
-        </div>
-        <div class="user-skeleton">
-          <div class="avatar-skeleton"></div>
-          <div class="username-skeleton"></div>
-        </div>
+        <% for (var i = 0; i < 10; i++) { %>
+          <div class="user-skeleton">
+            <div class="avatar-skeleton"></div>
+            <div class="username-skeleton"></div>
+          </div>
+        <% } %>
       </div>
     </div>
     <div class="main-content">
       <div class="post-col">
-        <div class="post-skeleton">
-          <div class="post-header">
-            <div class="avatar-skeleton"></div>
-            <div class="username-skeleton"></div>
+        <% for (var i = 0; i < 10; i++) { %>
+          <div class="post-skeleton">
+            <div class="post-header">
+              <div class="avatar-skeleton"></div>
+              <div class="username-skeleton"></div>
+            </div>
+            <div class="post-content-skeleton">
+              <div class="title-skeleton"></div>
+              <div class="body-skeleton"></div>
+            </div>
           </div>
-          <div class="post-content-skeleton">
-            <div class="title-skeleton"></div>
-            <div class="body-skeleton"></div>
-          </div>
-        </div>
+        <% } %>
       </div>
     </div>
   </div>
