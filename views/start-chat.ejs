@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    nav {
+        display: none !important;
+    }
+
+    body {
+        background-color: black !important;
+    }
+</style>
+
+<body>
+    <%- include('partials/header') %>
+</body>
+<script defer>
+    document.addEventListener('DOMContentLoaded', async () => {
+        try {
+            let { conversationId } = await api.startConversation(["<%= userId %>"]);
+            window.location.replace(`/chat/${conversationId}`);
+        } catch (error) {
+            console.error({ error: error.message });
+            history.back();
+        }
+    });
+</script>
+
+</html>

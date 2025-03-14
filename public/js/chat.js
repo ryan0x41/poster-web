@@ -1,7 +1,8 @@
 // jQuery is the shit
 
 $(document).ready(async function () {
-  // Use a single websocket connection for both messages and typing events
+  // for local testing
+  // await api.wsConnection(3000, renderMessage, renderTypingIndicator);
   await api.wsConnection(443, renderMessage, renderTypingIndicator);
 
   // we need the current userId to check if we are the reciever of a message
@@ -37,6 +38,7 @@ $(document).ready(async function () {
           <div class="info">
             <div class="name">${otherUserProfile.username}</div>
           </div>
+          <button class="delete-bin"><i class="ri-delete-bin-5-line"></i></button>
         </a>
       </li>
     `);
@@ -144,6 +146,25 @@ $(document).ready(async function () {
     }, 10000));
   }
 
+  $('.delete-bin').on('click', async function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const parentAnchor = $(this).closest('a');
+
+    const conversationId = parentAnchor.attr('data-conversation-id');
+    const { message } = await api.deleteConversation(conversationId);
+
+    parentAnchor.remove();
+    if ($('.conversation-chat.active').data('conversation-id') === conversationId) {
+      $('.conversation-chat').removeClass('active');
+      $('.default-view').addClass('active');
+      if ($(window).width() <= 768) {
+        $('.chat-container').removeClass('mobile-chat-active');
+      }
+      window.history.pushState({}, '', '/chat');
+    }
+  });
+
   // when a conversation is clicked
   $('[data-conversation]').on('click', async function (event) {
     event.preventDefault();
@@ -165,6 +186,8 @@ $(document).ready(async function () {
     }
 
     $convEl.addClass('active');
+
+    window.history.pushState({}, '', '/chat/' + conversationId);
 
     // make a call to api to grab message thread for a conversation
     let { messages } = await api.getMessageThread(conversationId);
@@ -196,6 +219,7 @@ $(document).ready(async function () {
     if ($(window).width() <= 768) {
       $('.chat-container').removeClass('mobile-chat-active');
     }
+    window.history.pushState({}, '', '/chat');
   });
 
   function throttle(func, delay) {
@@ -284,4 +308,18 @@ $(document).ready(async function () {
       conversationId: conversationId
     });
   };
+
+  const pathname = window.location.pathname;
+  const parts = pathname.split('/');
+  if (parts.length >= 3 && parts[1] === 'chat' && parts[2]) {
+    const convId = parts[2];
+
+    const $conversationLink = $('[data-conversation-id="' + convId + '"]');
+    if ($conversationLink.length) {
+      $conversationLink.trigger('click');
+    } else {
+      console.warn('no conversation found for id:', convId);
+    }
+  }
+
 });

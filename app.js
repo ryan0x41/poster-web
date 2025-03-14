@@ -46,12 +46,12 @@ app.get('/register', (req, res) => {
   res.render('login', { activeForm: 'register' });
 });
 
-app.get('/chat', (req, res) => {
+app.get('/chat/:conversationId?', (req, res) => {
   res.render('chat');
 });
 
-app.get('/chat/:conversationId', (req, res) => {
-  res.render('chat');
+app.get('/start/chat/:userId', (req, res) => {
+  res.render('start-chat', { userId: req.params.userId });
 });
 
 app.get('/profile/:username', async (req, res) => {

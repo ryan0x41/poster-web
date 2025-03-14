@@ -23,7 +23,7 @@
             <button id="follow-btn" type="button" class="<%= following ? ' followed' : '' %>">
                 <i class="fas <%= following ? 'fa-user-check' : 'fa-user-plus' %>"></i>
                 </button>
-                <button type="button"><i class="fas fa-envelope"></i></button>
+                <button id="messageButton" type="button"><i class="fas fa-envelope"></i></button>
       </div>
       <% } else { %>
         <div class="btn-container">
@@ -99,6 +99,17 @@
     modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
     e.stopPropagation();
   });
+
+  var messageButton = document.getElementById('messageButton');
+  if (messageButton) {
+    messageButton.addEventListener('click', function (e) {
+      const profileCard = document.querySelector('.profile-card');
+      const userIdToMessage = profileCard ? profileCard.getAttribute('profile-id') : null;
+      if (userIdToMessage) {
+        window.location.replace(`/start/chat/${userIdToMessage}`);
+      }
+    });
+  }
 
   document.getElementById('followingBtn').addEventListener('click', function (e) {
     document.getElementById('followersModal').style.display = 'none';

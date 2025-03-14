@@ -73,7 +73,7 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
-.conversation-search button {
+.delete-bin, .conversation-search button {
   all: unset;
   background: none;
   background-color: var(--foreground-bg);
@@ -87,7 +87,7 @@ body {
   transition: background 0.15s, color 0.15s;
 }
 
-.home-button:hover,
+.delete-bin:hover, .home-button:hover,
 .conversation-search button:hover {
   background-color: var(--icon-color);
   color: var(--light);
@@ -111,9 +111,12 @@ body {
   transition: background 0.15s;
 }
 
-.conversation-list li a:hover,
 .conversation-list li.active a {
-  background-color: var(--primary);
+  border-left: 3px solid var(--primary) !important;
+}
+
+.conversation-list li a:hover {
+  background-color: var(--foreground-bg);
   color: var(--light);
 }
 
@@ -437,4 +440,12 @@ body {
   margin-top: 0.3em;
 }
 
+.delete-bin {
+  transition: border 0.3s all;
+}
 
+.delete-bin:hover {
+  border: 2px solid lightcoral !important;
+  background-color: var(--foreground-bg);
+  color: lightcoral;
+}
