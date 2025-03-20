@@ -37,11 +37,11 @@ These settings allow the application to interact with the latest hosted version 
 
 ## Dependencies
 
-- **Poster API** : The main API powering the backend services. For more details, visit the [Poster API repository](https://github.com/your-repo-link) .
-- **Poster API Wrapper** : A JavaScript wrapper available in the `lib` folder that simplifies interactions with the Poster API. Check it out [here](https://github.com/your-repo-link) .
+- **Poster API** : The main API powering the backend services. For more details, visit the [Poster API repository](https://github.com/ryan0x41/poster-api) .
+- **Poster API Wrapper** : A JavaScript wrapper available in the `lib` folder that simplifies interactions with the Poster API. Check it out [here](https://github.com/ryan0x41/poster-web-api-wrapper) .
 - **Node** : Along with everything inside of `package.json`.
 
-> **Note** : The documentation for the Poster API is available [here](https://github.com/your-repo-link) but please note it is about 3 weeks outdated as of 20 March 2025.
+> **Note** : The documentation for the Poster API is available [here](https://github.com/ryan0x41/poster-api/wiki/Poster-API-Documentation) but please note it is about 4 weeks outdated as of 20 March 2025.
 
 ## Hosted Version
 
@@ -53,6 +53,6 @@ Pull requests are welcome! The project is actively maintained by:
 
 - [igaaxwal](https://github.com/igaaxwal)
 - [SeanByr](https://github.com/SeanByr)
-- [ryan0x41 / ryan-sheridan](https://github.com/ryan0x41)
+- [ryan0x41](https://github.com/ryan0x41) / [ryan-sheridan](https://github.com/ryan-sheridan)
 
 Feel free to contribute improvements, report issues, or suggest new features. 
