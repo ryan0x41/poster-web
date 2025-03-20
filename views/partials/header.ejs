@@ -8,8 +8,11 @@
 </script>
 <script>
   window.apiBaseURL = "<%= apiBaseURL %>";
+  window.wsPortNumber = "<%= wsPortNumber %>";
 </script>
 <script type="module" src="/js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   :root {
@@ -41,33 +44,23 @@
   <div class="flex items-center space-x-4">
     <div class="relative inline-block text-left">
       <button id="notifications-button" type="button" class="relative flex items-center focus:outline-none">
-        <i class="fas fa-bell text-[var(--icon-color)]"></i>
         <span id="notifications-badge"
-          class="absolute top-0 right-0 inline-flex items-center justify-center px-1 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full"></span>
+          class="inline-flex items-center justify-center px-1 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full"
+          style="display: none;"></span>
       </button>
       <div id="notifications-dropdown"
-        class="origin-top-right absolute right-0 mt-2 w-64 rounded-md shadow-lg bg-[var(--secondary)] ring-1 ring-black ring-opacity-5 hidden">
+        class="origin-top-right absolute right-0 mt-2 w-64 rounded-md shadow-lg bg-[var(--foreground-bg)] ring-1 ring-black ring-opacity-5 hidden">
         <div class="py-2 px-2" role="menu" aria-orientation="vertical" aria-labelledby="notifications-button">
           <div class="flex justify-between items-center mb-2">
-            <span class="text-sm font-bold text-[var(--background)]">Notifications</span>
+            <span class="text-sm font-bold text-[var(--light)]">Notifications</span>
             <button id="read-all-button" class="text-xs text-blue-500 hover:underline">Read All</button>
           </div>
-          <ul id="notifications-list">
-            <li class="flex items-center justify-between py-1">
-              <span class="text-[var(--background)] text-sm">Notification message 1</span>
-              <button class="mark-read-btn text-green-500 text-xs">Mark as read</button>
-            </li>
-            <li class="flex items-center justify-between py-1">
-              <span class="text-[var(--background)] text-sm">Notification message 2</span>
-              <button class="mark-read-btn text-green-500 text-xs">Mark as read</button>
-            </li>
-          </ul>
+          <ul id="notifications-list"></ul>
         </div>
       </div>
-    </div>
+    </div>    
     <div class="relative inline-block text-left">
-      <button id="menu-button" type="button" class="flex items-center focus:outline-none" aria-expanded="false"
-        aria-haspopup="true">
+      <button id="menu-button" type="button" class="flex items-center focus:outline-none" aria-expanded="false" aria-haspopup="true">
         <img id="profile-picture" class="h-8 w-8 rounded-full"
           src="https://wallpapers.com/images/high/placeholder-profile-icon-20tehfawxt5eihco.png"
           alt="Profile Picture" />
@@ -77,10 +70,10 @@
         </svg>
       </button>
       <div id="dropdown-menu"
-        class="origin-top-right absolute right-0 mt-2 w-32 rounded-md shadow-lg bg-[var(--secondary)] ring-1 ring-black ring-opacity-5 hidden">
+        class="origin-top-right absolute right-0 mt-2 w-32 rounded-md shadow-lg bg-[var(--foreground-bg)] ring-1 ring-black ring-opacity-5 hidden">
         <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
           <a id="profile-link" href="#"
-            class="block px-4 py-2 text-sm text-[var(--background)] hover:bg-[var(--sender-bg)] hover-light"
+            class="block px-4 py-2 text-sm text-[var(--light)] hover:bg-[var(--sender-bg)] hover-light"
             role="menuitem">Profile</a>
           <a id="logout-button"
             class="block px-4 py-2 text-sm text-red-500 hover:bg-[var(--sender-bg)] hover-light"
@@ -224,3 +217,4 @@
   updateProfilePicture();
   updateNotificationsBadge();
 </script>
+<script src="/js/notification.js"></script>

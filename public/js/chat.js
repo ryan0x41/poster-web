@@ -2,8 +2,7 @@
 
 $(document).ready(async function () {
   // for local testing
-  // await api.wsConnection(3000, renderMessage, renderTypingIndicator);
-  await api.wsConnection(443, renderMessage, renderTypingIndicator);
+  await api.chatWsConnection(window.wsPortNumber, renderMessage, renderTypingIndicator);
 
   // we need the current userId to check if we are the reciever of a message
   let currentUser = window.getUserCookieProperty ? window.getUserCookieProperty('id') : null;

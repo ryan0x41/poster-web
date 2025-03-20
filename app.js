@@ -9,6 +9,7 @@ const app = express();
 // for test enviroment
 app.use((req, res, next) => {
   res.locals.apiBaseURL = process.env.WEBURL || 'http://localhost:3000';
+  res.locals.wsPortNumber = process.env.WSPORTNUMBER || '3000';
   next();
 });
 
@@ -52,6 +53,49 @@ app.get('/chat/:conversationId?', (req, res) => {
 
 app.get('/start/chat/:userId', (req, res) => {
   res.render('start-chat', { userId: req.params.userId });
+});
+
+app.get('/profile/id/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    if (!userId) return res.status(501).send('error: missing userId');
+
+    const posterApi = new PosterAPI({
+      baseURL: process.env.WEBURL || 'http://localhost:3000',
+      cacheEnabled: true,
+      defaultTTL: 60000
+    });
+
+    const fullProfile = await posterApi.getUserProfileById(userId);
+    let posts = fullProfile.user.posts || [];
+    if (req.user && req.user.id) {
+      posts = posts.map(post => {
+        if (post.likedBy && Array.isArray(post.likedBy) && post.likedBy.includes(req.user.id)) {
+          post.isLiked = true;
+        }
+        return post;
+      });
+    }
+
+    let isFollowing = false;
+    if (req.user && req.user.id && fullProfile.user.followers && Array.isArray(fullProfile.user.followers)) {
+      isFollowing = fullProfile.user.followers.some(follower => follower.id === req.user.id);
+    }
+
+    res.render('profile', {
+      userProfile: fullProfile.user,
+      listeningHistory: fullProfile.user.listeningHistory || [],
+      favouriteArtists: fullProfile.user.favouriteArtists || [],
+      posts,
+      profileOwner: req.user && req.user.id === fullProfile.user.id,
+      following: isFollowing
+    });
+
+  } catch (err) {
+    console.error('error fetching profile data:', err);
+    res.status(500).send('error retrieving profile information');
+  }
 });
 
 app.get('/profile/:username', async (req, res) => {
@@ -108,7 +152,6 @@ app.get('/home-feed', async (req, res) => {
 app.get('/reauth', async (req, res) => {
   res.render('reauth');
 });
-
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
