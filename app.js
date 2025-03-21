@@ -35,6 +35,20 @@ app.get("/", (req, res) => {
   res.render("index", { user: req.user });
 });
 
+app.get('/spotify/success', (req, res) => {
+  if (!req.user || !req.user.username) {
+    return res.render("spotify-success", { user: null });
+  }
+  res.render('spotify-success', { user: req.user });
+});
+
+app.get('/spotify/failure', (req, res) => {
+  if (!req.user || !req.user.username) {
+    return res.render("spotify-failure", { user: null });
+  }
+  res.render('spotify-failure', { user: req.user });
+});
+
 app.get('/reset-password', (req, res) => {
   res.render('reset-password');
 });

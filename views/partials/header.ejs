@@ -1,10 +1,10 @@
 <script type="importmap">
-{
+  {
     "imports": {
-        "socket.io-client": "https://cdn.skypack.dev/socket.io-client",
-        "axios": "https://cdn.skypack.dev/axios"
+      "socket.io-client": "https://cdn.skypack.dev/socket.io-client",
+      "axios": "https://cdn.skypack.dev/axios"
     }
-}
+  }
 </script>
 <script>
   window.apiBaseURL = "<%= apiBaseURL %>";
@@ -40,7 +40,9 @@
 </style>
 
 <nav class="bg-[var(--sidebar-bg)] px-4 py-3 flex justify-between items-center">
-  <div class="text-xl font-bold text-[var(--heading)]" onclick="window.location='/'" style="cursor:pointer;">poster</div>
+  <div class="text-xl font-bold text-[var(--heading)]" onclick="window.location='/'" style="cursor:pointer;">
+    poster
+  </div>
   <div class="flex items-center space-x-4">
     <div class="relative inline-block text-left">
       <button id="notifications-button" type="button" class="relative flex items-center focus:outline-none">
@@ -58,9 +60,10 @@
           <ul id="notifications-list"></ul>
         </div>
       </div>
-    </div>    
+    </div>
     <div class="relative inline-block text-left">
-      <button id="menu-button" type="button" class="flex items-center focus:outline-none" aria-expanded="false" aria-haspopup="true">
+      <button id="menu-button" type="button" class="flex items-center focus:outline-none" aria-expanded="false"
+        aria-haspopup="true">
         <img id="profile-picture" class="h-8 w-8 rounded-full"
           src="https://wallpapers.com/images/high/placeholder-profile-icon-20tehfawxt5eihco.png"
           alt="Profile Picture" />
@@ -75,8 +78,9 @@
           <a id="profile-link" href="#"
             class="block px-4 py-2 text-sm text-[var(--light)] hover:bg-[var(--sender-bg)] hover-light"
             role="menuitem">Profile</a>
-          <a id="logout-button"
-            class="block px-4 py-2 text-sm text-red-500 hover:bg-[var(--sender-bg)] hover-light"
+          <a id="spotify-action" href="#" class="block px-4 py-2 text-sm hover:bg-[var(--sender-bg)] hover-light"
+            role="menuitem">Link Spotify</a>
+          <a id="logout-button" class="block px-4 py-2 text-sm text-red-500 hover:bg-[var(--sender-bg)] hover-light"
             role="menuitem">Logout</a>
         </div>
       </div>
@@ -94,7 +98,7 @@
       const decodedUserInfo = decodeURIComponent(encodedUserInfo);
       return JSON.parse(atob(decodedUserInfo));
     } catch (error) {
-      console.error('error decoding user cookie:', error, encodedUserInfo);
+      console.error('Error decoding user cookie:', error);
       return null;
     }
   }
@@ -150,6 +154,7 @@
   const notificationsButton = document.getElementById('notifications-button');
   const notificationsDropdown = document.getElementById('notifications-dropdown');
   const readAllButton = document.getElementById('read-all-button');
+  const spotifyAction = document.getElementById('spotify-action');
 
   function updateProfilePicture() {
     const profileUrl = getProfilePictureUrl();
@@ -160,7 +165,8 @@
 
   function updateNotificationsBadge() {
     const notifications = document.querySelectorAll('#notifications-list li');
-    const unreadCount = Array.from(notifications).filter(notification => !notification.classList.contains('read')).length;
+    const unreadCount = Array.from(notifications)
+      .filter(notification => !notification.classList.contains('read')).length;
     const badge = document.getElementById('notifications-badge');
     badge.textContent = unreadCount;
     badge.style.display = unreadCount > 0 ? 'inline-flex' : 'none';
@@ -176,8 +182,37 @@
 
   logoutButton.addEventListener('click', async (e) => {
     e.preventDefault();
-    await logout();
-    window.location.reload();
+    if (window.logout) {
+      await window.logout();
+      window.location.reload();
+    }
+  });
+
+  function updateSpotifyActionButton() {
+    const isLinked = window.getUserCookieProperty && window.getUserCookieProperty('spotifyLinked');
+    if (isLinked) {
+      spotifyAction.textContent = "Unlink Spotify";
+      spotifyAction.style.color = "white";
+    } else {
+      spotifyAction.textContent = "Link Spotify";
+      spotifyAction.style.color = "lightgreen";
+    }
+  }
+  updateSpotifyActionButton();
+
+  spotifyAction.addEventListener('click', (e) => {
+    e.preventDefault();
+    const isLinked = window.getUserCookieProperty && window.getUserCookieProperty('spotifyLinked');
+    if (isLinked) {
+      if (window.unlinkSpotify) {
+        window.unlinkSpotify();
+        updateSpotifyActionButton();
+      }
+    } else {
+      if (window.linkSpotifyAndRedirect) {
+        window.linkSpotifyAndRedirect();
+      }
+    }
   });
 
   menuButton.addEventListener('click', (e) => {
@@ -216,5 +251,9 @@
 
   updateProfilePicture();
   updateNotificationsBadge();
+
+  window.addEventListener('load', function () {
+    updateSpotifyActionButton();
+  });
 </script>
 <script src="/js/notification.js"></script>

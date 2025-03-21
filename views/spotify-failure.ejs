@@ -1,0 +1,35 @@
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+	<link rel="stylesheet" href="/styles/index.css">
+	<title>Spotify Failure</title>
+</head>
+<%- include('partials/header') %>
+	<script>window.unlinkSpotify();</script>
+
+	<body>
+		<section class="grid" id="welcome">
+			<div class="welcome-text">
+				<h1 style="color: red !important;">Spotify Linking Failed</h1>
+				<p class="leading">There was an issue linking your Spotify account. Please try again soon.</p>
+				<div class="register-login-container">
+					<a class="button" href="#" onclick="event.preventDefault(); window.linkSpotifyAndRedirect()">Try
+						again</a>
+				</div>
+			</div>
+			<div class="welcome-img">
+				<img src="/Pictures/spotify.png" alt="Spotify Failure">
+			</div>
+		</section>
+
+		<section style="height: 100vh !important;" id="portfolio">
+			<canvas id="glCanvas"></canvas>
+			<script src="/js/shader.js"></script>
+		</section>
+	</body>
+
+</html>

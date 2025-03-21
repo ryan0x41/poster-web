@@ -1,0 +1,53 @@
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+	<link rel="stylesheet" href="/styles/index.css">
+	<title>Spotify Success</title>
+</head>
+<%- include('partials/header') %>
+
+	<body>
+		<section class="grid" id="welcome">
+			<div class="welcome-text">
+				<h1 style="color: lightgreen !important;">Spotify Linked Successfully</h1>
+				<p class="leading">You are now ready to share music.</p>
+				<% if (user) { %>
+					<div class="register-login-container">
+						<a href="/home-feed" class="button">Home Feed</a>
+						<a href="/profile/<%= user.username %>" class="button">Profile</a>
+					</div>
+					<% } else { %>
+						<div class="register-login-container">
+							<a href="/register" class="button">Register</a>
+							<a href="/login" class="button">Login</a>
+						</div>
+						<% } %>
+			</div>
+			<div class="welcome-img">
+				<img src="/Pictures/spotify.png" alt="pic of planet">
+			</div>
+		</section>
+
+		<section style="height: 100% !important;" id="portfolio">
+			<canvas id="glCanvas"></canvas>
+			<script src="/js/shader.js"></script>
+		</section>
+
+		<script>
+			window.addEventListener('load', function () {
+				// Set the spotifyLinked property in the user cookie
+				if (window.setSpotifyLinked) {
+					window.setSpotifyLinked();
+				}
+				if (window.updateSpotifyActionButton) {
+					window.updateSpotifyActionButton();
+				}
+			});
+		</script>
+	</body>
+
+</html>
