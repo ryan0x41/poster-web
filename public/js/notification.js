@@ -1,3 +1,6 @@
+var notifSound = new Audio('/sounds/notif.mp3');
+var notifSoundEnabled = false;
+
 // update nav badge
 function updateNotificationsBadge() {
     var unreadCount = $('#notifications-list li').length;
@@ -8,6 +11,12 @@ function updateNotificationsBadge() {
 
 // render notification to nav
 function addNotification(notification) {
+    // play notification sound
+    if (notifSoundEnabled) {
+        notifSound.currentTime = 0;
+        notifSound.play();
+    }
+
     var message = notification.notificationMessage;
     var notificationId = notification.notificationId;
     var senderId = notification.sender;
@@ -82,5 +91,9 @@ $(document).ready(async function () {
 
     $('#read-all-button').on('click', async function () {
         await readAllNotifications();
+    });
+
+    $(document).one('click', function () {
+        notifSoundEnabled = true;
     });
 });
