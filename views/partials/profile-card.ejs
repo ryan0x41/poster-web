@@ -4,8 +4,9 @@
     <script src="/js/shader.js"></script>
     <div class="profile-content-wrapper">
       <div class="img-container">
-        <div class="profile-img">
+        <div class="profile-img" id="profileImage">
           <img src="<%= userProfile.profileImageUrl || '/Pictures/profile-default.webp' %>" alt="Profile Image">
+          <div class="overlay">change photo</div>
         </div>
       </div>
       <div class="p-info">
@@ -23,7 +24,9 @@
             <button id="follow-btn" type="button" class="<%= following ? ' followed' : '' %>">
                 <i class="fas <%= following ? 'fa-user-check' : 'fa-user-plus' %>"></i>
                 </button>
-                <button id="messageButton" type="button"><i class="fas fa-envelope"></i></button>
+                <button id="messageButton" type="button">
+                  <i class="fas fa-envelope"></i>
+                </button>
       </div>
       <% } else { %>
         <div class="btn-container">
@@ -92,6 +95,15 @@
 </div>
 </div>
 
+<div id="uploadProfileImageModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="uploadProfileImageModalClose">&times;</span>
+    <h2>upload profile image</h2>
+    <input type="file" id="profileImageUpload" accept="image/*">
+    <button id="uploadImageBtn">upload</button>
+  </div>
+</div>
+
 <script>
   document.getElementById('followersBtn').addEventListener('click', function (e) {
     document.getElementById('followingModal').style.display = 'none';
@@ -137,5 +149,53 @@
     modal.addEventListener('click', function (e) {
       e.stopPropagation();
     });
+  });
+
+  // open modal when profile image clicked
+  document.getElementById('profileImage').addEventListener('click', function (e) {
+    e.stopPropagation();
+    document.getElementById('uploadProfileImageModal').style.display = 'flex';
+  });
+
+  // close modal clicking close
+  document.getElementById('uploadProfileImageModalClose').addEventListener('click', function (e) {
+    e.stopPropagation();
+    document.getElementById('uploadProfileImageModal').style.display = 'none';
+  });
+
+  // close modal when clicking outside
+  window.addEventListener('click', function (e) {
+    const modal = document.getElementById('uploadProfileImageModal');
+    if (e.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+
+  // when upload clicked, handle file upload
+  document.getElementById('uploadImageBtn').addEventListener('click', async function (e) {
+    const fileInput = document.getElementById('profileImageUpload');
+    const file = fileInput.files[0];
+    if (file) {
+      try {
+        const { message, imageUrl } = await api.updateProfilePicture(file);
+        console.log(message);
+
+        window.updateProfileImageUrlCookie(imageUrl);
+        history.go();
+      } catch (error){
+        console.error(error);
+        alert(error.message);
+      }
+      api.updateProfilePicture(file)
+        .then(data => {
+          console.log('profile image updated', data);
+          document.getElementById('uploadProfileImageModal').style.display = 'none';
+        })
+        .catch(err => {
+          console.error('upload error', err);
+        });
+    } else {
+      alert('please select an image file');
+    }
   });
 </script>

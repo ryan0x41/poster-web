@@ -60,6 +60,29 @@ if (!window.api) {
         }
     }
 
+    function updateProfileImageUrlCookie(imageUrl) {
+        const cookieMatch = document.cookie.split('; ').find(row => row.startsWith('user='));
+        if (!cookieMatch) {
+            console.error("user cookie not found");
+            return;
+        }
+        const cookieValue = cookieMatch.split('=')[1];
+        try {
+            const decodedCookie = decodeURIComponent(cookieValue);
+            const decodedString = atob(decodedCookie);
+            let userData = JSON.parse(decodedString);
+            userData.profileImageUrl = imageUrl;
+
+            const newUserString = btoa(JSON.stringify(userData));
+            const encodedCookie = encodeURIComponent(newUserString);
+
+            document.cookie = `user=${encodedCookie}; path=/;`;
+            console.log(`updated profileImageUrl to ${imageUrl} in user cookie`);
+        } catch (error) {
+            console.error("error updating user cookie:", error);
+        }
+    }
+
     function setSpotifyLinked() {
         updateSpotifyLinkedCookie(true);
     }
@@ -75,6 +98,7 @@ if (!window.api) {
     window.setSpotifyLinked = setSpotifyLinked;
     window.unlinkSpotify = unlinkSpotify;
     window.api = api;
+    window.updateProfileImageUrlCookie = updateProfileImageUrlCookie;
 }
 
 window.getUserCookieProperty = function (property) {
