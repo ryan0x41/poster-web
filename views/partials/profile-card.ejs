@@ -13,14 +13,14 @@
         <h2>
           <%= userProfile.username %>
         </h2>
+        <% if(userProfile.isAdmin) { %>
+          <p style="color: lightcoral;">Admin</p>
+        <% } %>
         <% if (userProfile.currentlyPlaying && userProfile.currentlyPlaying.name && userProfile.currentlyPlaying.artists
           && userProfile.currentlyPlaying.artists.length> 0) { %>
           <p style="color: lightgreen;">
             ● Listening to <%= userProfile.currentlyPlaying.name %> - <%= userProfile.currentlyPlaying.artists.join(', ') %>
           </p>
-        <% } %>
-        <% if(userProfile.isAdmin) { %>
-          <p style="color: lightcoral;">Admin</p>
         <% } %>
         <% if (!profileOwner) { %>
           <div class="btn-container">
