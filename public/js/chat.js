@@ -191,7 +191,7 @@ $(document).ready(async function () {
     // make a call to api to grab message thread for a conversation
     let { messages } = await api.getMessageThread(conversationId);
     messages.sort((a, b) => new Date(a.sendAt) - new Date(b.sendAt));
-    // remove placeholder messages 
+    // remove placeholder messages
     // TODO: dont even display these in the first place
     let $messagesContainer = $convEl.find('.messages');
     $messagesContainer.empty();

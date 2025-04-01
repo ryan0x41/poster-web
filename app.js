@@ -65,6 +65,10 @@ app.get('/chat/:conversationId?', (req, res) => {
   res.render('chat');
 });
 
+app.get('/reports', (req, res) => {
+  res.render('reports');
+});
+
 app.get('/start/chat/:userId', (req, res) => {
   res.render('start-chat', { userId: req.params.userId });
 });

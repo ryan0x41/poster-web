@@ -19,6 +19,9 @@
             ● Listening to <%= userProfile.currentlyPlaying.name %> - <%= userProfile.currentlyPlaying.artists.join(', ') %>
           </p>
         <% } %>
+        <% if(userProfile.isAdmin) { %>
+          <p style="color: lightcoral;">Admin</p>
+        <% } %>
         <% if (!profileOwner) { %>
           <div class="btn-container">
             <button id="follow-btn" type="button" class="<%= following ? ' followed' : '' %>">
