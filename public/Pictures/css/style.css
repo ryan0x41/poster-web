@@ -356,9 +356,15 @@ body {
 
 .user-profile {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 0.5em;
 }
+
+.user-profile > div{
+  flex: 1;
+}
+
+
 
 .user-profile img {
   width: 45px;
@@ -379,6 +385,50 @@ body {
 
 .write-post-container .user-profile {
   margin-bottom: 0.5em !important;
+}
+
+.user-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-post-btn{
+  font-size: 16px;
+  color: var(--secondary);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.delete-post-btn:hover{
+  background-color: var(--sender-bg);
+}
+
+.more-opt-btn{
+  display: flex;
+  gap: 4px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 10%;
+  transition: background-color 0.2s ease;
+}
+
+.more-opt-btn span{
+  width: 4px;
+  height: 4px;
+  background-color: var(--secondary);
+  border-radius: 50%;
+}
+
+.more-opt-btn:hover {
+  background-color: var(--sender-bg);
 }
 
 .followed i {

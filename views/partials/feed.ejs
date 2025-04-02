@@ -31,7 +31,18 @@
         <div class="user-profile">
           <img src="<%= userProfile.profileImageUrl || '/Pictures/profile-default.webp' %>" alt="Profile Image">
           <div>
-            <p><%= userProfile.username %></p>
+            <div class="user-header">
+              <p><%= userProfile.username %></p>
+              <% if ( profileOwner) { %>
+              <p class="delete-post-btn">✕</p>
+              <% } else { %>
+                <div class="more-opt-btn">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              <% } %>
+            </div>
             <span class="post-date"><%= post.postDate %></span>
           </div>
         </div>
