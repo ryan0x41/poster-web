@@ -20,7 +20,14 @@ function addNewPost(post) {
         <div class="user-profile" onclick="window.location='/profile/${post.userProfile.username}'" style="cursor:pointer;">
           <img src="${post.userProfile.profileImageUrl || '/Pictures/profile-default.webp'}" alt="Profile Image">
           <div>
+          <div class="user-header">
             <p>${post.userProfile.username}</p>
+            <div class="more-opt-btn">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+            </div>
+            </div>
             <span class="post-date">${post.postDate}</span>
           </div>
         </div>
