@@ -196,6 +196,15 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.report-btn').forEach(button => {
     button.addEventListener('click', function (e) {
       e.stopPropagation();
+      const postContainer = this.closest('.post-container');
+      const postId = postContainer?.getAttribute('post-id');
+
+      if (!postId) {
+        console.warn('No post-id found on report button.');
+        return;
+      }
+
+      reportModal.setAttribute('data-post-id', postId);
       reportModal.style.display = 'flex';
     });
   });
@@ -233,6 +242,41 @@ document.addEventListener('DOMContentLoaded', () => {
       deleteModal.style.display = 'none';
     }
   });
+
+  document.querySelectorAll('.confirm-report-btn').forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      const reportTextArea = document.querySelector('.report-msg-textarea');
+      const msg = reportTextArea ? reportTextArea.value.trim() : '';
+      if(!msg) {
+        alert('Please enter a reason for this report');
+        return;
+      }
+      const type = 'post'; 
+      const modal = document.getElementById('reportModal');
+      const idToReport =  modal.getAttribute('data-post-id');
+
+      if(!idToReport){
+        alert("could no find post id to report");
+        console.log("no post id found");
+      }
+
+      const reportData = { type, idToReport, userMessage: msg };
+      if(window.api && typeof window.api.createReport === 'function') {
+        window.api.createReport(reportData)
+        .then(res => {
+          window.location.reload();
+        })
+        .catch(err => {
+          console.error("error creating report: " , err);
+          alert("error creating report");
+        });
+      } else {
+        console.error("api.createReport is not defined");
+      }
+    });
+  });
+
 });
 
 // document.addEventListener('DOMContentLoaded', function (){
