@@ -1057,6 +1057,7 @@ hr {
   cursor: pointer;
 }
 
+/* Report Post Modal overlay */
 .report-modal-overlay{
   position: fixed;
   top: 0;
@@ -1097,7 +1098,7 @@ hr {
 .report-actions{
   margin-top: 16px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .confirm-report-btn, .cancel-report-btn{
@@ -1113,6 +1114,53 @@ hr {
 }
 
 .cancel-report-btn{
+  background: red;
+  color: var(--light);
+}
+
+/* Delete post modal overlay */
+.delete-modal-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.delete-modal{
+  background: var(--foreground-bg);
+  padding: 20px 24px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.delete-post-actions{
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.confirm-delete-btn, .cancel-delete-btn{
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.confirm-delete-btn{
+  background: var(--spotify-green);
+  color: var(--light);
+}
+
+.cancel-delete-btn{
   background: red;
   color: var(--light);
 }

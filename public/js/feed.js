@@ -185,28 +185,52 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // document.addEventListener('click', function () {
-  //   document.querySelectorAll('.report-dropdown').forEach(menu => {
-  //     menu.style.display = 'none';
-  //   });
-  // });
+  document.addEventListener('click', function () {
+    document.querySelectorAll('.report-dropdown').forEach(menu => {
+      menu.style.display = 'none';
+    });
+  });
 
+  const reportModal = document.getElementById('reportModal');
+  const cancelReportBtn = reportModal.querySelector('.cancel-report-btn');
   document.querySelectorAll('.report-btn').forEach(button => {
     button.addEventListener('click', function (e) {
       e.stopPropagation();
-      const reportModal = document.getElementById('reportModal');
-      const cancelBtn = reportModal.querySelector('.cancel-report-btn');
       reportModal.style.display = 'flex';
     });
   });
 
-  cancelBtn.addEventLister('click', () => {
+  cancelReportBtn.addEventListener('click', () => {
    reportModal.style.display = 'none';
   });
 
   window.addEventListener('click', function (e) {
     if(e.target === reportModal) {
       reportModal.style.display = 'none';
+    }
+  });
+  
+  const deleteModal = document.getElementById('deleteModal');
+  const confirmDeleteBtn = deleteModal.querySelector('.confirm-delete-btn');
+  const cancelDeleteBtn = deleteModal.querySelector('.cancel-delete-btn');
+  document.querySelectorAll('.delete-post-btn').forEach(button => {
+    button.addEventListener('click', function (e) {
+      e.stopPropagation();
+      deleteModal.style.display = 'flex';
+    });
+  });
+
+  cancelDeleteBtn.addEventListener('click', () => {
+    deleteModal.style.display = 'none';
+  });
+
+  confirmDeleteBtn.addEventListener('click', () => {
+    deleteModal.style.display = 'none';
+  });
+
+  window.addEventListener('click', function (e) {
+    if(e.target === deleteModal) {
+      deleteModal.style.display = 'none';
     }
   });
 });
