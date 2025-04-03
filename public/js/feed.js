@@ -171,4 +171,59 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  document.querySelectorAll('.more-opt-btn').forEach(button => {
+    button.addEventListener('click', function (e) {
+      e.stopPropagation();
+      const menu = this.nextElementSibling;
+      const isOpen = menu.style.display === 'block';
+
+      document.querySelectorAll('.report-dropdown').forEach(m => m.style.display = 'none');
+      if(!isOpen){
+        menu.style.display = 'block';
+      }
+    });
+  });
+
+  // document.addEventListener('click', function () {
+  //   document.querySelectorAll('.report-dropdown').forEach(menu => {
+  //     menu.style.display = 'none';
+  //   });
+  // });
+
+  document.querySelectorAll('.report-btn').forEach(button => {
+    button.addEventListener('click', function (e) {
+      e.stopPropagation();
+      const reportModal = document.getElementById('reportModal');
+      const cancelBtn = reportModal.querySelector('.cancel-report-btn');
+      reportModal.style.display = 'flex';
+    });
+  });
+
+  cancelBtn.addEventLister('click', () => {
+   reportModal.style.display = 'none';
+  });
+
+  window.addEventListener('click', function (e) {
+    if(e.target === reportModal) {
+      reportModal.style.display = 'none';
+    }
+  });
 });
+
+// document.addEventListener('DOMContentLoaded', function (){
+// function reportDropdown(button){
+//   const menu = button.nextElementSibling;
+//   menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+// }
+
+// dicument.addEventLister('click', function(e){
+//   const reportMenu = document.querySelectorAll('.report-dropdown');
+//   e.stopPropagation();
+//   reportMenu.forEach(menu => {
+//     if(!menu.parentElement.contains(e.target)) {
+//       menu.style.display = 'none';
+//     }
+//   })
+// });
+// });

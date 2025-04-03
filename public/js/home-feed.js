@@ -22,11 +22,16 @@ function addNewPost(post) {
           <div>
           <div class="user-header">
             <p>${post.userProfile.username}</p>
+            <div class="more-opt-wrapper" onclick="reportDropdown(this)">
             <div class="more-opt-btn">
                   <span></span>
                   <span></span>
                   <span></span>
             </div>
+              <div class="report-dropdown">
+                <a class="report-btn">Report</a>
+              </div>
+              </div>
             </div>
             <span class="post-date">${post.postDate}</span>
           </div>

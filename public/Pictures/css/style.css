@@ -411,13 +411,48 @@ body {
   background-color: var(--sender-bg);
 }
 
+.more-opt-wrapper{
+  position: relative;
+  display: inline-block;
+}
+
 .more-opt-btn{
   display: flex;
+  z-index: 100;
   gap: 4px;
   cursor: pointer;
   padding: 4px;
   border-radius: 10%;
   transition: background-color 0.2s ease;
+}
+
+.report-dropdown{
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--foreground-bg);
+  padding: 4px 8px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.report-dropdown .report-btn{
+  background: none;
+  border: none;
+  color: var(--light);
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+}
+
+.report-dropdown:hover{
+  background-color: var(--sender-bg);
+}
+
+.report-btn{
+  height: 100%;
+  width: 100%;
 }
 
 .more-opt-btn span{
@@ -1020,4 +1055,64 @@ hr {
   font-size: 2rem;
   color: var(--light);
   cursor: pointer;
+}
+
+.report-modal-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.report-box{
+  background: var(--foreground-bg);
+  padding: 20px 24px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.report-box textarea{
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  outline: none;
+  color: var(--text);
+  width: 100%;
+  background: var(--sender-bg);
+  resize: none;
+  font-family: 'Inter', sans-serif;
+  padding: 0.5em;
+  border-radius: 8px;
+  border: none;
+}
+
+.report-actions{
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.confirm-report-btn, .cancel-report-btn{
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.confirm-report-btn{
+  background: var(--spotify-green);
+  color: var(--light);
+}
+
+.cancel-report-btn{
+  background: red;
+  color: var(--light);
 }
