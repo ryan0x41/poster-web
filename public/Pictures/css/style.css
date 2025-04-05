@@ -1075,14 +1075,14 @@ hr {
   background: var(--foreground-bg);
   padding: 20px 24px;
   border-radius: 8px;
-  max-width: 400px;
+  max-width: 350px;
   width: 90%;
   text-align: center;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 .report-box textarea{
-  margin-top: 0.5em;
+  margin-top: 0.8em;
   margin-bottom: 1em;
   outline: none;
   color: var(--text);
