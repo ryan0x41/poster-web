@@ -19,31 +19,34 @@
         <input type="text" id="username-input" value="<%= userProfile.username %>" style="display: none;">
 
         <% if (userProfile.currentlyPlaying && userProfile.currentlyPlaying.name && userProfile.currentlyPlaying.artists
-          && userProfile.currentlyPlaying.artists.length > 0) { %>
+          && userProfile.currentlyPlaying.artists.length> 0) { %>
           <p style="color: lightgreen;">
             ● Listening to <%= userProfile.currentlyPlaying.name %> - <%= userProfile.currentlyPlaying.artists.join(', ') %>
           </p>
         <% } %>
-
+        <% if(userProfile.isAdmin) { %>
+          <p style="color: lightcoral;">Admin</p>
+        <% } %>
         <% if (!profileOwner) { %>
           <div class="btn-container">
             <button id="follow-btn" type="button" class="<%= following ? ' followed' : '' %>">
                 <i class="fas <%= following ? 'fa-user-check' : 'fa-user-plus' %>"></i>
-            </button>
-            <button id="messageButton" type="button">
-              <i class="fas fa-envelope"></i>
-            </button>
-          </div>
-        <% } else { %>
-          <!-- Edit and Save buttons -->
-          <div class="btn-container">
-            <button type="button" id="edit-profile-btn"><i class="fas fa-user-edit"></i></button>
-            <button type="button" id="save-profile-btn" style="display: none;"><i class="fas fa-save"></i></button>
-          </div>
-        <% } %>
+                </button>
+                <button id="messageButton" type="button">
+                  <i class="fas fa-envelope"></i>
+                </button>
       </div>
+      <% } else { %>
+        <!-- Edit and Save buttons -->
+        <div class="btn-container">
+          <button type="button" id="edit-profile-btn"><i class="fas fa-user-edit"></i></button>
+          <button type="button" id="save-profile-btn" style="display: none;"><i style="padding-right: 0.5em;"
+              class="fas fa-save"></i>Save Edit</button>
+        </div>
+        <% } %>
     </div>
   </div>
+</div>
 <div class="follow-container">
   <div class="followers" id="followersBtn">
     <p>Followers</p>
@@ -190,7 +193,7 @@
 
         window.updateProfileImageUrlCookie(imageUrl);
         history.go();
-      } catch (error){
+      } catch (error) {
         console.error(error);
         alert(error.message);
       }
@@ -209,41 +212,60 @@
 
 
 
-// Handle the 'Edit' button click
-document.getElementById('edit-profile-btn').addEventListener('click', function () {
-  // Hide the username display and show the input form
-  document.getElementById('username-display').style.display = 'none'; // Hide the display name
-  document.getElementById('username-input').style.display = 'block';  // Show the input field
-  document.getElementById('save-profile-btn').style.display = 'block'; // Show save button
-  document.getElementById('edit-profile-btn').style.display = 'none';  // Hide edit button
-});
-
-// Handle the 'Save' button click
-document.getElementById('save-profile-btn').addEventListener('click', async function () {
-  const newUsername = document.getElementById('username-input').value;
-
-  // Send the updated username to the backend
-  const response = await fetch('/profile/update-username', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: `username=${newUsername}`
+  // Handle the 'Edit' button click
+  document.getElementById('edit-profile-btn').addEventListener('click', function () {
+    // Hide the username display and show the input form
+    document.getElementById('username-display').style.display = 'none'; // Hide the display name
+    document.getElementById('username-input').style.display = 'block';  // Show the input field
+    document.getElementById('save-profile-btn').style.display = 'block'; // Show save button
+    document.getElementById('edit-profile-btn').style.display = 'none';  // Hide edit button
   });
 
-  if (response.ok) {
-    // Update the displayed username with the new value
-    document.getElementById('username-display').textContent = newUsername;
-    
-    // Hide the edit form and show the updated username
-    document.getElementById('username-input').style.display = 'none';
-    document.getElementById('username-display').style.display = 'block';
-    document.getElementById('edit-profile-btn').style.display = 'block'; // Show Edit button again
-    document.getElementById('save-profile-btn').style.display = 'none'; // Hide save button
-  } else {
-    alert('Error updating username');
-  }
-});
+  // Handle the 'Save' button click
+  document.getElementById('save-profile-btn').addEventListener('click', async function () {
+    const newUsername = document.getElementById('username-input').value.trim();
+    const newEmail = window.getEmail(); // TODO
+
+    if (!newUsername || !newEmail) {
+      alert('username and or email is missing');
+      return;
+    }
+
+    const data = { newUsername, newEmail };
+
+    if (window.api && typeof window.api.updateUserInfo === 'function') {
+      try {
+        await window.api.updateUserInfo(data);
+
+        // update username with new val
+        document.getElementById('username-display').textContent = newUsername;
+
+        // hide edit
+        document.getElementById('username-input').style.display = 'none';
+        document.getElementById('username-display').style.display = 'block';
+        document.getElementById('edit-profile-btn').style.display = 'block';
+        document.getElementById('save-profile-btn').style.display = 'none';
+
+        // update cookie
+
+        // clear
+        document.cookie = 'user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+        // reauth
+        const { userCookie } = await window.api.auth();
+        // update
+        document.cookie = `user=${encodeURIComponent(userCookie)}; path=/; max-age=86400`;
+
+        // prevent bug after refresh (user not found)
+        const newURL = `${window.location.origin}/profile/${newUsername}`;
+        history.pushState({}, null, newURL);
+      } catch (err) {
+        console.error('err updating user info', err);
+        alert('err updating username, dev check console');
+      }
+    } else {
+      console.error('api.updateUserInfo is not defined');
+    }
+  });
 
 
 </script>

@@ -356,9 +356,15 @@ body {
 
 .user-profile {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 0.5em;
 }
+
+.user-profile > div{
+  flex: 1;
+}
+
+
 
 .user-profile img {
   width: 45px;
@@ -379,6 +385,85 @@ body {
 
 .write-post-container .user-profile {
   margin-bottom: 0.5em !important;
+}
+
+.user-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-post-btn{
+  font-size: 16px;
+  color: var(--secondary);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.delete-post-btn:hover{
+  background-color: var(--sender-bg);
+}
+
+.more-opt-wrapper{
+  position: relative;
+  display: inline-block;
+}
+
+.more-opt-btn{
+  display: flex;
+  z-index: 100;
+  gap: 4px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 10%;
+  transition: background-color 0.2s ease;
+}
+
+.report-dropdown{
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--foreground-bg);
+  padding: 4px 8px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.report-dropdown .report-btn{
+  background: none;
+  border: none;
+  color: var(--light);
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+}
+
+.report-dropdown:hover{
+  background-color: var(--sender-bg);
+}
+
+.report-btn{
+  height: 100%;
+  width: 100%;
+}
+
+.more-opt-btn span{
+  width: 4px;
+  height: 4px;
+  background-color: var(--secondary);
+  border-radius: 50%;
+}
+
+.more-opt-btn:hover {
+  background-color: var(--sender-bg);
 }
 
 .followed i {
@@ -970,4 +1055,129 @@ hr {
   font-size: 2rem;
   color: var(--light);
   cursor: pointer;
+}
+
+/* Report Post Modal overlay */
+.report-modal-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.report-box{
+  background: var(--foreground-bg);
+  padding: 20px 24px;
+  border-radius: 8px;
+  max-width: 350px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.report-box textarea{
+  margin-top: 0.8em;
+  margin-bottom: 1em;
+  outline: none;
+  color: var(--text);
+  width: 100%;
+  background: var(--sender-bg);
+  resize: none;
+  font-family: 'Inter', sans-serif;
+  padding: 0.5em;
+  border-radius: 8px;
+  border: none;
+}
+
+.report-actions{
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.confirm-report-btn, .cancel-report-btn{
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.confirm-report-btn{
+  background: var(--spotify-green);
+  color: var(--light);
+}
+
+.cancel-report-btn{
+  background: red;
+  color: var(--light);
+}
+
+/* Delete post modal overlay */
+.delete-modal-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.delete-modal{
+  background: var(--foreground-bg);
+  padding: 20px 24px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.delete-post-actions{
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.confirm-delete-btn, .cancel-delete-btn{
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.confirm-delete-btn{
+  background: var(--spotify-green);
+  color: var(--light);
+}
+
+.cancel-delete-btn{
+  background: red;
+  color: var(--light);
+}
+
+#username-input {
+  color: var(--heading);
+  background-color: var(--background);
+  font-weight: bold;
+  outline: none;
+  padding: 0.2em;
+  border: 1px solid var(--primary);
+  border-radius: 0.3em;
+  padding-left: 0.5em;
+  margin-bottom: 0.2em;
+  max-width: 148px;
+}
+
+#save-profile-button {
+  border-radius: 1em;
 }

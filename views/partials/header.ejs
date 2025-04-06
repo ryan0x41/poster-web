@@ -37,6 +37,10 @@
   nav * {
     z-index: 3000 !important;
   }
+
+  #reports-button {
+    color: white !important;
+  }
 </style>
 
 <nav class="bg-[var(--sidebar-bg)] px-4 py-3 flex justify-between items-center">
@@ -82,6 +86,8 @@
             role="menuitem">Link Spotify</a>
           <a id="logout-button" class="block px-4 py-2 text-sm text-red-500 hover:bg-[var(--sender-bg)] hover-light"
             role="menuitem" style="cursor:pointer;">Logout</a>
+          <a id="reports-button" style="display:none;" class="block px-4 py-2 text-sm text-red-500 hover:bg-[var(--sender-bg)] hover-light"
+          role="menuitem" style="cursor:pointer;">Report Validation</a>
         </div>
       </div>
     </div>
@@ -151,6 +157,7 @@
   const profilePicture = document.getElementById('profile-picture');
   const profileLink = document.getElementById('profile-link');
   const logoutButton = document.getElementById('logout-button');
+  const reportsButton = document.getElementById('reports-button');
   const notificationsButton = document.getElementById('notifications-button');
   const notificationsDropdown = document.getElementById('notifications-dropdown');
   const readAllButton = document.getElementById('read-all-button');
@@ -242,6 +249,17 @@
       e.target.style.display = 'none';
       updateNotificationsBadge();
     });
+  });
+
+  document.querySelectorAll('#reports-button').forEach(button => {
+    reportsButton.addEventListener('click', async (e) => {
+      e.preventDefault();
+      window.location.replace('/reports')
+    });
+
+    if(userIsAdmin()) {
+      reportsButton.style.display = 'block'
+    }
   });
 
   window.addEventListener('click', () => {

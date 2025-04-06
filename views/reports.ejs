@@ -1,0 +1,71 @@
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" href="/styles/reports.css">
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+	<title>Admin Reports</title>
+</head>
+
+<body>
+	<%- include('partials/header') %>
+	<div class="report-container">
+		<aside class="secondary-sidebar">
+		  <h2>Reports</h2>
+		  <ul class="reports-list">
+			<li class="active">
+			</li>
+		  </ul>
+		  <div class="sidebar-footer">
+			<button type="button" class="home-button" onclick="location.href='/'">
+			  <i class="ri-home-line"></i>
+			</button>
+		  </div>
+		</aside>
+		<div class="report-area">
+		  <div class="default-view active">
+			<i class="ri-file-warning-line"></i>
+			<p>Select a Report</p>
+		  </div>
+		  <div class="report-chat" id="report-1">
+			<div class="report-header">
+			  <button type="button" class="back-button">
+				<i class="ri-arrow-left-line"></i>
+			  </button>
+			  <div class="user">
+				<img src="/Pictures/profile-default.webp" alt="Someone" />
+				<div class="name">username</div>
+			  </div>
+			  <div class="actions">
+				<button type="button">
+				  <i class="ri-information-line"></i>
+				</button>
+			  </div>
+			</div>
+			
+			<div class="report-details">
+				<h2 class="report-title">Reported Post</h2>
+				<p class="report-reason"><strong>Reason:</strong> "This post is offensive"</p>
+				<div class="reported-post">
+				  <h3 class="post-title">Post Title Here</h3>
+				  <p class="post-content">Post content goes here...</p>
+				  <img src="/Pictures/post-sample.jpg" alt="Post Image" class="post-image">
+				</div>
+			
+		  </div>
+		</div>
+	  </div>
+		<script>
+			// window.addEventListener('load', async function () {
+			// 	alert(JSON.stringify(await api.getReports()));
+			// 	console.log(JSON.stringify(await api.getReports()));
+			// });	
+		</script>
+		<script src="/js/reports.js"></script>
+	</body>
+
+</html>
