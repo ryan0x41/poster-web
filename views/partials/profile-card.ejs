@@ -14,9 +14,13 @@
         <h2 id="username-display">
           <%= userProfile.username %>
         </h2>
+
+        <input type="text" id="username-input" value="<%= userProfile.username %>" style="display: none;">
+
         <% if(userProfile.isAdmin) { %>
           <p style="color: lightcoral;">Admin</p>
         <% } %>
+
         <% if (userProfile.currentlyPlaying && userProfile.currentlyPlaying.name && userProfile.currentlyPlaying.artists
           && userProfile.currentlyPlaying.artists.length> 0) { %>
           <p style="color: lightgreen;">
