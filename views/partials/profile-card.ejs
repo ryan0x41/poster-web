@@ -10,32 +10,40 @@
         </div>
       </div>
       <div class="p-info">
-        <h2>
+        <!-- Display the current username -->
+        <h2 id="username-display">
           <%= userProfile.username %>
         </h2>
+
+        <!-- Username edit form (hidden initially) -->
+        <input type="text" id="username-input" value="<%= userProfile.username %>" style="display: none;">
+
         <% if (userProfile.currentlyPlaying && userProfile.currentlyPlaying.name && userProfile.currentlyPlaying.artists
-          && userProfile.currentlyPlaying.artists.length> 0) { %>
+          && userProfile.currentlyPlaying.artists.length > 0) { %>
           <p style="color: lightgreen;">
             ● Listening to <%= userProfile.currentlyPlaying.name %> - <%= userProfile.currentlyPlaying.artists.join(', ') %>
           </p>
         <% } %>
+
         <% if (!profileOwner) { %>
           <div class="btn-container">
             <button id="follow-btn" type="button" class="<%= following ? ' followed' : '' %>">
                 <i class="fas <%= following ? 'fa-user-check' : 'fa-user-plus' %>"></i>
-                </button>
-                <button id="messageButton" type="button">
-                  <i class="fas fa-envelope"></i>
-                </button>
-      </div>
-      <% } else { %>
-        <div class="btn-container">
-          <button type="button"><i class="fas fa-user-edit"></i></button>
-        </div>
+            </button>
+            <button id="messageButton" type="button">
+              <i class="fas fa-envelope"></i>
+            </button>
+          </div>
+        <% } else { %>
+          <!-- Edit and Save buttons -->
+          <div class="btn-container">
+            <button type="button" id="edit-profile-btn"><i class="fas fa-user-edit"></i></button>
+            <button type="button" id="save-profile-btn" style="display: none;"><i class="fas fa-save"></i></button>
+          </div>
         <% } %>
+      </div>
     </div>
   </div>
-</div>
 <div class="follow-container">
   <div class="followers" id="followersBtn">
     <p>Followers</p>
@@ -93,7 +101,7 @@
     </div>
   </div>
 </div>
-</div>
+
 
 <div id="uploadProfileImageModal" class="modal">
   <div class="modal-content">
@@ -103,7 +111,7 @@
     <button id="uploadImageBtn">upload</button>
   </div>
 </div>
-
+</div>
 <script>
   document.getElementById('followersBtn').addEventListener('click', function (e) {
     document.getElementById('followingModal').style.display = 'none';
@@ -198,4 +206,44 @@
       alert('please select an image file');
     }
   });
+
+
+
+// Handle the 'Edit' button click
+document.getElementById('edit-profile-btn').addEventListener('click', function () {
+  // Hide the username display and show the input form
+  document.getElementById('username-display').style.display = 'none'; // Hide the display name
+  document.getElementById('username-input').style.display = 'block';  // Show the input field
+  document.getElementById('save-profile-btn').style.display = 'block'; // Show save button
+  document.getElementById('edit-profile-btn').style.display = 'none';  // Hide edit button
+});
+
+// Handle the 'Save' button click
+document.getElementById('save-profile-btn').addEventListener('click', async function () {
+  const newUsername = document.getElementById('username-input').value;
+
+  // Send the updated username to the backend
+  const response = await fetch('/profile/update-username', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `username=${newUsername}`
+  });
+
+  if (response.ok) {
+    // Update the displayed username with the new value
+    document.getElementById('username-display').textContent = newUsername;
+    
+    // Hide the edit form and show the updated username
+    document.getElementById('username-input').style.display = 'none';
+    document.getElementById('username-display').style.display = 'block';
+    document.getElementById('edit-profile-btn').style.display = 'block'; // Show Edit button again
+    document.getElementById('save-profile-btn').style.display = 'none'; // Hide save button
+  } else {
+    alert('Error updating username');
+  }
+});
+
+
 </script>

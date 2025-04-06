@@ -170,3 +170,19 @@ app.get('/reauth', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
+
+app.post('/profile/update-username', async (req, res) => {
+  const { username } = req.body;
+
+  if (!username) {
+    return res.status(400).send('Username is required');
+  }
+
+  try {
+    await UserModel.updateUsername(req.user.id, username);
+    res.status(200).send('Username updated successfully');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error updating username');
+  }
+});
