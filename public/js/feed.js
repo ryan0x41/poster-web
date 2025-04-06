@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const isOpen = menu.style.display === 'block';
 
       document.querySelectorAll('.report-dropdown').forEach(m => m.style.display = 'none');
-      if(!isOpen){
+      if (!isOpen) {
         menu.style.display = 'block';
       }
     });
@@ -210,21 +210,30 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   cancelReportBtn.addEventListener('click', () => {
-   reportModal.style.display = 'none';
+    reportModal.style.display = 'none';
   });
 
   window.addEventListener('click', function (e) {
-    if(e.target === reportModal) {
+    if (e.target === reportModal) {
       reportModal.style.display = 'none';
     }
   });
-  
+
   const deleteModal = document.getElementById('deleteModal');
   const confirmDeleteBtn = deleteModal.querySelector('.confirm-delete-btn');
   const cancelDeleteBtn = deleteModal.querySelector('.cancel-delete-btn');
   document.querySelectorAll('.delete-post-btn').forEach(button => {
     button.addEventListener('click', function (e) {
       e.stopPropagation();
+      postToDelete = this.closest('.post-container');
+      const postId = postToDelete?.getAttribute('post-id');
+
+      if (!postId) {
+        console.error('cannot find postId attr');
+        return;
+      }
+
+      deleteModal.setAttribute('data-post-id', postId);
       deleteModal.style.display = 'flex';
     });
   });
@@ -234,11 +243,33 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   confirmDeleteBtn.addEventListener('click', () => {
-    deleteModal.style.display = 'none';
+    const postId = deleteModal.getAttribute('data-post-id');
+    if (!postId) {
+      console.error("no post id found");
+      return;
+    }
+
+    if (window.api && typeof window.api.deletePost === 'function') {
+      window.api.deletePost(postId)
+        .then(() => {
+          if (postToDelete) {
+            postToDelete.style.display = 'none';
+          }
+          deleteModal.style.display = 'none';
+        })
+        .catch(err => {
+          console.error("error deleting post:", err);
+          alert("error deleting post");
+          deleteModal.style.display = 'none';
+          // window.location.reload();
+        });
+    } else {
+      console.error("api.deletePost is not defined");
+    }
   });
 
   window.addEventListener('click', function (e) {
-    if(e.target === deleteModal) {
+    if (e.target === deleteModal) {
       deleteModal.style.display = 'none';
     }
   });
@@ -248,29 +279,29 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       const reportTextArea = document.querySelector('.report-msg-textarea');
       const msg = reportTextArea ? reportTextArea.value.trim() : '';
-      if(!msg) {
+      if (!msg) {
         alert('Please enter a reason for this report');
         return;
       }
-      const type = 'post'; 
+      const type = 'post';
       const modal = document.getElementById('reportModal');
-      const idToReport =  modal.getAttribute('data-post-id');
+      const idToReport = modal.getAttribute('data-post-id');
 
-      if(!idToReport){
+      if (!idToReport) {
         alert("could no find post id to report");
         console.log("no post id found");
       }
 
       const reportData = { type, idToReport, userMessage: msg };
-      if(window.api && typeof window.api.createReport === 'function') {
+      if (window.api && typeof window.api.createReport === 'function') {
         window.api.createReport(reportData)
-        .then(res => {
-          window.location.reload();
-        })
-        .catch(err => {
-          console.error("error creating report: " , err);
-          alert("error creating report");
-        });
+          .then(res => {
+            window.location.reload();
+          })
+          .catch(err => {
+            console.error("error creating report: ", err);
+            alert("error creating report");
+          });
       } else {
         console.error("api.createReport is not defined");
       }
