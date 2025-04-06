@@ -10,7 +10,8 @@
         </div>
       </div>
       <div class="p-info">
-        <h2>
+        <!-- Display the current username -->
+        <h2 id="username-display">
           <%= userProfile.username %>
         </h2>
         <% if(userProfile.isAdmin) { %>
@@ -32,8 +33,11 @@
                 </button>
       </div>
       <% } else { %>
+        <!-- Edit and Save buttons -->
         <div class="btn-container">
-          <button type="button"><i class="fas fa-user-edit"></i></button>
+          <button type="button" id="edit-profile-btn"><i class="fas fa-user-edit"></i></button>
+          <button type="button" id="save-profile-btn" style="display: none;"><i style="padding-right: 0.5em;"
+              class="fas fa-save"></i>Save Edit</button>
         </div>
         <% } %>
     </div>
@@ -96,7 +100,7 @@
     </div>
   </div>
 </div>
-</div>
+
 
 <div id="uploadProfileImageModal" class="modal">
   <div class="modal-content">
@@ -106,7 +110,7 @@
     <button id="uploadImageBtn">upload</button>
   </div>
 </div>
-
+</div>
 <script>
   document.getElementById('followersBtn').addEventListener('click', function (e) {
     document.getElementById('followingModal').style.display = 'none';
@@ -185,7 +189,7 @@
 
         window.updateProfileImageUrlCookie(imageUrl);
         history.go();
-      } catch (error){
+      } catch (error) {
         console.error(error);
         alert(error.message);
       }
@@ -201,4 +205,63 @@
       alert('please select an image file');
     }
   });
+
+
+
+  // Handle the 'Edit' button click
+  document.getElementById('edit-profile-btn').addEventListener('click', function () {
+    // Hide the username display and show the input form
+    document.getElementById('username-display').style.display = 'none'; // Hide the display name
+    document.getElementById('username-input').style.display = 'block';  // Show the input field
+    document.getElementById('save-profile-btn').style.display = 'block'; // Show save button
+    document.getElementById('edit-profile-btn').style.display = 'none';  // Hide edit button
+  });
+
+  // Handle the 'Save' button click
+  document.getElementById('save-profile-btn').addEventListener('click', async function () {
+    const newUsername = document.getElementById('username-input').value.trim();
+    const newEmail = window.getEmail(); // TODO
+
+    if (!newUsername || !newEmail) {
+      alert('username and or email is missing');
+      return;
+    }
+
+    const data = { newUsername, newEmail };
+
+    if (window.api && typeof window.api.updateUserInfo === 'function') {
+      try {
+        await window.api.updateUserInfo(data);
+
+        // update username with new val
+        document.getElementById('username-display').textContent = newUsername;
+
+        // hide edit
+        document.getElementById('username-input').style.display = 'none';
+        document.getElementById('username-display').style.display = 'block';
+        document.getElementById('edit-profile-btn').style.display = 'block';
+        document.getElementById('save-profile-btn').style.display = 'none';
+
+        // update cookie
+
+        // clear
+        document.cookie = 'user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+        // reauth
+        const { userCookie } = await window.api.auth();
+        // update
+        document.cookie = `user=${encodeURIComponent(userCookie)}; path=/; max-age=86400`;
+
+        // prevent bug after refresh (user not found)
+        const newURL = `${window.location.origin}/profile/${newUsername}`;
+        history.pushState({}, null, newURL);
+      } catch (err) {
+        console.error('err updating user info', err);
+        alert('err updating username, dev check console');
+      }
+    } else {
+      console.error('api.updateUserInfo is not defined');
+    }
+  });
+
+
 </script>
