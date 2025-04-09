@@ -1,4 +1,6 @@
-# Poster Web
+# poster-web
+
+https://poster-social.com
 
 Poster Web is a social media web application designed to offer a fresh take on sharing content and community engagement. The platform prioritises user control, and a clean, ad-free experience.
 
