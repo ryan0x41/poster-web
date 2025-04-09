@@ -48,6 +48,9 @@
     poster
   </div>
   <div class="flex items-center space-x-4">
+    <button id="message-button" type="button" class="flex items-center text-[var(--icon-color)] hover:text-[var(--light)]">
+      <i class="fas fa-envelope text-lg"></i>
+    </button>    
     <div class="relative inline-block text-left">
       <button id="notifications-button" type="button" class="relative flex items-center focus:outline-none">
         <span id="notifications-badge"
@@ -158,6 +161,7 @@
   const profileLink = document.getElementById('profile-link');
   const logoutButton = document.getElementById('logout-button');
   const reportsButton = document.getElementById('reports-button');
+  const messageButton = document.getElementById('message-button');
   const notificationsButton = document.getElementById('notifications-button');
   const notificationsDropdown = document.getElementById('notifications-dropdown');
   const readAllButton = document.getElementById('read-all-button');
@@ -184,6 +188,8 @@
     const username = getUsername();
     if (username) {
       window.location.href = `/profile/${username}`;
+    } else {
+      window.location.href = `/login`;
     }
   });
 
@@ -262,6 +268,17 @@
     }
   });
 
+  document.querySelectorAll('#message-button').forEach(button => {
+    messageButton.addEventListener('click', async (e) => {
+      e.preventDefault();
+      if(getUserFromCookie()) {
+        window.location.replace('/chat')
+      } else {
+        window.location.replace('/login')
+      }
+    });
+  });
+
   window.addEventListener('click', () => {
     dropdown.classList.add('hidden');
     notificationsDropdown.classList.add('hidden');
@@ -272,6 +289,12 @@
 
   window.addEventListener('load', function () {
     updateSpotifyActionButton();
+    if(!getUserFromCookie()) {
+      profileLink.innerText = "Login";
+      spotifyAction.classList.add('hidden');
+      logoutButton.classList.add('hidden');
+      reportsButton.classList.add('hidden');
+    }
   });
 </script>
 <script src="/js/notification.js"></script>

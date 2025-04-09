@@ -58,6 +58,17 @@ body {
   background: var(--primary);
 }
 
+.admin {
+  border: 2px solid lightcoral;
+  color: lightcoral;
+}
+
+.admin:hover {
+  transition: 0.5s !important;
+  color: var(--secondary) !important;
+  background: lightcoral !important;
+}
+
 input,
 textarea {
   background: rgba(255, 255, 255, 0.05);

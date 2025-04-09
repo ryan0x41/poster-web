@@ -23,7 +23,13 @@
 					<div class="register-login-container">
 						<a href="/home-feed" class="button">Home Feed</a>
 						<a href="/profile/<%= user.username %>" class="button">Profile</a>
+						<a href="/chat" class="button">Chat</a>
 					</div>
+					<% if (user.isAdmin) { %>
+						<div style="margin-top: 0;" class="register-login-container">
+							<a href="/reports" class="button admin">Validate Reports</a>
+						</div>
+					<% } %>
 				<% } else { %>
 					<div class="register-login-container">
 						<a href="/register" class="button">Register</a>
