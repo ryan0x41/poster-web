@@ -9,6 +9,7 @@
 <script>
   window.apiBaseURL = "<%= apiBaseURL %>";
   window.wsPortNumber = "<%= wsPortNumber %>";
+  window.buildHash = "<%= buildHash %>";
 </script>
 <script type="module" src="/js/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -44,7 +45,7 @@
 </style>
 
 <nav class="bg-[var(--sidebar-bg)] px-4 py-3 flex justify-between items-center">
-  <div class="text-xl font-bold text-[var(--heading)]" onclick="window.location='/'" style="cursor:pointer;">
+  <div id="poster-title" class="flex text-xl font-bold text-[var(--heading)]" onclick="window.location='/'" style="cursor:pointer;">
     poster
   </div>
   <div class="flex items-center space-x-4">
@@ -166,6 +167,7 @@
   const notificationsDropdown = document.getElementById('notifications-dropdown');
   const readAllButton = document.getElementById('read-all-button');
   const spotifyAction = document.getElementById('spotify-action');
+  const posterTitle = document.getElementById('poster-title');
 
   function updateProfilePicture() {
     const profileUrl = getProfilePictureUrl();
@@ -289,11 +291,15 @@
 
   window.addEventListener('load', function () {
     updateSpotifyActionButton();
-    if(!getUserFromCookie()) {
+    const user = getUserFromCookie();
+    console.log(user)
+    if(!user) {
       profileLink.innerText = "Login";
       spotifyAction.classList.add('hidden');
       logoutButton.classList.add('hidden');
       reportsButton.classList.add('hidden');
+    } else if (user.isAdmin) {
+      posterTitle.innerHTML = 'poster&nbsp;<span style="color:lightcoral;">admin</span>';
     }
   });
 </script>

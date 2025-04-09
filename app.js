@@ -10,6 +10,7 @@ const app = express();
 app.use((req, res, next) => {
   res.locals.apiBaseURL = process.env.WEBURL || 'http://localhost:3000';
   res.locals.wsPortNumber = process.env.WSPORTNUMBER || '3000';
+  res.locals.buildHash = process.env.BUILDHASH || 'alpha-v1.0.0';
   next();
 });
 
