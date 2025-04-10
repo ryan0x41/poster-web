@@ -42,8 +42,7 @@ $(document).ready(async function () {
 
                 let $reportListItem = $(`
                   <li class="report-list-item">
-                    <a href="#" class="report-list-link" data-report-id="${reportId} "data-content-id="${contentId} "data-content-type="${contentType}"
-                       data-reporter-id="${reporterId || ''}">
+                    <a href="#" class="report-list-link" data-report-id="${reportId}" data-content-id="${contentId}" data-content-type="${contentType}" data-reporter-id="${reporterId || ''}">
                       <img src="${reporterProfileImageUrl}" alt="${reporterUsername}" class="reporter-pfp" />
                       <div class="info">
                         <div class="name">${reporterUsername}</div>
@@ -57,6 +56,7 @@ $(document).ready(async function () {
                 $reportsList.append($reportListItem);
             } 
             AddReportClickHandler(); 
+            reportHandler(); 
         } else {
             $reportsList.empty().html('<li>No reports found.</li>');
         }
@@ -74,6 +74,7 @@ function AddReportClickHandler() {
         const contentId = $link.data('content-id');
         const contentType = $link.data('content-type');
         const reporterId = $link.data('reporter-id');
+        const cleanReportId = String(reportId).trim();
 
         if (!reportId) return;
         $('.report-list-item').removeClass('active');
@@ -146,11 +147,17 @@ function AddReportClickHandler() {
             //gets the content from the reported post
             if (contentType === 'post' && contentDetails) {
                  $contentDisplayArea.html(`
+                    <div class="post-container" id="postContainer">
                     <h3 class="post-title">${contentDetails.title || 'Post Title N/A'}</h3>
                     <p class="post-content">${contentDetails.content || 'Post content not available.'}</p>
                     ${contentDetails.imageUrl ? `<img src="${contentDetails.imageUrl}" alt="Post Image" class="post-image">` : ''}
                     <p>Post creater: ${reportedUsername || 'N/A'}</p>
-                    <img src="${reportedUserImg}" alt="reported user image">
+                    <img src="${reportedUserImg || '/Pictures/profile-default.webp'}" alt="reported user image" style="height: 50px; width: 50px;">
+                    <button class="report-action-btn dismiss-btn" data-report-id="${cleanReportId}" data-action="dismiss">Dismiss Report</button>
+                    <button class="report-action-btn delete-btn" data-report-id="${cleanReportId}" data-action="delete">Delete Report</button>
+                    <button class="report-action-btn warn-btn" data-report-id="${cleanReportId}" data-action="warn">Warn User</button>
+                    <button class="report-action-btn ban-btn" data-report-id="${cleanReportId}" data-action="ban">Ban User</button>
+                    </div>
                  `);
                  //gets the content from the reported comment
             } else if (contentType === 'comment' && contentDetails) { 
@@ -163,7 +170,47 @@ function AddReportClickHandler() {
 
 
         } catch (error) {
-            $reportChatArea.html(`<p class="error-message">Failed to load report details. Please try again.</p>`).addClass('active');
+            $reportChatArea.html(`
+                <p class="error-message">Failed to load report details. Please try again.</p>
+                <button class="report-action-btn dismiss-btn" data-report-id="${cleanReportId}" data-action="dismiss">Dismiss Report</button>
+                <button class="report-action-btn delete-btn" data-report-id="${cleanReportId}" data-action="delete">Delete Report</button>
+                <button class="report-action-btn warn-btn" data-report-id="${cleanReportId}" data-action="warn">Warn User</button>
+                <button class="report-action-btn ban-btn" data-report-id="${cleanReportId}" data-action="ban">Ban User</button>
+                `).addClass('active');
         }
     });
+}
+//function for handling report actions
+function reportHandler() {
+
+    const $reportArea = $('.report-area');
+
+    $reportArea.on('click','.report-action-btn', function(e) {
+        e.preventDefault();
+        const $btn = $(this);
+        const reportId = $btn.data('report-id');
+        const cleanReportId = String(reportId).trim();
+        const action = $btn.data('action')
+        
+
+        if(!reportId || !action){
+            console.error("reportId or action is missing", $btn);
+            return
+        }
+
+        if(window.api && typeof window.api.processReport === 'function'){
+            window.api.processReport(cleanReportId, action)
+                .then(() => {
+                    const listItemSelector = `.report-list-item .report-list-link[data-report-id="${cleanReportId}"]`;
+                    const $listItemLink = $(listItemSelector);
+                        $listItemLink.closest('li').remove();
+                    $('.report-area .report-chat').empty().removeClass('active');
+                    $('.report-area .default-view').addClass('active');
+                })
+                .catch(error => {
+                    console.error(`DEBUG: API Error processing action '${action}' for report ${cleanReportId}:`, error);
+                    alert(`Failed to perform action '${action}' on report ${cleanReportId}. Please check console and try again.`);
+                });     
+        }
+    })
 }
