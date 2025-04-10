@@ -38,7 +38,7 @@ function addNewPost(post) {
         </div>
         <hr>
         ${post.title ? `<h3 class="post-title">${post.title}</h3>` : ''}
-        <p class="post-text">${post.content.replace(/[\u00A0-\u9999<>\&]/g, i => '&#'+i.charCodeAt(0)+';')}</p>
+        <p class="post-text">${post.content.replace(/[\u00A0-\u9999<>\&]/g, i => '&#' + i.charCodeAt(0) + ';')}</p>
         <hr>
         ${post.images && post.images.length !== 0 ? `<img src="${post.images[0]}" class="post-img preview-img" alt="Feed Image" onclick="openImageModal(this)">` : ''}
         <div class="post-row">
