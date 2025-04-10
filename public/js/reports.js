@@ -97,10 +97,13 @@ function AddReportClickHandler() {
             let contentDetails = null;
             let reportedUsername = null;
             let reportedUserImg = null;
+            let postDate = null;
             if (contentId && contentType === 'post') {  
                 const postResponse = await api.getPostById(contentId);
+                console.log(JSON.stringify(postResponse));
                 contentDetails = postResponse?.post || postResponse;
                 const reportedUser = contentDetails.author;
+                postDate = contentDetails?.postDate;
                 const reported = await api.getUserProfileById(reportedUser);
                 reportedUsername = reported.user.username;
                 reportedUserImg = reported.user.profileImageUrl;
@@ -133,12 +136,15 @@ function AddReportClickHandler() {
                 <div class="report-details">
                     <div class="report-box">
                     <img src="${reporterProfile?.profileImageUrl || '/Pictures/profile-default.webp'}" alt="${reporterProfile?.username || 'Unknown'}">
-                    <h2 class="reported-content-title">${reporterProfile?.username} has Reported ${contentType}</h2>
+                    <h2 class="reported-content-title">${reporterProfile?.username} has Reported</h2>
+                    <img src="${reportedUserImg || '/Pictures/profile-default.webp'}" alt="reported user image">
+                    <h2 class="reported-content-title"> ${reportedUsername}'s ${contentType.toUpperCase()}</h2>
                     </div>
+                </div>
                     <div class="reported-content-display">
                        <!-- appended reported posts will be displayed here -->
                     </div>
-                </div>
+            
              `);
 
            
@@ -148,15 +154,23 @@ function AddReportClickHandler() {
             if (contentType === 'post' && contentDetails) {
                  $contentDisplayArea.html(`
                     <div class="post-container" id="postContainer">
+                      <div class="post-head">
+                        <img src="${reportedUserImg || '/Pictures/profile-default.webp'}" alt="reported user image">
+                        <div class="post-head-details">
+                            <p>${reportedUsername || 'N/A'}</p>
+                            <span>${postDate}</span>
+                        </div>
+                    </div>
+                    <hr>
                     <h3 class="post-title">${contentDetails.title || 'Post Title N/A'}</h3>
                     <p class="post-content">${contentDetails.content || 'Post content not available.'}</p>
                     ${contentDetails.imageUrl ? `<img src="${contentDetails.imageUrl}" alt="Post Image" class="post-image">` : ''}
-                    <p>Post creater: ${reportedUsername || 'N/A'}</p>
-                    <img src="${reportedUserImg || '/Pictures/profile-default.webp'}" alt="reported user image" style="height: 50px; width: 50px;">
-                    <button class="report-action-btn dismiss-btn" data-report-id="${cleanReportId}" data-action="dismiss">Dismiss Report</button>
-                    <button class="report-action-btn delete-btn" data-report-id="${cleanReportId}" data-action="delete">Delete Report</button>
-                    <button class="report-action-btn warn-btn" data-report-id="${cleanReportId}" data-action="warn">Warn User</button>
-                    <button class="report-action-btn ban-btn" data-report-id="${cleanReportId}" data-action="ban">Ban User</button>
+                    </div>
+                    <div class="btn-container">
+                        <button class="report-action-btn dismiss-btn" data-report-id="${cleanReportId}" data-action="dismiss">Dismiss Report</button>
+                        <button class="report-action-btn delete-btn" data-report-id="${cleanReportId}" data-action="delete">Delete Report</button>
+                        <button class="report-action-btn warn-btn" data-report-id="${cleanReportId}" data-action="warn">Warn User</button>
+                        <button class="report-action-btn ban-btn" data-report-id="${cleanReportId}" data-action="ban">Ban User</button>
                     </div>
                  `);
                  //gets the content from the reported comment
