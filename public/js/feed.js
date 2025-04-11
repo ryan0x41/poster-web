@@ -42,12 +42,38 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
           data.comments.forEach(comment => {
             const commentDiv = document.createElement('div');
+            const username = window.getUserCookieProperty('username');
+            const isOwner = username == comment.author;
+            const commentId = comment.commentId;
+            // const id = api.getComment(commentId);
+            // console.log(JSON.stringify(id));
+            let actionHTML = '';
+
+            if(isOwner){
+              actionHTML = `<div class="delete-comment-btn" data-comment-id="${commentId}" title="Delete Comment">✕</div>`;
+                    } else {
+                        actionHTML = `
+                            <div class="more-opt-wrapper">
+                              <div class="more-opt-btn" title="More options">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                              </div>
+                              <div class="report-dropdown">
+                                <a class="report-btn" href="#" data-content-id="${commentId}" data-content-type="comment">Report</a>
+                              </div>
+                            </div>
+                          `;
+                    }
+
             commentDiv.className = 'comment';
+            commentDiv.setAttribute('data-comment-id', commentId);
             commentDiv.innerHTML = `
               <div class="user-profile">
                 <img src="${comment.profileImageUrl || '/Pictures/profile-default.webp'}" alt="profile image">
-                <div>
-                  <p>${comment.author}</p>
+                <div class="comment-actions">
+                <p>${comment.author}</p>
+                <div>${actionHTML}</div> 
                 </div>
               </div>
               <p class="comment-text">${comment.content}</p>
@@ -239,6 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   cancelDeleteBtn.addEventListener('click', () => {
+    deleteModal.removeAttribute('data-post-id', postId);
     deleteModal.style.display = 'none';
   });
 

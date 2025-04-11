@@ -360,6 +360,11 @@ body {
   margin-bottom: 0.5em;
 }
 
+.comment-actions{
+  display: flex;
+  justify-content: space-between;
+}
+
 .user-profile > div{
   flex: 1;
 }
