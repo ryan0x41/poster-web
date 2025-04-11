@@ -171,4 +171,158 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  document.querySelectorAll('.more-opt-btn').forEach(button => {
+    button.addEventListener('click', function (e) {
+      e.stopPropagation();
+      const menu = this.nextElementSibling;
+      const isOpen = menu.style.display === 'block';
+
+      document.querySelectorAll('.report-dropdown').forEach(m => m.style.display = 'none');
+      if (!isOpen) {
+        menu.style.display = 'block';
+      }
+    });
+  });
+
+  document.addEventListener('click', function () {
+    document.querySelectorAll('.report-dropdown').forEach(menu => {
+      menu.style.display = 'none';
+    });
+  });
+
+  const reportModal = document.getElementById('reportModal');
+  const cancelReportBtn = reportModal.querySelector('.cancel-report-btn');
+  document.querySelectorAll('.report-btn').forEach(button => {
+    button.addEventListener('click', function (e) {
+      e.stopPropagation();
+      const postContainer = this.closest('.post-container');
+      const postId = postContainer?.getAttribute('post-id');
+
+      if (!postId) {
+        console.warn('No post-id found on report button.');
+        return;
+      }
+
+      reportModal.setAttribute('data-post-id', postId);
+      reportModal.style.display = 'flex';
+    });
+  });
+
+  cancelReportBtn.addEventListener('click', () => {
+    reportModal.style.display = 'none';
+  });
+
+  window.addEventListener('click', function (e) {
+    if (e.target === reportModal) {
+      reportModal.style.display = 'none';
+    }
+  });
+
+  const deleteModal = document.getElementById('deleteModal');
+  const confirmDeleteBtn = deleteModal.querySelector('.confirm-delete-btn');
+  const cancelDeleteBtn = deleteModal.querySelector('.cancel-delete-btn');
+  document.querySelectorAll('.delete-post-btn').forEach(button => {
+    button.addEventListener('click', function (e) {
+      e.stopPropagation();
+      postToDelete = this.closest('.post-container');
+      const postId = postToDelete?.getAttribute('post-id');
+
+      if (!postId) {
+        console.error('cannot find postId attr');
+        return;
+      }
+
+      deleteModal.setAttribute('data-post-id', postId);
+      deleteModal.style.display = 'flex';
+    });
+  });
+
+  cancelDeleteBtn.addEventListener('click', () => {
+    deleteModal.style.display = 'none';
+  });
+
+  confirmDeleteBtn.addEventListener('click', () => {
+    const postId = deleteModal.getAttribute('data-post-id');
+    if (!postId) {
+      console.error("no post id found");
+      return;
+    }
+
+    if (window.api && typeof window.api.deletePost === 'function') {
+      window.api.deletePost(postId)
+        .then(() => {
+          if (postToDelete) {
+            postToDelete.style.display = 'none';
+          }
+          deleteModal.style.display = 'none';
+        })
+        .catch(err => {
+          console.error("error deleting post:", err);
+          alert("error deleting post");
+          deleteModal.style.display = 'none';
+          // window.location.reload();
+        });
+    } else {
+      console.error("api.deletePost is not defined");
+    }
+  });
+
+  window.addEventListener('click', function (e) {
+    if (e.target === deleteModal) {
+      deleteModal.style.display = 'none';
+    }
+  });
+
+  document.querySelectorAll('.confirm-report-btn').forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      const reportTextArea = document.querySelector('.report-msg-textarea');
+      const msg = reportTextArea ? reportTextArea.value.trim() : '';
+      if (!msg) {
+        alert('Please enter a reason for this report');
+        return;
+      }
+      const type = 'post';
+      const modal = document.getElementById('reportModal');
+      const idToReport = modal.getAttribute('data-post-id');
+
+      if (!idToReport) {
+        alert("could no find post id to report");
+        console.log("no post id found");
+      }
+
+      const reportData = { type, idToReport, userMessage: msg };
+      if (window.api && typeof window.api.createReport === 'function') {
+        window.api.createReport(reportData)
+          .then(res => {
+            window.location.reload();
+          })
+          .catch(err => {
+            console.error("error creating report: ", err);
+            alert("error creating report");
+          });
+      } else {
+        console.error("api.createReport is not defined");
+      }
+    });
+  });
+
 });
+
+// document.addEventListener('DOMContentLoaded', function (){
+// function reportDropdown(button){
+//   const menu = button.nextElementSibling;
+//   menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+// }
+
+// dicument.addEventLister('click', function(e){
+//   const reportMenu = document.querySelectorAll('.report-dropdown');
+//   e.stopPropagation();
+//   reportMenu.forEach(menu => {
+//     if(!menu.parentElement.contains(e.target)) {
+//       menu.style.display = 'none';
+//     }
+//   })
+// });
+// });

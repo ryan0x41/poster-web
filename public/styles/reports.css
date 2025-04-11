@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary: #2f27ce;
+  --icon-color: var(--primary);
+  --secondary: #dedcff;
+  --background: #0c0c0c;
+  --light: #ffffff;
+  --heading: #DDDBFF;
+  --text: #9893D8;
+  --sidebar-bg: #111111;
+  --receiver-bg: var(--primary);
+  --sender-bg: #222222;
+  --foreground-bg: #1d1d1d;
+}
+
+nav {
+  display: none !important;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+}
+
+.report-container {
+  display: flex;
+  flex: 1;
+  height: 100vh;
+  transition: all 0.3s ease;
+}
+
+.secondary-sidebar {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  border-right: 2px solid var(--foreground-bg);
+}
+
+.secondary-sidebar h2 {
+  border-bottom: 2px solid var(--foreground-bg);
+  font-size: 20px;
+  font-weight: 600;
+  padding: 16px;
+  margin: 0;
+  color: var(--heading);
+  height: 59px;
+}
+
+.reports-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    flex: 1;
+  }
+  
+  .reports-list li a {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: var(--text);
+    border-bottom: 1px solid var(--foreground-bg);
+    transition: background 0.15s;
+  }
+  
+  .reports-list li.active a {
+    border-left: 3px solid var(--primary) !important;
+  }
+  
+  .reports-list li a:hover {
+    background-color: var(--foreground-bg);
+    color: var(--light);
+  }
+  
+  .reports-list img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+  
+  .reports-list .info {
+    flex: 1;
+    overflow: hidden;
+  }
+  
+  .reports-list .info .name,
+  .reports-list .info .text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .reports-list .info .name {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--heading);
+  }
+  
+  .reports-list .info .text {
+    font-size: 13px;
+    color: var(--text);
+  }
+
+  .meta {
+    text-align: right;
+    font-size: 12px;
+    color: var(--text);
+    flex-shrink: 0;
+  }
+  
+  .sidebar-footer {
+    padding: 15px;
+    display: flex;
+  }
+  
+  .home-button {
+    background: var(--foreground-bg);
+    border: 2px solid var(--icon-color);
+    color: var(--light);
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: background 0.15s, color 0.15s;
+  }
+  
+  .report-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--background);
+  }
+  
+  .default-view {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--heading);
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .default-view:not(.active) {
+    display: none;
+  }
+  
+  .report-chat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .report-chat:not(.active) {
+    display: none;
+  }
+  
+  .report-header {
+    padding: 16px;
+    border-bottom: 2px solid var(--foreground-bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    height: 59px;
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  
+  .report-header .user {
+    display: flex;
+    align-items: center;
+  }
+  
+  .report-header .user img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
+  }
+  
+  .report-header .user .name {
+    font-weight: 500;
+    font-size: 17px;
+    color: var(--heading);
+  }
+  
+  .report-header .actions button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--icon-color);
+    cursor: pointer;
+    margin-left: 8px;
+  }
+  
+  .report-header .back-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 8px;
+  }
