@@ -309,6 +309,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!msg) {
         alert('Please enter a reason for this report');
         return;
+      } else if (msg.length > 100 ){
+        alert('Reason Must Be Less Than 100 Characters');
+        return;
       }
       const type = 'post';
       const modal = document.getElementById('reportModal');
