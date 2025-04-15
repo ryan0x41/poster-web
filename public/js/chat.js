@@ -269,15 +269,14 @@ $(document).ready(async function () {
         $textarea.val('');
         // then we find the messages container and render our sent message to it
         let $messagesContainer = $chatContainer.find('.messages');
-
         // source: https://stackoverflow.com/questions/18749591/encode-html-entities-in-javascript
-        const encodedContent = content.replace(/[\u00A0-\u9999<>\&]/g, i => '&#'+i.charCodeAt(0)+';')
+        content = content.replace(/[\u00A0-\u9999<>\&]/g, i => '&#'+i.charCodeAt(0)+';')
 
         let newMessageHtml = `
           <div class="message-group">
             <div class="message-container receiver">
               <div class="message-content">
-                <p>${encodedContent}</p>
+                <p>${content}</p>
                 <div class="message-time">${new Date().toLocaleTimeString()}</div>
               </div>
               <img class="message-profile" src="${myProfileImage}" alt="Receiver Profile" />
