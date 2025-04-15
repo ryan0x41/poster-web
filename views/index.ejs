@@ -13,9 +13,18 @@
 	<body>
 		<section class="grid" id="welcome">
 			<div class="welcome-text">
-				<h1>Social Media Reimagined</h1>
+				<div class="flex gap-3 items-baseline-last">
+					<h1>Social Media Reimagined</h1>
+					<p id="build-hash"
+					   class="flex items-center gap-1 text-sm cursor-pointer text-blue-500 hover:underline"
+					   onclick="window.location.href='https://github.com/ryan0x41/poster-web/tree/<%= buildHash %>'">
+					  <i class="fab fa-github"></i>
+					  <span><%= buildHash.substring(0, 7) %></span>
+					</p>
+				  </div>				  
 				<p class="leading">Poster is designed to revolutionize social media. In an era where content sharing and
-					community building are vital, Poster offers a user-focused platform that prioritizes your control and privacy.
+					community building are vital, Poster offers a user-focused platform that prioritizes your control
+					and privacy.
 					No ads, full data ownership, and multi-platform support for web and mobile.</p>
 				<p>Ready to experience social
 					media differently?</p>
@@ -23,13 +32,19 @@
 					<div class="register-login-container">
 						<a href="/home-feed" class="button">Home Feed</a>
 						<a href="/profile/<%= user.username %>" class="button">Profile</a>
+						<a href="/chat" class="button">Chat</a>
 					</div>
-				<% } else { %>
-					<div class="register-login-container">
-						<a href="/register" class="button">Register</a>
-						<a href="/login" class="button">Login</a>
-					</div>
-				<% } %>					
+					<% if (user.isAdmin) { %>
+						<div style="margin-top: 0;" class="register-login-container">
+							<a href="/reports" class="button admin">Validate Reports</a>
+						</div>
+						<% } %>
+							<% } else { %>
+								<div class="register-login-container">
+									<a href="/register" class="button">Register</a>
+									<a href="/login" class="button">Login</a>
+								</div>
+								<% } %>
 			</div>
 			<div class="welcome-img">
 				<img src="Pictures/hubicon.png" alt="pic of planet">

@@ -32,7 +32,7 @@
             <button id="follow-btn" type="button" class="<%= following ? ' followed' : '' %>">
                 <i class="fas <%= following ? 'fa-user-check' : 'fa-user-plus' %>"></i>
                 </button>
-                <button id="messageButton" type="button">
+                <button id="startChatButton" type="button">
                   <i class="fas fa-envelope"></i>
                 </button>
       </div>
@@ -123,9 +123,9 @@
     e.stopPropagation();
   });
 
-  var messageButton = document.getElementById('messageButton');
-  if (messageButton) {
-    messageButton.addEventListener('click', function (e) {
+  var startChatButton = document.getElementById('startChatButton');
+  if (startChatButton) {
+    startChatButton.addEventListener('click', function (e) {
       const profileCard = document.querySelector('.profile-card');
       const userIdToMessage = profileCard ? profileCard.getAttribute('profile-id') : null;
       if (userIdToMessage) {
